@@ -141,3 +141,5 @@ input:focus,textarea:focus,select:focus{outline:3px solid rgba(109,62,219,.18)!i
   .appel-banner{align-items:stretch}.appel-banner>div:last-child{display:grid;gap:10px;width:100%}
   .pssr-header nav,.menu{gap:8px}.module-actions{display:grid}
 }
+
+@import url('./v6-organized.css');

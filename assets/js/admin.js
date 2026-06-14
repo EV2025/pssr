@@ -13,6 +13,10 @@ const seedSlotsBtn = document.getElementById('seed-slots');
 const seedServicesBtn = document.getElementById('seed-services');
 const collectionTitle = document.getElementById('collection-title');
 const summaryEl = document.getElementById('admin-summary');
+const adminSearch = document.getElementById('admin-search');
+const adminStatus = document.getElementById('admin-status');
+const adminSession = document.getElementById('admin-session');
+const adminDate = document.getElementById('admin-date');
 
 let auth, db;
 let currentCollection = 'messages';
@@ -98,7 +102,15 @@ const fieldLabels = {
   attendanceStatus: 'Statut présence',
   date: 'Date',
   preferredDate: 'Date souhaitée',
-  preferredTime: 'Heure souhaitée'
+  preferredTime: 'Heure souhaitée',
+  documentUrl: 'Lien document',
+  documentTitle: 'Titre document',
+  teamMessage: 'Message équipe',
+  internalNote: 'Note interne',
+  doneDate: 'Date réalisée',
+  plannedDate: 'Date prévue',
+  currentStep: 'Étape actuelle',
+  session: 'Session'
 };
 
 const valueLabels = {
@@ -197,6 +209,7 @@ async function init(){
   }));
 
   recordsEl.addEventListener('click', handleRecordAction);
+  [adminSearch, adminStatus, adminSession, adminDate].forEach(el => el?.addEventListener('input', renderRows));
   seedBtn?.addEventListener('click', seedPages);
   seedSlotsBtn?.addEventListener('click', seedSlots);
   seedServicesBtn?.addEventListener('click', seedServices);
@@ -279,28 +292,105 @@ function actionsFor(r){
   return `<div class="status-actions">${updateButtons}${deleteButton}</div>`;
 }
 
+
+function normalized(v){ return String(v ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function rowSearchText(r){ return normalized(Object.values(r).map(v => Array.isArray(v) ? v.join(' ') : (v && typeof v === 'object' && !v.toDate ? JSON.stringify(v) : String(formatValue('', v)))).join(' ')); }
+function rowDateISO(v){
+  try{
+    const d = v?.toDate ? v.toDate() : (v ? new Date(v) : null);
+    if (!d || Number.isNaN(d.getTime())) return '';
+    return d.toISOString().slice(0,10);
+  }catch{return '';}
+}
+function applyAdminFilters(inputRows){
+  const q = normalized(adminSearch?.value || '');
+  const st = normalized(adminStatus?.value || '');
+  const session = normalized(adminSession?.value || '');
+  const date = adminDate?.value || '';
+  return inputRows.filter(r => {
+    if (q && !rowSearchText(r).includes(q)) return false;
+    if (st && !normalized(r.status || r.paymentStatus || '').includes(st)) return false;
+    if (session && !normalized(r.session || r.sessionName || '').includes(session)) return false;
+    if (date && rowDateISO(r.createdAt || r.date) !== date) return false;
+    return true;
+  });
+}
+
 function renderRows(){
-  if (!rows.length){
-    recordsEl.innerHTML = '<p>Aucune donnée pour cette collection.</p>';
+  const filteredRows = applyAdminFilters(rows);
+  if (!filteredRows.length){
+    recordsEl.innerHTML = rows.length ? '<p>Aucun résultat avec ces filtres.</p>' : '<p>Aucune donnée pour cette collection.</p>';
     return;
   }
 
-  recordsEl.innerHTML = rows.map(r => {
-    const title = titleForRow(r);
-    const entries = Object.entries(r).filter(([k]) => k !== 'id');
-    const visibleEntries = entries.filter(([k]) => !technicalFields.has(k));
-    const technicalEntries = entries.filter(([k]) => technicalFields.has(k));
+  if (currentCollection === 'reservations' || currentCollection === 'users') {
+    recordsEl.innerHTML = renderAdminTable(filteredRows);
+    return;
+  }
 
-    const visibleHtml = visibleEntries.map(([k,v]) =>
-      `<dt>${esc(labelForField(k))}</dt><dd>${esc(formatValue(k, v))}</dd>`
-    ).join('');
+  recordsEl.innerHTML = filteredRows.map(r => renderRecordCard(r)).join('');
+}
 
-    const technicalHtml = technicalEntries.length ?
-      `<details class="technical-details"><summary>Détails techniques</summary><dl>${technicalEntries.map(([k,v]) => `<dt>${esc(labelForField(k))}</dt><dd>${esc(formatValue(k, v))}</dd>`).join('')}<dt>ID du document</dt><dd>${esc(r.id)}</dd></dl></details>` :
-      `<details class="technical-details"><summary>Détails techniques</summary><dl><dt>ID du document</dt><dd>${esc(r.id)}</dd></dl></details>`;
+function renderRecordCard(r){
+  const title = titleForRow(r);
+  const entries = Object.entries(r).filter(([k]) => k !== 'id');
+  const visibleEntries = entries.filter(([k]) => !technicalFields.has(k));
+  const technicalEntries = entries.filter(([k]) => technicalFields.has(k));
+  const visibleHtml = visibleEntries.map(([k,v]) =>
+    `<dt>${esc(labelForField(k))}</dt><dd>${esc(formatValue(k, v))}</dd>`
+  ).join('');
+  const technicalHtml = technicalEntries.length ?
+    `<details class="technical-details"><summary>Détails techniques</summary><dl>${technicalEntries.map(([k,v]) => `<dt>${esc(labelForField(k))}</dt><dd>${esc(formatValue(k, v))}</dd>`).join('')}<dt>ID du document</dt><dd>${esc(r.id)}</dd></dl></details>` :
+    `<details class="technical-details"><summary>Détails techniques</summary><dl><dt>ID du document</dt><dd>${esc(r.id)}</dd></dl></details>`;
+  return `<article class="record"><h3>${esc(title)}</h3><dl>${visibleHtml}</dl>${technicalHtml}${actionsFor(r)}</article>`;
+}
 
-    return `<article class="record"><h3>${esc(title)}</h3><dl>${visibleHtml}</dl>${technicalHtml}${actionsFor(r)}</article>`;
+function renderAdminTable(tableRows){
+  const isReservations = currentCollection === 'reservations';
+  const headers = isReservations
+    ? ['ID réservation','Nom','E-mail','Téléphone','Session','Statut','Création','Gestion']
+    : ['ID client','Nom','E-mail','Téléphone','Session','Statut','Création','Gestion'];
+  const body = tableRows.map(r => {
+    const idLabel = r.reservationCode || r.memberCode || r.id;
+    const name = r.nom || r.fullName || r.displayName || '—';
+    const email = r.email || '—';
+    const phone = r.tel || r.phone || '—';
+    const session = r.session || r.sessionName || '—';
+    const status = r.status || (isReservations ? 'en attente' : 'inscrit');
+    const created = fmtDate(r.createdAt) || '—';
+    return `<tr>
+      <td><code>${esc(idLabel)}</code></td>
+      <td>${esc(name)}</td>
+      <td>${email !== '—' ? `<a href="mailto:${esc(email)}">${esc(email)}</a>` : '—'}</td>
+      <td>${esc(phone)}</td>
+      <td>${esc(session)}</td>
+      <td><span class="status-pill">${esc(labelForValue(status))}</span></td>
+      <td>${esc(created)}</td>
+      <td>${renderManagementPanel(r, isReservations)}</td>
+    </tr>`;
   }).join('');
+  return `<div class="admin-table-wrap"><table class="admin-table"><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table></div>`;
+}
+
+function renderManagementPanel(r, isReservation){
+  const steps = ['CAND','ARF','BSS','PDS','APA','CPE','SRS'];
+  const statuses = ['inscrit','en cours','terminé','abandonné','en attente','confirmée','annulée'];
+  return `<details class="management-panel"><summary>Gérer</summary>
+    <div class="status-actions mini-actions">
+      ${statuses.map(st => `<button data-action="status" data-id="${esc(r.id)}" data-value="${esc(st)}">${esc(labelForValue(st))}</button>`).join('')}
+    </div>
+    <div class="management-grid" data-id="${esc(r.id)}">
+      <label>Étape<select data-field="currentStep">${steps.map(s=>`<option ${String(r.currentStep||r.journeyLevel||'CAND')===s?'selected':''}>${s}</option>`).join('')}</select></label>
+      <label>Date prévue<input data-field="plannedDate" type="date" value="${esc(r.plannedDate || '')}"></label>
+      <label>Date réalisée<input data-field="doneDate" type="date" value="${esc(r.doneDate || '')}"></label>
+      <label class="full">Note interne<textarea data-field="internalNote" rows="2" placeholder="Note visible uniquement par l’équipe">${esc(r.internalNote || '')}</textarea></label>
+      <label class="full">Message au participant<textarea data-field="teamMessage" rows="2" placeholder="Message à préparer pour le participant">${esc(r.teamMessage || '')}</textarea></label>
+      <label>Titre document<input data-field="documentTitle" placeholder="Ex. Attestation" value="${esc(r.documentTitle || '')}"></label>
+      <label>Lien document<input data-field="documentUrl" placeholder="https://…" value="${esc(r.documentUrl || '')}"></label>
+    </div>
+    <div class="mini-actions"><button data-action="save-followup" data-id="${esc(r.id)}">Enregistrer le suivi</button><button data-action="notify" data-id="${esc(r.id)}">Notifier / journaliser email</button><button class="danger" data-action="delete" data-id="${esc(r.id)}">Supprimer</button></div>
+    <p class="secondary-muted">Les e-mails automatiques nécessitent une intégration sécurisée. Ici, la notification est journalisée pour traitement par l’équipe.</p>
+  </details>`;
 }
 
 async function handleRecordAction(e){
@@ -309,6 +399,32 @@ async function handleRecordAction(e){
   const id = btn.dataset.id;
   const action = btn.dataset.action;
   if (!id) return;
+  if (action === 'save-followup') {
+    const panel = btn.closest('.management-panel');
+    const patch = { updatedAt: modules.serverTimestamp() };
+    panel?.querySelectorAll('[data-field]').forEach(field => {
+      patch[field.dataset.field] = field.value || '';
+    });
+    await modules.updateDoc(modules.doc(db, currentCollection, id), patch);
+    alert('Suivi enregistré.');
+    return;
+  }
+  if (action === 'notify') {
+    const panel = btn.closest('.management-panel');
+    const row = rows.find(x => x.id === id) || {};
+    const message = panel?.querySelector('[data-field="teamMessage"]')?.value || '';
+    await modules.addDoc(modules.collection(db, 'emailLogs'), {
+      type: 'participant-notification',
+      status: 'to_send',
+      email: row.email || '',
+      reservationId: id,
+      reservationCode: row.reservationCode || '',
+      message,
+      createdAt: modules.serverTimestamp()
+    });
+    alert('Notification ajoutée aux journaux d’e-mails.');
+    return;
+  }
   if (action === 'delete') {
     if (!confirm('Supprimer ce document ?')) return;
     await modules.deleteDoc(modules.doc(db, currentCollection, id));

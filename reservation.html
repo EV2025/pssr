@@ -13,7 +13,7 @@
 <body class="pssr-page">
 <header class="pssr-header">
   <a class="brand" href="./index.html"><img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR</strong></a>
-  <nav><a href="./index.html">Accueil</a><a href="./services.html">Services</a><a href="./calendrier.html">Calendrier</a><a href="./inscription.html">Inscription</a><a href="./member/dashboard.html">Espace membre</a></nav>
+  <nav aria-label="Navigation principale" class="main-nav-short"><a href="./index.html">Accueil</a><a href="./index.html#parcours">PSSR</a><a href="./index.html#inscriptions">Activités & tarifs</a><a href="./dashboard.html">Tableau de bord</a><a class="cta-link" href="./reservation.html">Réserver</a></nav>
 </header>
 <main class="pssr-main">
   <section class="panel">
@@ -27,7 +27,7 @@
       <label>Téléphone<input name="tel" type="tel" placeholder="0492 691 070"></label>
       <label>Objectif principal<select name="objectif"><option value="">Choisir un objectif</option><option>Remise en forme</option><option>Découverte sportive</option><option>Bien-être / santé</option><option>Accompagnement socio-professionnel</option><option>Enfant / adolescent</option></select></label>
       <label>Activité ou module souhaité<select name="creneau" required>
-        <option value="">Choisir une activité ou un module</option>
+        <option value="">Choisir un créneau</option>
         <optgroup label="Activités sportives officielles">
           <option>Mardi 18:00–19:00 — Cardio Fit Ados — 13–17 ans</option>
           <option>Mardi 19:00–20:00 — Initiation Boxe & Kick-Boxing — 13 ans+</option>
@@ -63,6 +63,44 @@
   </section>
 </main>
 
+<footer class="site-footer pssr-footer-pro" role="contentinfo">
+  <div class="footer-grid">
+    <section>
+      <h2>Équilibre Vital asbl</h2>
+      <p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
+      <p class="footer-note">Tarif solidaire : <strong>165€ / année académique</strong></p>
+    </section>
+    <section>
+      <h2>Liens utiles</h2>
+      <nav class="footer-links" aria-label="Liens secondaires">
+        <a href="./index.html#ateliers">Ateliers</a>
+        <a href="./index.html#atl">Écoles &amp; ATL</a>
+        <a href="./calendrier.html">Calendrier</a>
+        <a href="./index.html#documents">Documents</a>
+        <a href="./faq.html">FAQ</a>
+        <a href="./index.html#contact">Contact</a>
+      </nav>
+    </section>
+    <section>
+      <h2>Contact</h2>
+      <p><a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
+      <p><a href="tel:+32492691070">0492/691.070</a></p>
+      <p><a href="https://www.equilibrevital.net" target="_blank" rel="noopener">www.equilibrevital.net</a></p>
+    </section>
+    <section>
+      <h2>Informations légales</h2>
+      <p>BCE : 1019487618</p>
+      <p>IBAN : BE17 5230 8164 9221</p>
+      <p>BIC : TRIOBEBB</p>
+      <nav class="footer-links legal" aria-label="Liens légaux">
+        <a href="./mentions-legales.html">Mentions légales</a>
+        <a href="./confidentialite-rgpd.html">RGPD</a>
+        <a href="./confidentialite-rgpd.html">Politique de confidentialité</a>
+      </nav>
+    </section>
+  </div>
+  <div class="footer-bottom">EV© 2026 — Tous droits réservés.</div>
+</footer>
 <script>
 /* V5 — préremplissage réservation depuis les modules sélectionnés */
 (function(){

@@ -1,0 +1,327 @@
+{
+	"settings": {
+		"appearanceTools": true,
+		"color": {
+			"gradients": [
+				{
+					"gradient": "linear-gradient(0.07deg, #0055fe26 0%, #61616117 100%)",
+					"name": "Primary Gradient",
+					"slug": "primary-gradient"
+				},
+				{
+					"gradient": "radial-gradient(43% 50% at 50% 50%, rgba(9, 9, 18, 0.15) 0%, rgb(9, 9, 18) 100%)",
+					"name": "Secondary Gradient",
+					"slug": "secondary-gradient"
+				}
+			],
+			"palette": [
+				{
+					"color": "#F2F5EA",
+					"name": "Background",
+					"slug": "background-primary"
+				},
+				{
+					"color": "#090C02",
+					"name": "Text Primary",
+					"slug": "text-primary"
+				},
+				{
+					"color": "#7E00FE",
+					"name": "Text Primary",
+					"slug": "menu-link-color"
+				},
+				{
+					"color": "#D1DEDE",
+					"name": "Background Terciary",
+					"slug": "backgroun-terciary"
+				},
+				{
+					"color": "#7E00FE",
+					"name": "Text Secondary",
+					"slug": "text-secondary"
+				},
+				{
+					"color": "#141414",
+					"name": "Text Terciary",
+					"slug": "text-terciary"
+				},
+				{
+					"color": "rgba(255, 255, 255, 0.0)",
+					"name": "Transparent",
+					"slug": "transparent"
+				},
+				{
+					"color": "rgba(255, 255, 255, 0.231);",
+					"name": "Transparent 200",
+					"slug": "transparent-200"
+				},
+				{
+					"color": "rgba(255, 255, 255, 0.5)",
+					"name": "Transparent 500",
+					"slug": "transparent-500"
+				},
+				{
+					"color": "rgba(255, 255, 255, 0.07);",
+					"name": "Transparent 700",
+					"slug": "transparent-700"
+				},
+				{
+					"color": "rgb(126, 0, 254, 0.4)",
+					"name": "Primary Color Opacity",
+					"slug": "transparent-primary"
+				},
+				{
+					"color": "rgb(126, 0, 254, 0.1)",
+					"name": "Primary Color Opacity",
+					"slug": "transparent-secondary"
+				},
+				{
+					"color": "rgb(0, 0, 0, 0.1)",
+					"name": "Transparent Black",
+					"slug": "transparent-black"
+				}
+			]
+		},
+		"layout": {
+			"contentSize": "720px",
+			"wideSize": "1000px"
+		},
+		"shadow": {
+			"presets": [
+				{
+					"name": "Custom Shadow",
+					"shadow": "rgb(126, 0, 254, 0.5) 0px 8px 40px 0px, rgba(255, 255, 255, 0) 0px 0px 10px 1px inset, rgb(126, 0, 254, 0.12) 0px 0px 0px 1px",
+					"slug": "custom-shadow"
+				},
+				{
+					"name": "Custom Shadow Inset",
+					"shadow": "rgb(126, 0, 254, 0.1) 0px 10px 10px -1px inset",
+					"slug": "custom-shadow-inset"
+				}
+			]
+		},
+		"spacing": {
+			"units": [
+				"%",
+				"px",
+				"em",
+				"rem",
+				"vh",
+				"vw"
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
+					"name": "System Font",
+					"slug": "system-font"
+				},
+				{
+					"fontFace": [
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "100",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-100-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "200",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-200-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "300",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-300-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-400-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "500",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-500-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-600-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-700-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "800",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-800-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "normal",
+							"fontWeight": "900",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-900-normal.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "100",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-100-italic.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "200",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-200-italic.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "300",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-300-italic.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-400-italic.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "500",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-500-italic.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "600",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-600-italic.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-700-italic.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "800",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-800-italic.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"DM Sans\"",
+							"fontStyle": "italic",
+							"fontWeight": "900",
+							"src": [
+								"file:./assets/fonts/dm-sans/dm-sans-900-italic.woff2"
+							]
+						}
+					],
+					"fontFamily": "\"DM Sans\", sans-serif",
+					"name": "DM Sans",
+					"slug": "dm-sans"
+				}
+			]
+		},
+		"useRootPaddingAwareAlignments": true
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--background-primary)",
+			"text": "var(--wp--preset--color--text-primary)"
+		},
+		"css": "\n/* =========== Paragraphs Section =========== */\n\n.p-max-14 {\n  max-width: 14em;\n  }\n  .p-max-11 {\n  max-width: 11em;\n  }\n  .p-max-8{\n  max-width: 8em;\n  }\n  \n  .p-max-30{\n  max-width: 30em;\n  margin: auto;\n  }\n  \n  \n  \n  .p-theme-style{\n   opacity: .7;\n  \n   }\n  \n  /* =========== Mobile Menu =========== */\n  @media only screen and (max-width: 769px){\n      .wp-block-navigation__responsive-container{\n      height: 100vh;\n          z-index: 99;\n          \n      }\n      .heading-logo{\n      font-size: 1rem;\n      }\n      .menu-content-wrapper{\n      display: flex;\n      justify-content: space-between;\n      width: 100%;\n    flex-direction: row;\n      flex-wrap: nowrap;\n      gap: 40px;\n      \n      }\n      \n      \n  }\n  @media only screen and (max-width: 1025px){\n  .top-navigation-cta-wrapper{\n      display: none!important;\n      }}\n  /* =========== Hero Section =========== */\n  .hero-section{\n  position: relative;\n  overflow: hidden;\n  display: grid;\n  place-content: center;\n  width: 100%;\n  \n  }\n  \n  .hero-section-wrapper{\n  position: relative;\n  z-index: 5;\n  }\n  \n  .top-navigation-bar{\n  position: absolute;\n  top:0;\n  left: 0;\n  width:100%;\n  z-index: 10;\n  backdrop-filter: blur(10px);\n  z-index:99;\n  transition: all 0.3s ease;\n\n\n  }\n  \n  .top-navigation-bar.fixed {\n    position: fixed;\n  \n  }\n\n  .hero-bottom-content-wrapper{\n  position: relative;\n  z-index: 5;\n  }\n  .hero-video-wrapper{\n  position: relative;\n  z-index: 5;\n  }\n \n  \n  .wp-block-list{\n  padding-left: 0!important;\n  \n  }\n  .line-bg-linear{\n  background: var(--wp--preset--color--text-secondary);\n  color:  var(--wp--preset--color--text-primary);\n  height: 1px!important;\n  width: 100%;\n  }\n  \n  .team-member-card{\n  min-width: 360px;\n  }\n  \n  /* =========== Sticky Effect =========== */\n  .sticky-cover{\n    max-width: 100%;\n    width: 100%;\n    height: 100vh;\n    img{\n      object-fit: cover;\n    }\n  }\n  .checkmark-box{\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 25px;\n  height: 25px;\n  border-radius: 50%;\n  font-size: 14px;\n  text-align:center;\n  }\n  \n  .icon-box{\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  text-align: center;\n  }\n",
+		"elements": {
+			"button": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--dm-sans)"
+				}
+			},
+			"caption": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--dm-sans)"
+				}
+			},
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--dm-sans)"
+				}
+			},
+			"link": {
+				":hover": {
+					"color": {
+						"text": "var(--wp--preset--color--text-primary)"
+					}
+				},
+				"color": {
+					"text": "var(--wp--preset--color--text-secondary)"
+				},
+				"typography": {
+					"textDecoration": "underline"
+				}
+			}
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--dm-sans)"
+		}
+	},
+	"templateParts": [
+		{
+			"area": "header",
+			"name": "header"
+		},
+		{
+			"area": "footer",
+			"name": "footer"
+		}
+	],
+	"version": 3,
+	"$schema": "https://schemas.wp.org/wp/6.8/theme.json"
+}
