@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Réservation PSSR</title>
 <meta name="description" content="Formulaire de réservation PSSR relié à Firebase Firestore.">
+<link rel="canonical" href="https://ev2025.github.io/pssr/reservation.html">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/site-overrides.css">
@@ -12,7 +13,7 @@
 <body class="pssr-page">
 <header class="pssr-header">
   <a class="brand" href="./index.html"><img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR</strong></a>
-  <nav><a href="./index.html">Accueil</a><a href="./inscription.html">Inscription</a><a href="./member/dashboard.html">Espace membre</a></nav>
+  <nav><a href="./index.html">Accueil</a><a href="./services.html">Services</a><a href="./calendrier.html">Calendrier</a><a href="./inscription.html">Inscription</a><a href="./member/dashboard.html">Espace membre</a></nav>
 </header>
 <main class="pssr-main">
   <section class="panel">
@@ -24,6 +25,7 @@
       <label>Nom complet<input name="nom" required placeholder="Prénom Nom"></label>
       <label>Email<input name="email" type="email" required placeholder="exemple@domaine.be"></label>
       <label>Téléphone<input name="tel" type="tel" placeholder="0492 691 070"></label>
+      <label>Objectif principal<select name="objectif"><option value="">Choisir un objectif</option><option>Remise en forme</option><option>Découverte sportive</option><option>Bien-être / santé</option><option>Accompagnement socio-professionnel</option><option>Enfant / adolescent</option></select></label>
       <label>Créneau souhaité<select name="creneau" required>
         <option value="">Choisir un créneau</option>
         <optgroup label="Activités sportives officielles">
@@ -51,10 +53,11 @@
         </optgroup>
       </select></label>
       <label class="full">Message<textarea name="message" rows="4" placeholder="Âge, disponibilité, question éventuelle…"></textarea></label>
+      <label class="full consent"><input type="checkbox" name="rgpdConsent" required> <span>J’accepte que mes données soient utilisées pour traiter ma demande de réservation. <a href="./confidentialite-rgpd.html" target="_blank" rel="noopener">Voir la politique de confidentialité</a>.</span></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
       <button class="btn" type="submit">Envoyer la demande</button>
       <p id="reservation-msg" class="msg" hidden></p>
-      <p class="msg-note">Le tableau de bord est réservé à l'équipe PSSR. Les participant·es n'ont pas besoin de code admin.</p>
+      <p class="msg-note">Le tableau de bord est réservé à l'équipe PSSR. Les participant·es n'ont pas besoin de code admin. Le paiement en ligne n'est pas activé dans cette version ; l'équipe confirme les modalités après validation.</p>
     </form>
   </section>
 </main>

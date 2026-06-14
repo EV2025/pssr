@@ -10,13 +10,29 @@ const recordsEl = document.getElementById('records');
 const exportBtn = document.getElementById('export-csv');
 const seedBtn = document.getElementById('seed-pages');
 const seedSlotsBtn = document.getElementById('seed-slots');
+const seedServicesBtn = document.getElementById('seed-services');
 const collectionTitle = document.getElementById('collection-title');
+const summaryEl = document.getElementById('admin-summary');
 
 let auth, db;
 let currentCollection = 'messages';
 let rows = [];
 let modules = {};
 let unsub = null;
+
+const labels = {
+  messages:'Messages reçus',
+  reservations:'Réservations reçues',
+  pages:'Contenu des pages',
+  users:'Clients / membres',
+  services:'Services & tarifs',
+  slots:'Calendrier / créneaux',
+  payments:'Paiements — suivi manuel',
+  notifications:'Notifications internes',
+  attendances:'Présences',
+  emailLogs:'Logs emails',
+  stats:'Statistiques'
+};
 
 function setMsg(text, ok = false){
   loginMsg.hidden = false;
@@ -69,8 +85,10 @@ async function init(){
     loadCollection();
   }));
 
-  seedBtn.addEventListener('click', seedPages);
-  if (seedSlotsBtn) seedSlotsBtn.addEventListener('click', seedSlots);
+  recordsEl.addEventListener('click', handleRecordAction);
+  seedBtn?.addEventListener('click', seedPages);
+  seedSlotsBtn?.addEventListener('click', seedSlots);
+  seedServicesBtn?.addEventListener('click', seedServices);
 
   modules.onAuthStateChanged(auth, user => {
     loginPanel.hidden = Boolean(user);
@@ -81,14 +99,31 @@ async function init(){
   });
 }
 
-function loadCollection(){
-  if (unsub) unsub();
-  collectionTitle.textContent = ({messages:'Messages reçus', reservations:'Réservations reçues', pages:'Contenu des pages', users:'Membres', slots:'Créneaux', attendances:'Présences', emailLogs:'Emails logs'})[currentCollection] || currentCollection;
-  recordsEl.innerHTML = '<p>Chargement…</p>';
+function titleForRow(r){
+  return r.nom || r.fullName || r.displayName || r.activity || r.serviceName || r.title || r.email || r.reservationCode || r.slug || r.id;
+}
 
+function orderFieldFor(collectionName){
+  if (collectionName === 'slots' || collectionName === 'services') return ['order','asc'];
+  if (collectionName === 'stats') return null;
+  return ['createdAt','desc'];
+}
+
+async function loadCollection(){
+  if (unsub) unsub();
+  collectionTitle.textContent = labels[currentCollection] || currentCollection;
+  recordsEl.innerHTML = '<p>Chargement…</p>';
+  summaryEl.innerHTML = '';
+
+  if (currentCollection === 'stats') {
+    await renderStats();
+    return;
+  }
+
+  const order = orderFieldFor(currentCollection);
   let q;
   try {
-    q = modules.query(modules.collection(db, currentCollection), modules.orderBy(currentCollection === 'slots' ? 'order' : 'createdAt', currentCollection === 'slots' ? 'asc' : 'desc')); 
+    q = order ? modules.query(modules.collection(db, currentCollection), modules.orderBy(order[0], order[1])) : modules.collection(db, currentCollection);
   } catch {
     q = modules.collection(db, currentCollection);
   }
@@ -96,9 +131,41 @@ function loadCollection(){
   unsub = modules.onSnapshot(q, snap => {
     rows = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderRows();
+    renderSummary();
   }, err => {
     recordsEl.innerHTML = `<p class="msg">Lecture impossible : ${esc(err.message)}</p>`;
   });
+}
+
+function renderSummary(){
+  if (!rows.length) { summaryEl.innerHTML = ''; return; }
+  const total = rows.length;
+  const nouveau = rows.filter(r => String(r.status || '').toLowerCase().includes('nou')).length;
+  const traite = rows.filter(r => /trait|confirm|pay/i.test(String(r.status || r.paymentStatus || ''))).length;
+  summaryEl.innerHTML = `<div class="admin-summary"><div class="metric"><strong>${total}</strong><span>Total</span></div><div class="metric"><strong>${nouveau}</strong><span>Nouveaux</span></div><div class="metric"><strong>${traite}</strong><span>Traités / confirmés</span></div></div>`;
+}
+
+function actionsFor(r){
+  if (!['messages','reservations','payments','notifications','services','slots'].includes(currentCollection)) return '';
+  const b = [];
+  if (currentCollection === 'messages') {
+    b.push(['traité','Marquer traité'], ['nouveau','Remettre nouveau']);
+  }
+  if (currentCollection === 'reservations') {
+    b.push(['confirmée','Confirmer'], ['liste attente','Liste d’attente'], ['annulée','Annuler']);
+  }
+  if (currentCollection === 'payments') {
+    b.push(['payé','Marquer payé'], ['à relancer','À relancer']);
+  }
+  if (currentCollection === 'notifications') {
+    b.push(['lu','Marquer lu'], ['à traiter','À traiter']);
+  }
+  if (currentCollection === 'services' || currentCollection === 'slots') {
+    b.push([r.active === false ? 'actif' : 'inactif', r.active === false ? 'Activer' : 'Désactiver']);
+  }
+  const updateButtons = b.map(([value,label]) => `<button data-action="status" data-id="${esc(r.id)}" data-value="${esc(value)}">${esc(label)}</button>`).join('');
+  const deleteButton = `<button class="danger" data-action="delete" data-id="${esc(r.id)}">Supprimer</button>`;
+  return `<div class="status-actions">${updateButtons}${deleteButton}</div>`;
 }
 
 function renderRows(){
@@ -108,10 +175,31 @@ function renderRows(){
   }
 
   recordsEl.innerHTML = rows.map(r => {
-    const title = r.nom || r.title || r.email || r.slug || r.id;
+    const title = titleForRow(r);
     const entries = Object.entries(r).filter(([k]) => k !== 'id');
-    return `<article class="record"><h3>${esc(title)}</h3><dl>${entries.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(k === 'createdAt' || k === 'updatedAt' ? fmtDate(v) : v)}</dd>`).join('')}</dl></article>`;
+    return `<article class="record"><h3>${esc(title)}</h3><dl>${entries.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(k === 'createdAt' || k === 'updatedAt' ? fmtDate(v) : v)}</dd>`).join('')}</dl>${actionsFor(r)}</article>`;
   }).join('');
+}
+
+async function handleRecordAction(e){
+  const btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  const id = btn.dataset.id;
+  const action = btn.dataset.action;
+  if (!id) return;
+  if (action === 'delete') {
+    if (!confirm('Supprimer ce document ?')) return;
+    await modules.deleteDoc(modules.doc(db, currentCollection, id));
+    return;
+  }
+  if (action === 'status') {
+    const value = btn.dataset.value;
+    const patch = { updatedAt: modules.serverTimestamp() };
+    if (currentCollection === 'payments') patch.paymentStatus = value;
+    else if (currentCollection === 'services' || currentCollection === 'slots') patch.active = value === 'actif';
+    else patch.status = value;
+    await modules.updateDoc(modules.doc(db, currentCollection, id), patch);
+  }
 }
 
 exportBtn.addEventListener('click', () => {
@@ -120,7 +208,7 @@ exportBtn.addEventListener('click', () => {
   const csv = [
     keys.join(','),
     ...rows.map(r => keys.map(k => '"' + String(k === 'createdAt' || k === 'updatedAt' ? fmtDate(r[k]) : (r[k] ?? '')).replace(/"/g, '""') + '"').join(','))
-  ].join('\\n');
+  ].join('\n');
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -145,9 +233,7 @@ async function seedPages(){
       }, { merge: true });
       count++;
     }
-    currentCollection = 'pages';
-    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === 'pages'));
-    loadCollection();
+    switchTab('pages');
     alert(`${count} pages importées ou mises à jour dans Firestore.`);
   }catch(err){
     console.error(err);
@@ -157,7 +243,6 @@ async function seedPages(){
     seedBtn.textContent = 'Importer le contenu WordPress';
   }
 }
-
 
 async function seedSlots(){
   seedSlotsBtn.disabled = true;
@@ -174,9 +259,7 @@ async function seedSlots(){
       }, { merge: true });
       count++;
     }
-    currentCollection = 'slots';
-    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === 'slots'));
-    loadCollection();
+    switchTab('slots');
     alert(`${count} créneaux importés ou mis à jour dans Firestore.`);
   }catch(err){
     console.error(err);
@@ -185,6 +268,61 @@ async function seedSlots(){
     seedSlotsBtn.disabled = false;
     seedSlotsBtn.textContent = 'Importer les créneaux officiels';
   }
+}
+
+async function seedServices(){
+  seedServicesBtn.disabled = true;
+  seedServicesBtn.textContent = 'Import services…';
+  try{
+    const response = await fetch('../data/services-seed.json');
+    const services = await response.json();
+    let count = 0;
+    for (const service of services){
+      await modules.setDoc(modules.doc(db, 'services', service.id), {
+        ...service,
+        updatedAt: modules.serverTimestamp()
+      }, { merge: true });
+      count++;
+    }
+    switchTab('services');
+    alert(`${count} services importés ou mis à jour dans Firestore.`);
+  }catch(err){
+    console.error(err);
+    alert('Import impossible. Vérifiez les règles Firestore V3.');
+  }finally{
+    seedServicesBtn.disabled = false;
+    seedServicesBtn.textContent = 'Importer services & tarifs';
+  }
+}
+
+function switchTab(tab){
+  currentCollection = tab;
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  loadCollection();
+}
+
+async function countCollection(name){
+  try{
+    const snap = await modules.getDocs(modules.collection(db, name));
+    return snap.size;
+  }catch { return '—'; }
+}
+
+async function renderStats(){
+  const names = ['messages','reservations','users','slots','services','payments','emailLogs'];
+  const counts = {};
+  for (const name of names) counts[name] = await countCollection(name);
+  summaryEl.innerHTML = '';
+  recordsEl.innerHTML = `<div class="admin-summary">
+    <div class="metric"><strong>${counts.messages}</strong><span>Messages</span></div>
+    <div class="metric"><strong>${counts.reservations}</strong><span>Réservations</span></div>
+    <div class="metric"><strong>${counts.users}</strong><span>Clients / membres</span></div>
+    <div class="metric"><strong>${counts.slots}</strong><span>Créneaux</span></div>
+    <div class="metric"><strong>${counts.services}</strong><span>Services</span></div>
+    <div class="metric"><strong>${counts.payments}</strong><span>Paiements suivis</span></div>
+    <div class="metric"><strong>${counts.emailLogs}</strong><span>Logs emails</span></div>
+  </div><p class="payment-note"><strong>Note :</strong> les paiements en ligne ne sont pas activés dans cette version GitHub Pages + Firebase. L’onglet Paiements sert au suivi manuel ou à une future intégration Stripe/bancontact via backend sécurisé.</p>`;
+  rows = [];
 }
 
 init().catch(err => {

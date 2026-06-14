@@ -23,3 +23,8 @@ Site GitHub Pages + Firebase pour le Parcours Socio-Sportif Renforcé.
 Décompresser le ZIP, copier le contenu à la racine du dépôt local `pssr`, puis GitHub Desktop : `Commit to main` → `Push origin`.
 
 Après push, publier les règles Firestore du fichier `firestore.rules`.
+
+
+## V3 professionnelle
+
+Voir `AMELIORATION_PRO_V3_A_LIRE.md` pour le détail des améliorations front-office, back-office, SEO, RGPD et synchronisation Firebase.

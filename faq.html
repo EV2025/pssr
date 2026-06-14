@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAQ PSSR — Questions fréquentes</title>
+<meta name="description" content="Questions fréquentes sur les inscriptions, réservations, tarifs, données personnelles et tableau de bord PSSR.">
+<link rel="canonical" href="https://ev2025.github.io/pssr/faq.html">
+<meta property="og:title" content="FAQ PSSR — Questions fréquentes">
+<meta property="og:description" content="Questions fréquentes sur les inscriptions, réservations, tarifs, données personnelles et tableau de bord PSSR.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ev2025.github.io/pssr/faq.html">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/site-overrides.css">
+</head>
+<body class="pssr-page">
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+<header class="pssr-header">
+  <a class="brand" href="./index.html"><img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR</strong></a>
+  <nav aria-label="Navigation secondaire"><a href="./index.html">Accueil</a><a href="./services.html">Services</a><a href="./reservation.html">Réservation</a><a href="./faq.html">FAQ</a><a href="./avis.html">Avis</a><a href="./admin/index.html">Admin</a></nav>
+</header>
+<main class="pssr-main" id="contenu">
+
+<section class="panel legal-text">
+  <p class="breadcrumb"><a href="./index.html">Accueil</a> / FAQ</p>
+  <p class="eyebrow">Questions fréquentes</p>
+  <h1>FAQ PSSR</h1>
+  <div class="faq-list">
+    <details open><summary>Comment réserver un créneau ?</summary><p>Utilisez la page Réservation. Une référence PSSR est affichée après l’envoi. Cette référence sert au suivi de la demande, pas à accéder au tableau de bord admin.</p></details>
+    <details><summary>Le paiement se fait-il en ligne ?</summary><p>Non. Dans cette version, le paiement en ligne n’est pas activé. L’admin peut suivre manuellement les statuts de paiement dans Firebase. Une intégration sécurisée pourra être ajoutée plus tard.</p></details>
+    <details><summary>Qui peut accéder au tableau de bord ?</summary><p>Uniquement les comptes autorisés dans Firebase Authentication et déclarés dans Firestore comme admin ou coach.</p></details>
+    <details><summary>Que contient l’espace membre ?</summary><p>L’espace membre permet le suivi du parcours, des réservations, du niveau PSSR et du passeport socio-sportif imprimable.</p></details>
+    <details><summary>Comment sont protégées les données ?</summary><p>Les données sont stockées dans Firebase Firestore et protégées par des règles d’accès. Les visiteurs peuvent envoyer une demande, mais seuls les comptes autorisés peuvent lire les données privées.</p></details>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer" role="contentinfo"><div class="foot-legal"><p class="org">Équilibre Vital asbl — Bruxelles-Capitale</p><p class="fine">0492/691.070 · equilibrevital.bruxelles@gmail.com · BCE : 1019487618</p><p class="footer-links"><a href="./mentions-legales.html">Mentions légales</a><a href="./confidentialite-rgpd.html">Confidentialité RGPD</a><a href="./faq.html">FAQ</a><a href="./roadmap.html">Roadmap</a></p></div></footer>
+<script src="./assets/js/media-fallback.js" defer></script>
+</body>
+</html>

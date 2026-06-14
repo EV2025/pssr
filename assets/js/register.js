@@ -7,6 +7,7 @@ function show(text, ok=false){ msg.hidden=false; msg.textContent=text; msg.style
 
 form.addEventListener('submit', async (e)=>{
   e.preventDefault();
+  if (!form.checkValidity()) { form.reportValidity(); return show('Veuillez compléter les champs obligatoires.'); }
   const fd = new FormData(form);
   const password = String(fd.get('password')||'');
   if (password !== String(fd.get('password2')||'')) return show('Les mots de passe ne correspondent pas.');

@@ -36,13 +36,15 @@ function dataFromForm(form){
 
   const data = {};
   for (const [key, value] of Object.entries(raw)) {
-    data[key] = cleanString(value, key === 'message' ? 3000 : 300);
+    data[key] = cleanString(value, key === 'message' || key === 'objectifs' ? 3000 : 300);
   }
 
   return {
     ...data,
     source: location.pathname,
+    pageTitle: document.title,
     userAgent: navigator.userAgent.slice(0, 300),
+    rgpdConsent: Boolean(raw.rgpdConsent),
     createdAt: serverTimestamp ? serverTimestamp() : new Date().toISOString()
   };
 }
@@ -61,8 +63,13 @@ function showMessage(form, message, ok = true){
 }
 
 function validate(form, data){
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return 'Veuillez compléter les champs obligatoires.';
+  }
   if (!data.nom || data.nom.length < 2) return 'Veuillez indiquer votre nom.';
   if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) return 'Veuillez indiquer une adresse email valide.';
+  if (!data.rgpdConsent) return 'Veuillez accepter la politique de confidentialité.';
   if (form.dataset.firebaseCollection === 'messages' && (!data.message || data.message.length < 3)) return 'Veuillez écrire un message.';
   if (form.dataset.firebaseCollection === 'reservations' && (!data.creneau || data.creneau.length < 2)) return 'Veuillez choisir un créneau.';
   return '';
@@ -70,8 +77,23 @@ function validate(form, data){
 
 function mailtoFallback(data){
   const subject = encodeURIComponent('Message depuis le site PSSR');
-  const body = encodeURIComponent(Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\\n'));
+  const body = encodeURIComponent(Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n'));
   location.href = `mailto:${siteConfig.contactEmail}?subject=${subject}&body=${body}`;
+}
+
+async function writeEmailLog(payload, type){
+  if (!db || !addDoc || !collection) return;
+  try{
+    await addDoc(collection(db, 'emailLogs'), {
+      type,
+      status: 'to_send',
+      email: payload.email || '',
+      reservationCode: payload.reservationCode || '',
+      createdAt: serverTimestamp ? serverTimestamp() : new Date().toISOString()
+    });
+  }catch(err){
+    console.warn('Email log non créé:', err);
+  }
 }
 
 async function attachForms(){
@@ -98,6 +120,9 @@ async function attachForms(){
       if (isReservation) {
         payload.reservationCode = reservationCode;
         payload.status = payload.status || 'nouvelle';
+        payload.paymentStatus = payload.paymentStatus || 'non demandé';
+      } else {
+        payload.status = payload.status || 'nouveau';
       }
 
       const submitBtn = form.querySelector('button[type="submit"]');
@@ -110,11 +135,12 @@ async function attachForms(){
           return;
         }
         await addDoc(collection(db, collectionName), payload);
+        await writeEmailLog(payload, isReservation ? 'reservation-receipt' : 'contact-receipt');
         form.reset();
         if (isReservation) {
-          showMessage(form, `Merci, votre réservation a bien été enregistrée. Votre référence est : ${reservationCode}. Gardez ce code : il sert uniquement à retrouver votre demande, il ne donne pas accès au tableau de bord admin.`);
+          showMessage(form, `Merci, votre demande de réservation a bien été enregistrée. Votre référence est : ${reservationCode}. Gardez ce code : il sert au suivi de votre demande, il ne donne pas accès au tableau de bord admin.`);
         } else {
-          showMessage(form, 'Merci, votre message a bien été enregistré.');
+          showMessage(form, 'Merci, votre message a bien été enregistré. Nous reviendrons vers vous dès que possible.');
         }
       }catch(err){
         console.error(err);

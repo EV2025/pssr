@@ -6,7 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-<meta name="description" content="PSSR — Bouge ton corps, avance dans ta vie ! Parcours socio-sportif, ateliers, réservations et contact Firebase.">
+<meta name="description" content="PSSR — Bouge ton corps, avance dans ta vie ! Parcours socio-sportif, ateliers, réservations, accompagnement socio-professionnel et contact à Bruxelles.">
+<link rel="canonical" href="https://ev2025.github.io/pssr/">
+<meta property="og:title" content="PSSR — Parcours Socio-Sportif Renforcé">
+<meta property="og:description" content="Bouge ton corps, avance dans ta vie ! Activités sportives, accompagnement socio-sportif et réservations PSSR.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ev2025.github.io/pssr/">
 
 <style>
 :root{
@@ -301,7 +306,21 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   .hero h1 .char{ opacity:1; transform:none; animation:none!important }
   .reveal{ opacity:1; transform:none; transition:none!important }
 }
+.status-grid,.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.status-card{background:#fff;border:1px solid rgba(138,84,204,.22);border-radius:18px;padding:20px;box-shadow:var(--card-shadow)}.status-card ul{margin:10px 0 0 18px;color:var(--muted)}.badge{display:inline-flex;border-radius:999px;padding:6px 10px;background:linear-gradient(90deg,#b9c7ff,#e393ff);color:white;font-weight:900}.vision-note{background:#fff;border:1px dashed var(--l500);border-radius:16px;padding:14px 16px;color:var(--muted)}.footer-links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px}.footer-links a{text-decoration:underline;color:var(--ink-strong)}.quick-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}.mini-section{background:#fff;border:1px solid rgba(138,84,204,.22);border-radius:18px;padding:20px;box-shadow:var(--card-shadow)}.mini-section blockquote{margin:0;color:#4d426e}.consent{display:flex!important;gap:10px!important;align-items:flex-start!important}.consent input{width:auto!important;margin-top:4px}
 </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"SportsActivityLocation",
+  "name":"Équilibre Vital asbl — PSSR",
+  "url":"https://ev2025.github.io/pssr/",
+  "email":"equilibrevital.bruxelles@gmail.com",
+  "telephone":"+32492691070",
+  "address":{"@type":"PostalAddress","addressLocality":"Molenbeek-Saint-Jean","addressRegion":"Bruxelles-Capitale","addressCountry":"BE"},
+  "description":"Parcours Socio-Sportif Renforcé : activités sportives, accompagnement socio-sportif et ateliers socio-professionnels."
+}
+</script>
 </head>
 
 <body id="accueil">
@@ -320,14 +339,17 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
         <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
 
         <div id="menu" class="menu" role="menubar">
-          <a role="menuitem" href="#inscriptions" class="cta">Nos horaires</a>
+          <a role="menuitem" href="./reservation.html" class="cta">Réserver</a>
           <a role="menuitem" href="#parcours">PSSR</a>
+          <a role="menuitem" href="./services.html">Services</a>
           <a role="menuitem" href="#ateliers">Les ateliers</a>
           <a role="menuitem" href="#socio-pro">Socio-pro</a>
           <a role="menuitem" href="#atl">Projets Scolaires ATL</a>
+          <a role="menuitem" href="./calendrier.html">Calendrier</a>
           <a role="menuitem" href="#documents">Téléchargements</a>
           <a role="menuitem" href="#vision">Vision</a>
-          <a role="menuitem" href="./roadmap.html">Roadmap</a>
+          <a role="menuitem" href="./faq.html">FAQ</a>
+          <a role="menuitem" href="./avis.html">Avis</a>
           <a role="menuitem" href="#contact">Contact</a>
         </div>
       </div>
@@ -347,7 +369,8 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <div class="section-wrap appel-banner" role="region" aria-label="Appel à l'action principal">
     <div class="label"><span class="dot" aria-hidden="true"></span>Prêt·e à rejoindre le PSSR ?</div>
     <div>
-      <a class="btn-appel" href="#inscriptions">Voir nos horaires</a>
+      <a class="btn-appel" href="./reservation.html">Faire une réservation</a>
+      <a class="btn-appel-ghost" href="./calendrier.html" style="margin-left:8px">Voir le calendrier</a>
       <a class="btn-appel-ghost" href="#contact" style="margin-left:8px">Poser une question</a>
     </div>
   </div>
@@ -706,6 +729,21 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     </div>
   </section>
 
+
+
+  <!-- ===== Informations utiles ===== -->
+  <section id="infos-utiles" aria-labelledby="infos-title">
+    <div class="section-wrap">
+      <h2 id="infos-title" class="sec-title">Informations utiles</h2>
+      <p class="sec-sub">Accès rapide aux pages qui rendent le site plus clair pour les participant·es et partenaires.</p>
+      <div class="grid">
+        <article class="mini-section"><h3>Services & tarifs</h3><p class="txt">Activités, accompagnement et tarif solidaire.</p><p><a class="btn" href="./services.html">Voir les services</a></p></article>
+        <article class="mini-section"><h3>FAQ</h3><p class="txt">Réponses sur réservation, paiement, tableau de bord et données.</p><p><a class="btn" href="./faq.html">Lire la FAQ</a></p></article>
+        <article class="mini-section"><h3>Avis</h3><blockquote>“Un cadre bienveillant pour reprendre confiance et bouger régulièrement.”</blockquote><p><a class="btn" href="./avis.html">Voir les avis</a></p></article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Contact ===== -->
   <section id="contact" aria-labelledby="ct-title">
     <div class="section-wrap" style="max-width:1280px;margin:0 auto;padding:48px 20px 56px;background:#fff;border-radius:24px;box-shadow:0 8px 32px #e1bee7;">
@@ -751,6 +789,11 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
             </div>
           </div>
 
+          <label class="card field consent" style="grid-template-columns:auto 1fr;">
+            <input type="checkbox" name="rgpdConsent" required>
+            <span>J’accepte que mes données soient utilisées pour traiter ma demande. <a href="./confidentialite-rgpd.html" target="_blank" rel="noopener">Politique de confidentialité</a>.</span>
+          </label>
+
           <div class="card action">
             <button type="submit" class="btn" aria-label="Envoyer">Envoyer</button>
           </div>
@@ -780,7 +823,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     <div class="foot-legal" style="padding:18px 20px;text-align:center">
       <p class="org" style="margin:0 0 6px;color:var(--ink)">Équilibre Vital asbl — Bruxelles-Capitale</p>
       <p class="fine" style="margin:0 0 6px;color:var(--muted)">IBAN : BE17 5230 8164 9221 • BIC : TRIOBEBB • BCE : 1019487618</p>
-      <p class="txt" style="margin:0;color:#777">EV© 2025 — Mentions légales • RGPD • Cookies</p>
+      <p class="txt" style="margin:0;color:#777">EV© 2026 — Tous droits réservés.</p><p class="footer-links"><a href="./mentions-legales.html">Mentions légales</a><a href="./confidentialite-rgpd.html">RGPD</a><a href="./faq.html">FAQ</a><a href="./admin/index.html">Admin</a></p>
     </div>
   </footer>
 
