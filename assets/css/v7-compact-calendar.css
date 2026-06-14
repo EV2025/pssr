@@ -1,0 +1,21 @@
+/* =========================================================
+   V7 — Calendrier compact, inscription simplifiée, cohérence UI
+   Base GitHub Pages + Firebase. Ne touche pas au JS du cycle PSSR.
+   ========================================================= */
+:root{
+  --v7-primary:#5b3ea8;
+  --v7-primary-strong:#41257d;
+  --v7-accent:#cfa9ff;
+  --v7-ink:#211a3f;
+  --v7-muted:#6d6588;
+  --v7-line:rgba(91,62,168,.14);
+  --v7-surface:#ffffff;
+  --v7-soft:#fbf8ff;
+  --v7-radius:18px;
+  --v7-shadow:0 14px 34px rgba(45,29,88,.08);
+}
+.pssr-header,.main-nav-short{gap:14px}.main-nav-short a{white-space:nowrap}.main-nav-short .cta-link{padding:.7rem 1rem;border-radius:999px;background:linear-gradient(135deg,var(--v7-primary),#8b5ce7);color:#fff!important;box-shadow:0 10px 24px rgba(91,62,168,.18)}
+.activity-calendar-compact{display:grid;gap:14px;margin:20px 0 16px}.activity-day-card{background:var(--v7-surface);border:1px solid var(--v7-line);border-radius:var(--v7-radius);box-shadow:var(--v7-shadow);padding:16px}.activity-day-card h3{font-size:clamp(1.05rem,.98rem + .4vw,1.22rem);margin:0 0 10px;color:var(--v7-primary-strong);letter-spacing:-.02em}.activity-lines{list-style:none;margin:0;padding:0;display:grid;gap:8px}.activity-line{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;align-items:center;gap:10px;padding:10px 0;border-top:1px solid rgba(91,62,168,.10)}.activity-line:first-child{border-top:0}.activity-name{font-weight:800;color:var(--v7-ink)}.activity-meta{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.badge-soft{display:inline-flex;align-items:center;min-height:28px;border-radius:999px;padding:5px 10px;background:var(--v7-soft);border:1px solid rgba(91,62,168,.10);color:var(--v7-muted);font-size:.88rem;font-weight:750}.btn-compact{min-height:34px!important;padding:8px 12px!important;font-size:.92rem!important;box-shadow:0 8px 18px rgba(91,62,168,.12)!important}.compact-details{margin-top:14px}.compact-details .activity-detail{padding:16px}.compact-details .activity-detail h3{font-size:1rem}.activity-table-wrap,.activity-table{display:none!important}
+.form-grid.compact-form{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.form-grid.compact-form label{background:#fff;border:1px solid var(--v7-line);border-radius:16px;padding:12px;display:grid;gap:7px;font-weight:800;color:var(--v7-ink)}.form-grid.compact-form input,.form-grid.compact-form select,.form-grid.compact-form textarea{width:100%;border:1px solid rgba(91,62,168,.18);border-radius:12px;padding:11px 12px;background:#fff;color:var(--v7-ink)}.form-grid.compact-form .full{grid-column:1/-1}.form-grid.compact-form .consent{display:flex;align-items:flex-start;gap:10px}.form-grid.compact-form .consent input{width:auto;margin-top:4px}.stepper{display:none!important}
+.pssr-footer-pro{margin-top:40px}.footer-grid{gap:18px}.footer-links a{border-radius:999px}.footer-bottom{font-weight:700}
+@media (max-width:760px){.activity-day-card{padding:14px}.activity-line{grid-template-columns:1fr;align-items:start;gap:8px;padding:12px 0}.activity-meta{justify-content:flex-start}.btn-compact{width:max-content}.form-grid.compact-form{grid-template-columns:1fr}.main-nav-short{overflow-x:auto;padding-bottom:4px}.main-nav-short a{font-size:.94rem}}

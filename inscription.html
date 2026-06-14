@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Inscription intelligente PSSR</title>
-<meta name="description" content="Inscription intelligente PSSR en 5 étapes, reliée à Firebase Authentication et Firestore.">
+<title>Inscription PSSR — Équilibre Vital</title>
+<meta name="description" content="Inscription rapide au PSSR : activité choisie, coordonnées et création d’espace membre.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/site-overrides.css">
@@ -12,23 +12,19 @@
 <header class="pssr-header"><a class="brand" href="./index.html"><img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR</strong></a><nav aria-label="Navigation principale" class="main-nav-short"><a href="./index.html">Accueil</a><a href="./index.html#parcours">PSSR</a><a href="./index.html#inscriptions">Activités & tarifs</a><a href="./dashboard.html">Tableau de bord</a><a class="cta-link" href="./reservation.html">Réserver</a></nav></header>
 <main class="pssr-main">
 <section class="panel auth-box">
-<p class="eyebrow">Espace membre</p><h1>Créer mon espace PSSR</h1>
-<p>Créez votre espace personnel pour suivre votre parcours, vos modules et vos réservations.</p>
-<div class="stepper" aria-label="Étapes d'inscription"><span class="step active">1 Identité</span><span class="step">2 Diagnostic</span><span class="step">3 Objectifs</span><span class="step">4 Parcours</span><span class="step">5 Compte</span></div>
-<form id="register-form" class="form-grid">
+<p class="eyebrow">Inscription rapide</p><h1>Créer mon espace membre</h1>
+<p>Un formulaire court pour commencer. Les informations complémentaires seront demandées plus tard par l’équipe ou dans votre espace membre.</p>
+<form id="register-form" class="form-grid compact-form">
 <label>Prénom & nom<input name="displayName" required placeholder="Prénom Nom"></label>
 <label>Email<input name="email" type="email" required placeholder="exemple@domaine.be"></label>
-<label>Téléphone<input name="phone" type="tel" placeholder="0492 691 070"></label>
-<label>Âge / tranche d’âge<select name="ageRange"><option value="">Choisir</option><option>6–12 ans</option><option>13–17 ans</option><option>18–39 ans</option><option>40 ans+</option></select></label>
-<label>Situation actuelle<select name="situation"><option>Découverte / première demande</option><option>Reprise d’activité physique</option><option>Accompagnement social / emploi</option><option>Orientation partenaire</option></select></label>
-<label>Niveau actuel<select name="activityLevel"><option>Débutant</option><option>Intermédiaire</option><option>Régulier</option></select></label>
-<label class="full">Freins / besoins<textarea name="needs" rows="3" placeholder="Santé, motivation, mobilité, emploi, administratif…"></textarea></label>
-<label class="full">Modules souhaités<textarea name="modules" rows="2" placeholder="Ex. Coaching individuel, Gestion du stress, Kids Move…"></textarea></label>
-<label class="full">Objectifs principaux<textarea name="goals" rows="3" placeholder="Bouger régulièrement, retrouver confiance, préparer un projet, rencontrer un coach…"></textarea></label>
-<label>Mot de passe<input name="password" type="password" minlength="8" required placeholder="Minimum 8 caractères"></label>
+<label>Téléphone<input name="phone" type="tel" required placeholder="0492 691 070"></label>
+<label>Activité ou module choisi<input name="modules" required placeholder="Ex. Kids Move, Cardio Fit Ados, Gestion du stress…"></label>
+<label>Âge / tranche d’âge<select name="ageRange"><option value="">Choisir si nécessaire</option><option>6–12 ans</option><option>13–17 ans</option><option>18–39 ans</option><option>40 ans+</option></select></label>
+<label class="full">Message ou remarque facultative<textarea name="message" rows="3" placeholder="Besoin particulier, horaire préféré, question…"></textarea></label>
+<label>Mot de passe espace membre<input name="password" type="password" minlength="8" required placeholder="Minimum 8 caractères"></label>
 <label>Confirmer le mot de passe<input name="password2" type="password" minlength="8" required></label>
-<label class="full consent"><input type="checkbox" name="rgpdConsent" required> <span>J’accepte que mes données soient utilisées pour créer et gérer mon espace membre PSSR. <a href="./confidentialite-rgpd.html" target="_blank" rel="noopener">Politique de confidentialité</a>.</span></label>
-      <button class="btn" type="submit">Créer mon espace membre</button>
+<label class="full consent"><input type="checkbox" name="rgpdConsent" required> <span>J’accepte les conditions et la <a href="./confidentialite-rgpd.html" target="_blank" rel="noopener">politique de confidentialité</a>.</span></label>
+<button class="btn" type="submit">Créer mon espace membre</button>
 <p id="register-msg" class="msg" hidden></p>
 </form>
 </section>

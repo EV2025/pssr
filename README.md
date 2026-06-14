@@ -1,3 +1,7 @@
+# PSSR — Version V7 organisation professionnelle
+
+La V7 conserve le site existant et améliore l’organisation visuelle : menu court, calendrier compact, inscription simplifiée, footer complet, tableau de bord membre/admin.
+
 # PSSR — Équilibre Vital asbl
 
 Site GitHub Pages + Firebase pour le Parcours Socio-Sportif Renforcé.

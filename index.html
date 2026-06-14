@@ -370,27 +370,65 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <!-- ===== Activités & tarifs ===== -->
   <section id="inscriptions" aria-labelledby="ins-title">
     <div class="section-wrap">
-      <h2 id="ins-title" class="sec-title">Activités &amp; tarifs</h2>
-      <p class="sec-sub">Un tableau simple pour choisir rapidement une activité et faire une demande.</p>
+      <h2 id="ins-title" class="sec-title">Calendrier des activités</h2>
+      <p class="sec-sub">Choisissez rapidement une activité. Les détails pratiques restent disponibles plus bas dans la page.</p>
 
       <div class="callout price-card">
         <h3>Tarif solidaire</h3>
         <p class="price">165€ / année académique</p>
       </div>
 
-      <div class="activity-table-wrap" role="region" aria-label="Tableau des activités sportives PSSR" tabindex="0">
-        <table class="activity-table">
-          <thead><tr><th>Jour</th><th>Activité</th><th>Horaire</th><th>Âge</th><th>Action</th></tr></thead>
-          <tbody>
-            <tr><td>Mardi</td><td>Cardio Fit Ados</td><td>18h00 - 19h00</td><td>13-17 ans</td><td><a class="btn" href="./reservation.html?module=Cardio%20Fit%20Ados">S’inscrire</a></td></tr>
-<tr><td>Mardi</td><td>Initiation Boxe & Kick-Boxing</td><td>19h00 - 20h00</td><td>13 ans+</td><td><a class="btn" href="./reservation.html?module=Initiation%20Boxe%20%26%20Kick-Boxing">S’inscrire</a></td></tr>
-<tr><td>Vendredi</td><td>Kids Move</td><td>16h00 - 17h00</td><td>6-12 ans</td><td><a class="btn" href="./reservation.html?module=Kids%20Move">S’inscrire</a></td></tr>
-<tr><td>Vendredi</td><td>Training Jeunes — Multisport</td><td>17h00 - 18h00</td><td>13-17 ans</td><td><a class="btn" href="./reservation.html?module=Training%20Jeunes%20%E2%80%94%20Multisport">S’inscrire</a></td></tr>
-<tr><td>Vendredi</td><td>Fitness Loisirs Mixte</td><td>19h00 - 20h00</td><td>18 ans+</td><td><a class="btn" href="./reservation.html?module=Fitness%20Loisirs%20Mixte">S’inscrire</a></td></tr>
-<tr><td>Vendredi</td><td>Boxing Loisir & Technique</td><td>20h00 - 21h00</td><td>18 ans+</td><td><a class="btn" href="./reservation.html?module=Boxing%20Loisir%20%26%20Technique">S’inscrire</a></td></tr>
-<tr><td>Samedi</td><td>Mobility & Recovery</td><td>08h00 - 10h00</td><td>40 ans+</td><td><a class="btn" href="./reservation.html?module=Mobility%20%26%20Recovery">S’inscrire</a></td></tr>
-          </tbody>
-        </table>
+      <div class="activity-calendar-compact" aria-label="Calendrier des activités">
+      <article class="activity-day-card">
+        <h3>Mardi</h3>
+        <ul class="activity-lines">
+          <li class="activity-line">
+            <span class="activity-name">Cardio Fit Ados</span>
+            <span class="activity-meta"><span class="badge-soft">18h00 - 19h00</span><span class="badge-soft">13-17 ans</span></span>
+            <a class="btn btn-compact" href="./reservation.html?module=Cardio%20Fit%20Ados">S’inscrire</a>
+          </li>
+          <li class="activity-line">
+            <span class="activity-name">Initiation Boxe / Kick-Boxing</span>
+            <span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">13+ ans</span></span>
+            <a class="btn btn-compact" href="./reservation.html?module=Initiation%20Boxe%20/%20Kick-Boxing">S’inscrire</a>
+          </li>
+        </ul>
+      </article>
+      <article class="activity-day-card">
+        <h3>Vendredi</h3>
+        <ul class="activity-lines">
+          <li class="activity-line">
+            <span class="activity-name">Kids Move</span>
+            <span class="activity-meta"><span class="badge-soft">16h00 - 17h00</span><span class="badge-soft">6-12 ans</span></span>
+            <a class="btn btn-compact" href="./reservation.html?module=Kids%20Move">S’inscrire</a>
+          </li>
+          <li class="activity-line">
+            <span class="activity-name">Training Jeunes</span>
+            <span class="activity-meta"><span class="badge-soft">17h00 - 18h00</span><span class="badge-soft">13-17 ans</span></span>
+            <a class="btn btn-compact" href="./reservation.html?module=Training%20Jeunes">S’inscrire</a>
+          </li>
+          <li class="activity-line">
+            <span class="activity-name">Fitness Loisirs Mixte</span>
+            <span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">18+ ans</span></span>
+            <a class="btn btn-compact" href="./reservation.html?module=Fitness%20Loisirs%20Mixte">S’inscrire</a>
+          </li>
+          <li class="activity-line">
+            <span class="activity-name">Boxing Loisir</span>
+            <span class="activity-meta"><span class="badge-soft">20h00 - 21h00</span><span class="badge-soft">18+ ans</span></span>
+            <a class="btn btn-compact" href="./reservation.html?module=Boxing%20Loisir">S’inscrire</a>
+          </li>
+        </ul>
+      </article>
+      <article class="activity-day-card">
+        <h3>Samedi</h3>
+        <ul class="activity-lines">
+          <li class="activity-line">
+            <span class="activity-name">Mobility & Recovery</span>
+            <span class="activity-meta"><span class="badge-soft">08h00 - 10h00</span><span class="badge-soft">40+ ans</span></span>
+            <a class="btn btn-compact" href="./reservation.html?module=Mobility%20%26%20Recovery">S’inscrire</a>
+          </li>
+        </ul>
+      </article>
       </div>
 
       <div class="activity-details-grid">
