@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/v8-coherence.css">
+<link rel="stylesheet" href="./assets/css/v9-organisation-pro.css">
 <meta name="description" content="PSSR — Parcours socio-sportif renforcé, ateliers, réservations, accompagnement et contact à Bruxelles.">
 <link rel="canonical" href="https://ev2025.github.io/pssr/">
 <meta property="og:title" content="PSSR — Parcours Socio-Sportif Renforcé">
@@ -353,12 +354,11 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <!-- ===== Hero ===== -->
   <header class="hero hero-v8" role="banner">
     <div class="wrap">
-      <p class="hero-kicker">Parcours Socio-Sportif Renforcé</p>
+      <p class="hero-kicker">Équilibre Vital asbl</p>
       <h1 aria-live="polite">PSSR</h1>
-      <p class="hero-intro">Un parcours d’activités physiques et d’accompagnement pour jeunes, adultes et partenaires à Bruxelles. Choisissez une activité, envoyez votre demande en ligne et l’équipe vous confirme l’inscription.</p>
+      <p class="hero-intro">Parcours Socio-Sportif Renforcé</p>
       <div class="hero-actions" aria-label="Actions principales">
         <a class="btn" href="#inscriptions">Choisir une activité</a>
-        <a class="btn btn-light" href="./reservation.html">Réserver</a>
       </div>
     </div>
   </header>
@@ -538,19 +538,34 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
       <h2 id="socio-title" class="sec-title">Accompagnement socio-professionnel</h2>
       <p class="sec-sub">Choisissez un ou plusieurs modules selon vos besoins. L’équipe PSSR vous confirme ensuite l’organisation adaptée.</p>
 
-      <div class="module-grid" id="module-grid" aria-label="Modules socio-professionnels PSSR">
-        <label class="module-card"><input type="checkbox" name="module" value="Coaching individuel"><span>Coaching individuel</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Employabilité"><span>Employabilité</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Création et mise à jour du CV"><span>Création et mise à jour du CV</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Recherche d’emploi"><span>Recherche d’emploi</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Simulations d’entretien"><span>Simulations d’entretien</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Développement personnel"><span>Développement personnel</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Gestion du stress"><span>Gestion du stress</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Nutrition et bien-être"><span>Nutrition et bien-être</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Orientation vers la formation"><span>Orientation vers la formation</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Orientation professionnelle"><span>Orientation professionnelle</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Accompagnement administratif"><span>Accompagnement administratif</span></label>
-        <label class="module-card"><input type="checkbox" name="module" value="Coaching motivationnel"><span>Coaching motivationnel</span></label>
+      <div class="module-grid module-grid-expandable" id="module-grid" aria-label="Modules socio-professionnels PSSR">
+        <details class="module-group" open>
+          <summary>Coaching &amp; orientation</summary>
+          <div class="module-options">
+            <label class="module-card"><input type="checkbox" name="module" value="Coaching individuel"><span>Coaching individuel</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Coaching motivationnel"><span>Coaching motivationnel</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Orientation professionnelle"><span>Orientation professionnelle</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Orientation vers la formation"><span>Orientation vers la formation</span></label>
+          </div>
+        </details>
+        <details class="module-group">
+          <summary>Emploi &amp; formation</summary>
+          <div class="module-options">
+            <label class="module-card"><input type="checkbox" name="module" value="Employabilité"><span>Employabilité</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Création et mise à jour du CV"><span>Création et mise à jour du CV</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Recherche d’emploi"><span>Recherche d’emploi</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Simulations d’entretien"><span>Simulations d’entretien</span></label>
+          </div>
+        </details>
+        <details class="module-group">
+          <summary>Bien-être &amp; démarches</summary>
+          <div class="module-options">
+            <label class="module-card"><input type="checkbox" name="module" value="Développement personnel"><span>Développement personnel</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Gestion du stress"><span>Gestion du stress</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Nutrition et bien-être"><span>Nutrition et bien-être</span></label>
+            <label class="module-card"><input type="checkbox" name="module" value="Accompagnement administratif"><span>Accompagnement administratif</span></label>
+          </div>
+        </details>
       </div>
 
       <div class="selection-box">
@@ -562,54 +577,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
       </div>
     </div>
   </section>
-
-  <!-- ===== Écoles & ATL ===== -->
-  <section id="atl" aria-labelledby="atl-title">
-    <div class="section-wrap">
-      <h2 id="atl-title" class="sec-title">Écoles & ATL</h2>
-      <p class="sec-sub">Des animations sportives et éducatives pour les écoles, l’accueil temps libre et les partenaires jeunesse.</p>
-
-      <div class="grid">
-        <div class="card info-card">
-          <div class="ico" style="margin-bottom:12px">🏫</div>
-          <h3>Pour les écoles</h3>
-          <p class="txt">Activités adaptées aux groupes scolaires, avec une approche inclusive et progressive.</p>
-          <ul>
-            <li>Animations sportives en milieu scolaire</li>
-            <li>Découverte de disciplines</li>
-            <li>Sensibilisation au mouvement</li>
-            <li>Activités adaptées selon l’âge</li>
-          </ul>
-        </div>
-
-        <div class="card info-card">
-          <div class="ico" style="margin-bottom:12px">🎯</div>
-          <h3>Objectifs pédagogiques</h3>
-          <p class="txt">Développer la confiance, la coopération et le plaisir de bouger.</p>
-          <ul>
-            <li>Coopération et respect</li>
-            <li>Motricité et coordination</li>
-            <li>Gestion de l’effort</li>
-            <li>Bien-être collectif</li>
-          </ul>
-        </div>
-
-        <div class="card info-card">
-          <div class="ico" style="margin-bottom:12px">📅</div>
-          <h3>Organisation</h3>
-          <p class="txt">Les projets peuvent être construits avec les équipes éducatives et les structures ATL.</p>
-          <ul>
-            <li>Interventions ponctuelles ou cycles</li>
-            <li>Groupes enfants / ados</li>
-            <li>Adaptation au lieu disponible</li>
-            <li>Contact via le formulaire ci-dessous</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Téléchargements ===== -->
+<!-- ===== Téléchargements ===== -->
   <section id="documents" aria-labelledby="docs-title">
     <div class="section-wrap">
       <h2 id="docs-title" class="sec-title">Téléchargements</h2>
@@ -654,21 +622,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
       </div>
     </div>
   </section>
-
-  <!-- ===== Informations utiles ===== -->
-  <section id="infos-utiles" aria-labelledby="infos-title">
-    <div class="section-wrap">
-      <h2 id="infos-title" class="sec-title">Informations utiles</h2>
-      <p class="sec-sub">Accès rapide aux pages utiles.</p>
-      <div class="grid">
-        <article class="mini-section"><h3>Services & tarifs</h3><p class="txt">Activités, accompagnement et tarif solidaire.</p><p><a class="btn" href="./services.html">Voir les services</a></p></article>
-        <article class="mini-section"><h3>FAQ</h3><p class="txt">Réponses sur réservation, paiement, tableau de bord et données.</p><p><a class="btn" href="./faq.html">Lire la FAQ</a></p></article>
-        <article class="mini-section"><h3>Avis</h3><blockquote>“Un cadre bienveillant pour reprendre confiance et bouger régulièrement.”</blockquote><p><a class="btn" href="./avis.html">Voir les avis</a></p></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Contact ===== -->
+<!-- ===== Contact ===== -->
   <section id="contact" aria-labelledby="ct-title">
     <div class="section-wrap" style="max-width:1280px;margin:0 auto;padding:48px 20px 56px;background:#fff;border-radius:24px;box-shadow:0 8px 32px #e1bee7;">
 
@@ -735,26 +689,32 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
           <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">📞</span>
           <a href="tel:+32492691070" style="font-weight:700;color:#5b3ea8;">0492/691.070</a>
         </div>
-        <div style="flex:1 1 180px;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;">
-          <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">🌐</span>
-          <a href="https://www.equilibrevital.net" target="_blank" rel="noopener" style="font-weight:700;color:#5b3ea8;">www.equilibrevital.net</a>
-        </div>
       </div>
     </div>
   </section>
 
-  <footer class="site-footer pssr-footer-pro" role="contentinfo">
-  <div class="footer-grid">
-    <section>
+  <footer class="site-footer pssr-footer-pro footer-v9" role="contentinfo">
+  <div class="footer-v9-top">
+    <section class="footer-brand-block">
       <h2>Équilibre Vital asbl</h2>
       <p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
       <p class="footer-note">Tarif solidaire : <strong>165€ / année académique</strong></p>
     </section>
     <section>
-      <h2>Liens utiles</h2>
+      <h2>Participer</h2>
+      <nav class="footer-links" aria-label="Liens de participation">
+        <a href="./index.html">Accueil</a>
+        <a href="./index.html#inscriptions">Activités &amp; tarifs</a>
+        <a href="./reservation.html">S’inscrire</a>
+        <a href="./dashboard.html">Tableau de bord</a>
+        <a href="./member/dashboard.html">Espace membre</a>
+      </nav>
+    </section>
+    <section>
+      <h2>Ressources</h2>
       <nav class="footer-links" aria-label="Liens secondaires">
         <a href="./index.html#ateliers">Ateliers</a>
-        <a href="./index.html#atl">Écoles &amp; ATL</a>
+        <a href="./ecoles-atl.html">Écoles &amp; ATL</a>
         <a href="./calendrier.html">Calendrier</a>
         <a href="./index.html#documents">Documents</a>
         <a href="./faq.html">FAQ</a>
@@ -765,11 +725,10 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
       <h2>Contact</h2>
       <p><a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
       <p><a href="tel:+32492691070">0492/691.070</a></p>
-      <p><a href="https://www.equilibrevital.net" target="_blank" rel="noopener">www.equilibrevital.net</a></p>
+      <p>BCE : 1019487618</p>
     </section>
     <section>
-      <h2>Informations légales</h2>
-      <p>BCE : 1019487618</p>
+      <h2>Légal &amp; paiement</h2>
       <p>IBAN : BE17 5230 8164 9221</p>
       <p>BIC : TRIOBEBB</p>
       <nav class="footer-links legal" aria-label="Liens légaux">

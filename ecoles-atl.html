@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Écoles & ATL — PSSR</title><meta name="description" content="Demande de collaboration Écoles & ATL avec Équilibre Vital asbl : accueil, animations sportives, aide aux devoirs et projets éducatifs.">
+<link rel="canonical" href="https://ev2025.github.io/pssr/ecoles-atl.html">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/site-overrides.css"><link rel="stylesheet" href="./assets/css/v9-organisation-pro.css"></head>
+<body class="pssr-page"><header class="pssr-header"><a class="brand" href="./index.html"><img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>Écoles &amp; ATL</strong></a><nav aria-label="Navigation principale" class="main-nav-short"><a href="./index.html">Accueil</a><a href="./index.html#parcours">PSSR</a><a href="./index.html#inscriptions">Activités &amp; tarifs</a><a href="./dashboard.html">Tableau de bord</a><a class="cta-link" href="./reservation.html">Réserver</a></nav></header>
+<main class="pssr-main atl-page-v9">
+  <section class="panel hero-panel-v9">
+    <p class="eyebrow">Partenariats écoles &amp; ATL</p>
+    <h1>Parcours d’accompagnement — Équilibre Vital asbl</h1>
+    <p>Veuillez remplir ce formulaire pour structurer notre collaboration. Ce parcours est activé uniquement sur demande.</p>
+  </section>
+
+  <section class="panel compact-info-v9">
+    <h2>Ce que nous pouvons construire ensemble</h2>
+    <div class="compact-card-grid">
+      <article><h3>Écoles</h3><p>Animations sportives, sensibilisation au mouvement et cycles adaptés aux groupes scolaires.</p></article>
+      <article><h3>ATL</h3><p>Accueil du matin, accueil du soir, mercredi après-midi, temps de midi et aide aux devoirs.</p></article>
+      <article><h3>Objectif</h3><p>Créer un cadre éducatif clair, actif, inclusif et compatible avec les exigences du terrain.</p></article>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Formulaire de demande</h2>
+    <form class="form-grid atl-form-v9" id="atl-form" method="post" action="#" data-firebase-collection="messages" autocomplete="on" novalidate>
+      <input type="hidden" name="type" value="ecoles-atl">
+      <input type="hidden" name="message" value="Demande de collaboration Écoles & ATL">
+      <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" aria-hidden="true">
+
+      <fieldset><legend>A. Informations générales</legend>
+        <label>Nom de l’établissement *<input name="nom" required placeholder="Nom de l’établissement"></label>
+        <label>Pouvoir Organisateur (PO) *<input name="pouvoirOrganisateur" required></label>
+        <label class="full">Adresse complète *<input name="adresse" required></label>
+        <label>Personne de contact *<input name="personneContact" required></label>
+        <label>Fonction *<input name="fonction" required></label>
+        <label>Téléphone *<input name="tel" type="tel" required></label>
+        <label>Email *<input name="email" type="email" required></label>
+      </fieldset>
+
+      <fieldset><legend>B. Services souhaités</legend>
+        <div class="checkbox-grid-v9">
+          <label><input type="checkbox" name="serviceAccueilMatin" value="oui"> Accueil du matin</label>
+          <label><input type="checkbox" name="serviceAccueilSoir" value="oui"> Accueil du soir</label>
+          <label><input type="checkbox" name="serviceMercredi" value="oui"> Mercredi après-midi</label>
+          <label><input type="checkbox" name="serviceMidi" value="oui"> Temps de midi</label>
+          <label><input type="checkbox" name="serviceDevoirs" value="oui"> Aide aux devoirs</label>
+        </div>
+        <label class="full">Autre service à préciser<input name="serviceAutre" placeholder="Autre besoin"></label>
+      </fieldset>
+
+      <fieldset><legend>C. Informations pratiques</legend>
+        <label>Nombre d’enfants inscrits dans l’école<input name="nombreEnfantsEcole" inputmode="numeric"></label>
+        <label>Nombre estimé à l’accueil<input name="nombreEnfantsAccueil" inputmode="numeric"></label>
+        <label class="full">Plages horaires à couvrir<input name="plagesHoraires" placeholder="ex. 07h00-08h30, 15h30-18h00"></label>
+        <label>Locaux mis à disposition<input name="locaux"></label>
+        <label>Contraintes d’infrastructure<input name="contraintesInfrastructure"></label>
+      </fieldset>
+
+      <fieldset><legend>D. Exigences réglementaires</legend>
+        <div class="checkbox-grid-v9">
+          <label><input type="checkbox" name="exigenceProjetATL" value="oui"> Projet d’accueil ATL</label>
+          <label><input type="checkbox" name="exigenceCoordinationATL" value="oui"> Coordination ATL</label>
+          <label><input type="checkbox" name="exigenceROI" value="oui"> ROI de l’accueil</label>
+          <label><input type="checkbox" name="exigenceRegistreONE" value="oui"> Registre des présences (ONE)</label>
+          <label><input type="checkbox" name="exigenceSecurite" value="oui"> Plan de sécurité / évacuation</label>
+          <label><input type="checkbox" name="exigenceConvention" value="oui"> Convention d’occupation des locaux</label>
+        </div>
+      </fieldset>
+
+      <fieldset><legend>E. Besoins pédagogiques</legend>
+        <label class="full">Objectifs prioritaires<textarea name="objectifs" rows="3"></textarea></label>
+        <label class="full">Publics spécifiques<textarea name="publicsSpecifiques" rows="3"></textarea></label>
+        <label class="full">Attentes vis-à-vis de l’équipe d’encadrement<textarea name="attentesEquipe" rows="3"></textarea></label>
+      </fieldset>
+
+      <fieldset><legend>F. Modalités souhaitées</legend>
+        <label>Date de début souhaitée<input name="dateDebut" type="date"></label>
+        <label>Durée du partenariat envisagée<input name="dureePartenariat"></label>
+        <label>Fréquence des évaluations<input name="frequenceEvaluations"></label>
+        <label>Mode de communication privilégié<input name="communication" placeholder="ex. email, réunions mensuelles"></label>
+      </fieldset>
+
+      <fieldset><legend>G. Zone libre</legend>
+        <label class="full">Remarques ou besoins supplémentaires<textarea name="remarques" rows="4"></textarea></label>
+      </fieldset>
+
+      <label class="consent full"><input type="checkbox" name="rgpdConsent" required><span>J’accepte que mes données soient utilisées pour traiter cette demande. <a href="./confidentialite-rgpd.html" target="_blank" rel="noopener">Politique de confidentialité</a>.</span></label>
+      <button class="btn" type="submit">Envoyer la demande</button>
+      <p class="msg" id="contact-msg" hidden></p>
+    </form>
+  </section>
+</main><footer class="site-footer pssr-footer-pro footer-v9" role="contentinfo">
+  <div class="footer-v9-top">
+    <section class="footer-brand-block">
+      <h2>Équilibre Vital asbl</h2>
+      <p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
+      <p class="footer-note">Tarif solidaire : <strong>165€ / année académique</strong></p>
+    </section>
+    <section>
+      <h2>Participer</h2>
+      <nav class="footer-links" aria-label="Liens de participation">
+        <a href="./index.html">Accueil</a>
+        <a href="./index.html#inscriptions">Activités &amp; tarifs</a>
+        <a href="./reservation.html">S’inscrire</a>
+        <a href="./dashboard.html">Tableau de bord</a>
+        <a href="./member/dashboard.html">Espace membre</a>
+      </nav>
+    </section>
+    <section>
+      <h2>Ressources</h2>
+      <nav class="footer-links" aria-label="Liens secondaires">
+        <a href="./index.html#ateliers">Ateliers</a>
+        <a href="./ecoles-atl.html">Écoles &amp; ATL</a>
+        <a href="./calendrier.html">Calendrier</a>
+        <a href="./index.html#documents">Documents</a>
+        <a href="./faq.html">FAQ</a>
+        <a href="./index.html#contact">Contact</a>
+      </nav>
+    </section>
+    <section>
+      <h2>Contact</h2>
+      <p><a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
+      <p><a href="tel:+32492691070">0492/691.070</a></p>
+      <p>BCE : 1019487618</p>
+    </section>
+    <section>
+      <h2>Légal &amp; paiement</h2>
+      <p>IBAN : BE17 5230 8164 9221</p>
+      <p>BIC : TRIOBEBB</p>
+      <nav class="footer-links legal" aria-label="Liens légaux">
+        <a href="./mentions-legales.html">Mentions légales</a>
+        <a href="./confidentialite-rgpd.html">RGPD</a>
+        <a href="./confidentialite-rgpd.html">Politique de confidentialité</a>
+      </nav>
+    </section>
+  </div>
+  <div class="footer-bottom">EV© 2026 — Tous droits réservés.</div>
+</footer><script type="module" src="./assets/js/firebase-contact.js"></script><script src="./assets/js/media-fallback.js" defer></script></body></html>
