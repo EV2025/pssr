@@ -14,7 +14,7 @@ export const firebaseConfig = {
 
 export const siteConfig = {
   siteUrl: "https://ev2025.github.io/pssr/",
-  contactEmail: "contact@pssr.be"
+  contactEmail: "equilibrevital.bruxelles@gmail.com"
 };
 
 export const firebaseEnabled = Boolean(

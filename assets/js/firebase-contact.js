@@ -21,6 +21,15 @@ function cleanString(value, max = 1000){
   return String(value || '').trim().slice(0, max);
 }
 
+function makeReservationCode(){
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  const random = Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `PSSR-${y}${m}${d}-${random}`;
+}
+
 function dataFromForm(form){
   const raw = Object.fromEntries(new FormData(form).entries());
   delete raw.website;
@@ -84,6 +93,13 @@ async function attachForms(){
       }
 
       const collectionName = form.dataset.firebaseCollection || 'messages';
+      const isReservation = collectionName === 'reservations';
+      const reservationCode = isReservation ? makeReservationCode() : '';
+      if (isReservation) {
+        payload.reservationCode = reservationCode;
+        payload.status = payload.status || 'nouvelle';
+      }
+
       const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) submitBtn.disabled = true;
 
@@ -95,7 +111,11 @@ async function attachForms(){
         }
         await addDoc(collection(db, collectionName), payload);
         form.reset();
-        showMessage(form, 'Merci, votre demande a bien été enregistrée.');
+        if (isReservation) {
+          showMessage(form, `Merci, votre réservation a bien été enregistrée. Votre référence est : ${reservationCode}. Gardez ce code : il sert uniquement à retrouver votre demande, il ne donne pas accès au tableau de bord admin.`);
+        } else {
+          showMessage(form, 'Merci, votre message a bien été enregistré.');
+        }
       }catch(err){
         console.error(err);
         showMessage(form, 'Impossible d’enregistrer dans Firebase. Vérifiez la configuration et les règles Firestore.', false);

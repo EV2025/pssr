@@ -1,3 +1,22 @@
+# PSSR — projet stabilisé GitHub Pages + Firebase
+
+Cette version intègre les éléments utiles du plan global tout en gardant le site compatible avec GitHub Pages et Firebase.
+
+## Ajouts de cette version
+
+- Page `roadmap.html`
+- Dossier `docs/` avec vision phase 2 séparée
+- Créneaux sportifs officiels dans la réservation
+- Planning socio-professionnel sur la page d’accueil
+- Slogan officiel : “Bouge ton corps, avance dans ta vie !”
+- Références de réservation PSSR
+
+## Important
+
+La version actuelle n’utilise pas React/FastAPI/MongoDB. Ces éléments sont conservés comme vision de phase 2 dans `docs/ROADMAP_PLATEFORME_COMPLETE.md`.
+
+---
+
 # Déploiement PSSR sur GitHub Pages
 
 ## Dossier prêt

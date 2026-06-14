@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-<meta name="description" content="PSSR — Remettre le mouvement au cœur du quotidien. Découvrir, participer, télécharger les flyers et nous contacter.">
+<meta name="description" content="PSSR — Bouge ton corps, avance dans ta vie ! Parcours socio-sportif, ateliers, réservations et contact Firebase.">
 
 <style>
 :root{
@@ -277,6 +277,21 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   .pssr-node{ width:min(12vw, 48px); height:min(12vw, 48px) }
 }
 
+
+.status-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:18px}
+.status-card{display:block;padding:20px;background:#fff;border:1px solid rgba(138,84,204,.25);border-radius:16px;box-shadow:0 8px 24px rgba(91,62,168,.08)}
+.status-card .badge{display:inline-flex;margin-bottom:10px;padding:6px 10px;border-radius:999px;background:linear-gradient(135deg,#e6d5ff,#cfa9ff);color:#4b2f88;font-weight:900;font-size:.85rem}
+.status-card ul{margin:10px 0 0 20px;padding:0;color:var(--muted)}
+.status-card li{margin-bottom:8px}
+.planning-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:16px;overflow:hidden;border-radius:16px;border:1px solid rgba(138,84,204,.22);background:#fff;box-shadow:0 8px 24px rgba(91,62,168,.08)}
+.planning-table th,.planning-table td{padding:12px 14px;text-align:left;border-bottom:1px solid rgba(138,84,204,.16);vertical-align:top}
+.planning-table th{background:#f3eaff;color:#4b2f88;font-weight:900}
+.planning-table tr:last-child td{border-bottom:0}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:18px}
+.kpi-strip div{background:#fff;border:1px solid rgba(138,84,204,.22);border-radius:14px;padding:14px;text-align:center;font-weight:900;color:#4b2f88}
+.vision-note{margin-top:14px;padding:14px 16px;border-radius:14px;background:#fff8e6;border:1px dashed #cfa94d;color:#6a4e0e}
+@media(max-width:760px){.planning-table,.planning-table tbody,.planning-table tr,.planning-table td,.planning-table th{display:block}.planning-table thead{display:none}.planning-table tr{border-bottom:1px solid rgba(138,84,204,.16)}.planning-table td{border-bottom:0}.planning-table td::before{content:attr(data-label);display:block;font-weight:900;color:#4b2f88;margin-bottom:3px}}
+
 @keyframes fadeUp{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none} }
 .hero h1 .char{ display:inline-block; opacity:0; transform:translateY(.45em); animation:hero-rise .6s ease-out forwards }
 @keyframes hero-rise{ to{ opacity:1; transform:translateY(0) } }
@@ -308,9 +323,11 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
           <a role="menuitem" href="#inscriptions" class="cta">Nos horaires</a>
           <a role="menuitem" href="#parcours">PSSR</a>
           <a role="menuitem" href="#ateliers">Les ateliers</a>
+          <a role="menuitem" href="#socio-pro">Socio-pro</a>
           <a role="menuitem" href="#atl">Projets Scolaires ATL</a>
           <a role="menuitem" href="#documents">Téléchargements</a>
-          <a role="menuitem" href="./admin/index.html" target="_blank" rel="noopener">Tableau de bord</a>
+          <a role="menuitem" href="#vision">Vision</a>
+          <a role="menuitem" href="./roadmap.html">Roadmap</a>
           <a role="menuitem" href="#contact">Contact</a>
         </div>
       </div>
@@ -321,6 +338,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <header class="hero" role="banner">
     <div class="wrap">
       <h1 aria-live="polite">PSSR</h1>
+      <p class="sec-sub" style="font-size:clamp(1.2rem,1rem + 1.4vw,1.7rem);font-weight:800;color:#5b3ea8;margin:12px auto 18px;max-width:760px">Bouge ton corps, avance dans ta vie !</p>
       <a class="btn" href="#inscriptions">Parcours Socio-Sportif Renforcé — Découvrez nos horaires !</a>
     </div>
   </header>
@@ -480,6 +498,52 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     </div>
   </section>
 
+
+
+  <!-- ===== Accompagnement socio-professionnel ===== -->
+  <section id="socio-pro" aria-labelledby="socio-title">
+    <div class="section-wrap">
+      <h2 id="socio-title" class="sec-title">Accompagnement socio-professionnel PSSR</h2>
+      <p class="sec-sub">Des ateliers complémentaires pour relier activité physique, confiance, santé, autonomie et insertion.</p>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <span class="badge">Objectif</span>
+          <h3>Avancer dans la vie quotidienne</h3>
+          <p class="txt">Le PSSR ne se limite pas au sport : il soutient aussi la motivation, l’emploi, la formation, l’organisation administrative et le bien-être.</p>
+        </div>
+        <div class="status-card">
+          <span class="badge">Lieu</span>
+          <h3>Gare de l’Ouest</h3>
+          <p class="txt">Centre Sportif Pythagoras · urban.brussels — Molenbeek. Les créneaux peuvent être confirmés lors de la réservation ou via le formulaire de contact.</p>
+        </div>
+        <div class="status-card">
+          <span class="badge">Tarif</span>
+          <h3>Tarif solidaire</h3>
+          <p class="txt">165€ / année académique · Septembre → 6 juin. En collaboration avec L'école du dos.</p>
+        </div>
+      </div>
+
+      <table class="planning-table" aria-label="Planning socio-professionnel PSSR">
+        <thead><tr><th>Jour</th><th>Horaire</th><th>Atelier</th></tr></thead>
+        <tbody>
+          <tr><td data-label="Jour">Lundi</td><td data-label="Horaire">10:00 – 11:00</td><td data-label="Atelier">Coaching individuel</td></tr>
+          <tr><td data-label="Jour">Lundi</td><td data-label="Horaire">11:00 – 12:30</td><td data-label="Atelier">Employabilité</td></tr>
+          <tr><td data-label="Jour">Lundi</td><td data-label="Horaire">14:00 – 15:30</td><td data-label="Atelier">Création & mise à jour du CV</td></tr>
+          <tr><td data-label="Jour">Lundi</td><td data-label="Horaire">15:30 – 17:00</td><td data-label="Atelier">Recherche d'emploi</td></tr>
+          <tr><td data-label="Jour">Mercredi</td><td data-label="Horaire">10:00 – 11:30</td><td data-label="Atelier">Simulations d'entretien</td></tr>
+          <tr><td data-label="Jour">Mercredi</td><td data-label="Horaire">11:30 – 12:30</td><td data-label="Atelier">Développement personnel</td></tr>
+          <tr><td data-label="Jour">Mercredi</td><td data-label="Horaire">14:00 – 15:00</td><td data-label="Atelier">Gestion du stress</td></tr>
+          <tr><td data-label="Jour">Mercredi</td><td data-label="Horaire">15:00 – 16:30</td><td data-label="Atelier">Nutrition et bien-être</td></tr>
+          <tr><td data-label="Jour">Jeudi</td><td data-label="Horaire">10:00 – 11:30</td><td data-label="Atelier">Orientation vers la formation</td></tr>
+          <tr><td data-label="Jour">Jeudi</td><td data-label="Horaire">11:30 – 13:00</td><td data-label="Atelier">Orientation professionnelle</td></tr>
+          <tr><td data-label="Jour">Jeudi</td><td data-label="Horaire">14:00 – 15:30</td><td data-label="Atelier">Accompagnement administratif</td></tr>
+          <tr><td data-label="Jour">Jeudi</td><td data-label="Horaire">15:30 – 17:00</td><td data-label="Atelier">Coaching motivationnel</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- ===== Projets Scolaires ATL ===== -->
   <section id="atl" aria-labelledby="atl-title">
     <div class="section-wrap">
@@ -572,6 +636,62 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     </div>
   </section>
 
+
+
+  <!-- ===== Vision plateforme ===== -->
+  <section id="vision" aria-labelledby="vision-title">
+    <div class="section-wrap">
+      <h2 id="vision-title" class="sec-title">Plateforme actuelle & vision d’évolution</h2>
+      <p class="sec-sub">Nous stabilisons d’abord la version GitHub Pages + Firebase, puis les modules avancés pourront être développés en phase 2.</p>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <span class="badge">Version actuelle</span>
+          <h3>Déjà opérationnel</h3>
+          <ul>
+            <li>Site institutionnel PSSR</li>
+            <li>Formulaire de contact relié à Firestore</li>
+            <li>Réservations avec référence PSSR</li>
+            <li>Tableau de bord admin privé</li>
+            <li>Export CSV depuis le back-office</li>
+          </ul>
+        </div>
+        <div class="status-card">
+          <span class="badge">Ajout stabilisé</span>
+          <h3>Ce qui vient du plan global</h3>
+          <ul>
+            <li>Slogan “Bouge ton corps, avance dans ta vie !”</li>
+            <li>Créneaux officiels sportifs</li>
+            <li>Accompagnement socio-professionnel</li>
+            <li>Roadmap claire sans fausse promesse technique</li>
+            <li>Documentation séparée pour la phase 2</li>
+          </ul>
+        </div>
+        <div class="status-card">
+          <span class="badge">Phase 2</span>
+          <h3>À développer plus tard</h3>
+          <ul>
+            <li>Espace membre, coach et partenaire</li>
+            <li>Badges, passeport PDF, KPI avancés</li>
+            <li>Emails automatiques et agenda complet</li>
+            <li>Backend séparé si nécessaire</li>
+            <li>Paiement et attestations</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="kpi-strip" aria-label="Résumé PSSR">
+        <div>6 étapes PSSR</div>
+        <div>7 créneaux sportifs</div>
+        <div>12 ateliers socio-pro</div>
+        <div>Firebase opérationnel</div>
+      </div>
+
+      <p class="vision-note"><strong>Important :</strong> la roadmap complète est conservée comme document de vision. Elle ne remplace pas la version actuelle du site, afin d’éviter d’annoncer des fonctions non encore configurées.</p>
+      <p style="text-align:center;margin-top:18px"><a class="btn" href="./roadmap.html">Voir la roadmap complète</a></p>
+    </div>
+  </section>
+
   <!-- ===== Contact ===== -->
   <section id="contact" aria-labelledby="ct-title">
     <div class="section-wrap" style="max-width:1280px;margin:0 auto;padding:48px 20px 56px;background:#fff;border-radius:24px;box-shadow:0 8px 32px #e1bee7;">
@@ -628,7 +748,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
       <div class="card" style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:center;text-align:center;box-shadow:none;background:#f8f2ff;border-radius:16px;margin-top:18px;">
         <div style="flex:1 1 220px;min-width:180px;display:flex;align-items:center;justify-content:center;gap:8px;">
           <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">✉️</span>
-          <a href="mailto:contact@pssr.be" style="font-weight:700;color:#5b3ea8;">contact@pssr.be</a>
+          <a href="mailto:equilibrevital.bruxelles@gmail.com" style="font-weight:700;color:#5b3ea8;">equilibrevital.bruxelles@gmail.com</a>
         </div>
         <div style="flex:1 1 180px;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;">
           <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">📞</span>

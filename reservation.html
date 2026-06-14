@@ -12,22 +12,49 @@
 <body class="pssr-page">
 <header class="pssr-header">
   <a class="brand" href="./index.html"><img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR</strong></a>
-  <nav><a href="./index.html">Accueil</a><a href="./admin/index.html">Tableau de bord</a></nav>
+  <nav><a href="./index.html">Accueil</a></nav>
 </header>
 <main class="pssr-main">
   <section class="panel">
     <p class="eyebrow">Réservation</p>
     <h1>Réservation PSSR</h1>
-    <p>Ce formulaire enregistre les demandes dans Firebase Firestore, collection <code>reservations</code>, lorsque votre configuration Firebase est renseignée.</p>
+    <p>Ce formulaire enregistre les demandes dans Firebase Firestore, collection <code>reservations</code>. Après l'envoi, une référence de réservation PSSR s'affiche à l'écran. Cette référence sert uniquement au suivi de la demande : elle ne donne pas accès au tableau de bord admin.</p>
+    <p class="msg-note"><strong>Adresse :</strong> Gare de l'Ouest — Centre Sportif Pythagoras · urban.brussels — Molenbeek. <strong>Tarif solidaire :</strong> 165€ / année académique.</p>
     <form id="reservation-form" class="form-grid" data-firebase-collection="reservations">
       <label>Nom complet<input name="nom" required placeholder="Prénom Nom"></label>
       <label>Email<input name="email" type="email" required placeholder="exemple@domaine.be"></label>
       <label>Téléphone<input name="tel" type="tel" placeholder="0492 691 070"></label>
-      <label>Créneau souhaité<select name="creneau" required><option value="">Choisir</option><option>Mardi</option><option>Mercredi</option><option>Jeudi</option><option>Samedi</option></select></label>
+      <label>Créneau souhaité<select name="creneau" required>
+        <option value="">Choisir un créneau</option>
+        <optgroup label="Activités sportives officielles">
+          <option>Mardi 18:00–19:00 — Cardio Fit Ados — 13–17 ans</option>
+          <option>Mardi 19:00–20:00 — Initiation Boxe & Kick-Boxing — 13 ans+</option>
+          <option>Vendredi 16:00–17:00 — Kids Move — 6–12 ans</option>
+          <option>Vendredi 17:00–18:00 — Training Jeunes — Multisport — 13–17 ans</option>
+          <option>Vendredi 19:00–20:00 — Fitness Loisirs Mixte — 18 ans+</option>
+          <option>Vendredi 20:00–21:00 — Boxing Loisir & Technique — 18 ans+</option>
+          <option>Samedi 08:00–10:00 — Mobility & Recovery — 40 ans+</option>
+        </optgroup>
+        <optgroup label="Accompagnement socio-professionnel PSSR">
+          <option>Lundi 10:00–11:00 — Coaching individuel</option>
+          <option>Lundi 11:00–12:30 — Employabilité</option>
+          <option>Lundi 14:00–15:30 — Création & mise à jour du CV</option>
+          <option>Lundi 15:30–17:00 — Recherche d'emploi</option>
+          <option>Mercredi 10:00–11:30 — Simulations d'entretien</option>
+          <option>Mercredi 11:30–12:30 — Développement personnel</option>
+          <option>Mercredi 14:00–15:00 — Gestion du stress</option>
+          <option>Mercredi 15:00–16:30 — Nutrition et bien-être</option>
+          <option>Jeudi 10:00–11:30 — Orientation vers la formation</option>
+          <option>Jeudi 11:30–13:00 — Orientation professionnelle</option>
+          <option>Jeudi 14:00–15:30 — Accompagnement administratif</option>
+          <option>Jeudi 15:30–17:00 — Coaching motivationnel</option>
+        </optgroup>
+      </select></label>
       <label class="full">Message<textarea name="message" rows="4" placeholder="Âge, disponibilité, question éventuelle…"></textarea></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
       <button class="btn" type="submit">Envoyer la demande</button>
       <p id="reservation-msg" class="msg" hidden></p>
+      <p class="msg-note">Le tableau de bord est réservé à l'équipe PSSR. Les participant·es n'ont pas besoin de code admin.</p>
     </form>
   </section>
 </main>

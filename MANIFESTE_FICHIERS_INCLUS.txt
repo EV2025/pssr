@@ -49,3 +49,14 @@ wp-content/uploads/2025/09/.gitkeep
 wp-content/uploads/2026/.gitkeep
 wp-content/uploads/2026/06/.gitkeep
 wp-content/uploads/README_A_PLACER_ICI.txt
+
+
+MISE À JOUR STABILISATION PLAN GLOBAL
+- roadmap.html : page publique de roadmap stabilisée
+- docs/README_PROJET_ACTUEL.md : stack réel actuel
+- docs/ROADMAP_PLATEFORME_COMPLETE.md : vision phase 2
+- docs/CRENEAUX_OFFICIELS.md : planning sportif et socio-pro
+- docs/CE_QUI_A_ETE_REPRIS_DU_PLAN.md : résumé des ajouts repris
+- data/programme-pssr.json : données structurées du programme
+- reservation.html : créneaux officiels détaillés
+- index.html : slogan, socio-pro, vision et roadmap
