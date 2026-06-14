@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Réservation PSSR</title>
+<meta name="description" content="Formulaire de réservation PSSR relié à Firebase Firestore.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/site-overrides.css">
+</head>
+<body class="pssr-page">
+<header class="pssr-header">
+  <a class="brand" href="./index.html"><img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR</strong></a>
+  <nav><a href="./index.html">Accueil</a><a href="./admin/index.html">Tableau de bord</a></nav>
+</header>
+<main class="pssr-main">
+  <section class="panel">
+    <p class="eyebrow">Réservation</p>
+    <h1>Réservation PSSR</h1>
+    <p>Ce formulaire enregistre les demandes dans Firebase Firestore, collection <code>reservations</code>, lorsque votre configuration Firebase est renseignée.</p>
+    <form id="reservation-form" class="form-grid" data-firebase-collection="reservations">
+      <label>Nom complet<input name="nom" required placeholder="Prénom Nom"></label>
+      <label>Email<input name="email" type="email" required placeholder="exemple@domaine.be"></label>
+      <label>Téléphone<input name="tel" type="tel" placeholder="0492 691 070"></label>
+      <label>Créneau souhaité<select name="creneau" required><option value="">Choisir</option><option>Mardi</option><option>Mercredi</option><option>Jeudi</option><option>Samedi</option></select></label>
+      <label class="full">Message<textarea name="message" rows="4" placeholder="Âge, disponibilité, question éventuelle…"></textarea></label>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
+      <button class="btn" type="submit">Envoyer la demande</button>
+      <p id="reservation-msg" class="msg" hidden></p>
+    </form>
+  </section>
+</main>
+<script type="module" src="./assets/js/firebase-contact.js"></script>
+<script src="./assets/js/media-fallback.js" defer></script>
+</body>
+</html>

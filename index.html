@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>PSSR — Parcours Socio-Sportif Renforcé</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<meta name="description" content="PSSR — Remettre le mouvement au cœur du quotidien. Découvrir, participer, télécharger les flyers et nous contacter.">
+
+<style>
+:root{
+  --ink:#5b3ea8; --ink-strong:#4b2f88; --muted:#6b6291;
+  --glass:rgba(255,255,255,.92); --line:rgba(138,84,204,.25);
+  --bg1:#f2edff; --bg2:#e8deff; --bg3:#e1d5ff;
+  --l300:#e6d5ff; --l500:#cfa9ff;
+
+  --CE:#8799cb; --RO:#6bbf92; --AC:#b388ff; --AE:#81c784;
+  --s1:#d1c4e9; --s1p:#ede7f6;
+  --s2:#b39ddb; --s2p:#d1c4e9;
+  --s3:#9575cd; --s3p:#b39ddb;
+  --s4:#7e57c2; --s4p:#9575cd;
+  --s5:#b388ff; --s5p:#e1bee7;
+  --s6:#81c784; --s6p:#e8f5e9;
+
+  --ff:'Inter','Manrope',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --fs-100: clamp(.875rem, .84rem + .2vw, .95rem);
+  --fs-200: clamp(1rem, .96rem + .3vw, 1.05rem);
+  --fs-300: clamp(1.125rem, 1.02rem + .6vw, 1.25rem);
+  --fs-400: clamp(1.375rem, 1.1rem + 1.2vw, 1.75rem);
+  --fs-500: clamp(1.75rem, 1.4rem + 2vw, 2.25rem);
+  --fs-600: clamp(2.4rem, 1.8rem + 3.8vw, 3.6rem);
+  --space-2:10px; --space-3:14px;
+  --wrap:max(320px,min(1280px,94vw));
+  --card-shadow: 0 8px 30px rgba(91,62,168,.10);
+  --ring-shadow: 0 30px 80px rgba(91,62,168,.18);
+  --cta-grad: linear-gradient(90deg,#b9c7ff,#cfa9ff 55%,#e393ff);
+  --cta-grad-strong: linear-gradient(90deg,#a6b5ff,#c89bff 55%,#dd80ff);
+  --shadow-soft: 0 12px 30px rgba(91,62,168,.16);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+
+body{
+  margin:0; color:var(--ink); font:400 var(--fs-200)/1.55 var(--ff); letter-spacing:-0.2px;
+  background:
+    radial-gradient(1100px 560px at 10% -10%, #b9c7ff55 0%, transparent 60%),
+    radial-gradient(1000px 520px at 90% -10%, #e393ff55 0%, transparent 60%),
+    linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration:none}
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline:3px solid #6c2ba8; outline-offset:2px; border-radius:8px;
+}
+
+h1,h2,h3,h4,h5,h6{font-family:var(--ff); margin:0 0 var(--space-2); color:var(--ink-strong); letter-spacing:-.3px}
+h1{font-weight:900; font-size:var(--fs-600); line-height:1.05}
+h2{font-weight:800; font-size:var(--fs-500); line-height:1.12}
+h3{font-weight:800; font-size:var(--fs-400); line-height:1.15}
+
+.btn, .btn-appel, .btn-appel-ghost, button[type="submit"]{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  min-height:44px; padding:12px 18px; border-radius:999px; font-weight:800; cursor:pointer;
+  transition:transform .15s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+  text-align:center; text-wrap:balance; white-space:normal;
+}
+.btn, button[type="submit"]{ background:#5b3ea8; color:#fff; border:none; box-shadow:0 6px 18px rgba(91,62,168,.2) }
+.btn:hover, button[type="submit"]:hover{ transform:translateY(-2px); background:#4b2f88 }
+.btn:active, button[type="submit"]:active{ transform:translateY(-1px) }
+
+#nav-wrap .trigger{position:fixed;left:0;right:0;top:0;height:18px;z-index:1101}
+#nav{position:fixed;left:0;right:0;top:0;z-index:1100;
+     transform:translateY(-100%);opacity:0;pointer-events:none;
+     transition:transform .28s ease,opacity .28s ease;
+     backdrop-filter:saturate(140%) blur(8px);
+     background:var(--glass);border-bottom:1px solid var(--line)}
+#nav.show{transform:translateY(0);opacity:1;pointer-events:auto}
+#nav .inner{max-width:1280px;margin:auto;padding:12px 20px;display:flex;gap:18px;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;white-space:nowrap}
+.brand img{width:44px;height:44px;border-radius:8px}
+.menu{display:flex;align-items:center;gap:8px}
+.menu a{font-weight:800;letter-spacing:.2px;padding:10px 8px;position:relative}
+.menu a::after{content:"";position:absolute;left:0;bottom:6px;height:2px;width:0;background:linear-gradient(90deg,#cfa9ff,#b9c7ff);transition:width .25s}
+.menu a:hover::after,.menu a[aria-current="page"]::after{width:100%}
+.cta{margin-left:6px;color:#fff;background:var(--cta-grad);box-shadow:0 10px 24px rgba(122,89,191,.14)}
+.burger{display:none;align-items:center;justify-content:center;width:44px;height:44px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink-strong);font-size:1.25rem;font-weight:800;cursor:pointer}
+
+.hero{min-height:100svh;display:grid;place-items:center;padding:120px 20px 96px;text-align:center}
+.hero .wrap{max-width:var(--wrap);margin:auto}
+.hero h1{
+  font-size: clamp(6.4rem, 4rem + 12vw, 10.4rem);
+  line-height:1.02;
+  background:none; -webkit-text-fill-color:initial;
+  color:#7a2ecc;
+  text-shadow:none;
+}
+.hero .btn{
+  margin-top:var(--space-3);
+  font-size:clamp(1.05rem, .9rem + .9vw, 1.25rem);
+  background:var(--cta-grad); box-shadow:0 12px 28px rgba(122,89,191,.18)
+}
+
+section{scroll-margin-top:64px}
+.section-wrap{max-width:var(--wrap);margin:0 auto;padding:72px 20px}
+h2.sec-title{
+  margin:0 0 12px;text-align:center;
+  background:linear-gradient(90deg,#6c2ba8,#cfa9ff 55%,#5b3ea8);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+p.sec-sub{margin:0 0 22px;text-align:center;color:var(--muted); font-size:var(--fs-200)}
+
+.card,.form,.pssr-panel,.pssr-box,.pssr-card{
+  background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.05);border:1px solid rgba(200,200,255,.3)
+}
+.ico{inline-size:36px;block-size:36px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;background:linear-gradient(135deg,#b9c7ff,#e393ff)}
+.ttl{margin:0;font-weight:800;color:var(--ink); font-size:var(--fs-200)}
+.txt{margin:2px 0 0;color:var(--muted); font-size:var(--fs-100)}
+input,button,textarea{font-family:var(--ff); font-size:var(--fs-200); border-radius:10px;border:1px solid #ddd}
+input,textarea{padding:10px 12px}
+input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2px rgba(187,167,245,.3)}
+.row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.field.card{grid-template-columns:auto 1fr;align-items:center;padding:12px 14px;display:grid}
+.field.card .ttl{margin:0 0 6px}
+.field.card .field-body{width:100%}
+.field.card input,.field.card textarea{width:100%;border:1px solid rgba(138,84,204,.25);background:#fff}
+.field.card:focus-within{border-color:rgba(187,167,245,.8);box-shadow:0 0 0 3px rgba(187,167,245,.25)}
+.row > .field{flex:1 1 280px;min-width:260px;max-width:100%}
+.row > .action{flex:1 1 100%;padding:10px;display:flex;justify-content:center}
+.row > .action .btn{width:100%;max-width:340px}
+
+/* Parcours PSSR */
+#pssr-cycle-iso{ --fs:16px; font:600 var(--fs)/1.6 var(--ff); color:var(--ink) }
+#pssr-cycle-iso .pssr-title{ text-align:center; margin:0 0 16px; font-weight:800; letter-spacing:.2px;background:linear-gradient(90deg,#6c2ba8,#cfa9ff 55%,#5b3ea8);-webkit-background-clip:text;background-clip:text;color:transparent }
+#pssr-cycle-iso .pssr-toolbar{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:0 0 22px }
+.pssr-pill{ border:1px solid rgba(138,84,204,.22); border-radius:999px; padding:12px 18px; min-height:44px;background:#fff; color:var(--ink); font-weight:800; cursor:pointer; transition:transform .1s, box-shadow .25s, background-color .25s; touch-action:manipulation }
+.pssr-pill:hover{ transform:translateY(-1px); box-shadow:var(--card-shadow) }
+.pssr-pill[data-phase="CE"]{ background:linear-gradient(135deg, var(--s3p), #ffeaea) }
+.pssr-pill[data-phase="RO"]{ background:linear-gradient(135deg, var(--s2p), #e8f0ff) }
+.pssr-pill[data-phase="AC"]{ background:linear-gradient(135deg, var(--s5p), #fff4cf) }
+.pssr-pill[data-phase="AE"]{ background:linear-gradient(135deg, var(--s4p), #eafff7) }
+.pssr-pill[aria-pressed="true"][data-phase="CE"]{ background:var(--CE); color:#fff }
+.pssr-pill[aria-pressed="true"][data-phase="RO"]{ background:var(--RO); color:#fff }
+.pssr-pill[aria-pressed="true"][data-phase="AC"]{ background:var(--AC); color:#fff }
+.pssr-pill[aria-pressed="true"][data-phase="AE"]{ background:var(--AE); color:#fff }
+
+.pssr-ring{
+  position:relative; margin:18px auto 28px;
+  width:clamp(240px, 52vw, 500px);
+  height:clamp(240px, 52vw, 500px);
+  border-radius:50%;
+  background:radial-gradient(circle at 50% 50%, #fff 0 56%, #f2eaff 56.5% 60%, transparent 60.5%);
+  border:1px solid var(--line);
+  box-shadow:var(--ring-shadow)
+}
+.pssr-center{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:clamp(110px, 16vw, 150px);
+  height:clamp(110px, 16vw, 150px);
+  border-radius:50%; display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; color:#5a3ea8; background:#fff; border:2px dashed var(--l500); font-weight:800
+}
+.pssr-node{
+  position:absolute;
+  width:clamp(44px, 7vw, 58px);
+  height:clamp(44px, 7vw, 58px);
+  border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:800; border:none; cursor:pointer;
+  box-shadow:0 10px 28px rgba(0,0,0,.18), inset 0 0 0 2px rgba(255,255,255,.4);
+  transform:translate(-50%,-50%) scale(1);
+  transition:transform .18s, filter .18s, outline-color .18s;
+}
+.pssr-node:hover{ transform:translate(-50%, -50%) scale(1.06) }
+.pssr-node.active{ outline:4px solid var(--accent, rgba(138,84,204,.45)) }
+.pssr-node.dim{ filter:saturate(.35) brightness(.9); opacity:.35 }
+
+.step-1{ background:linear-gradient(135deg,var(--s1p),var(--s1)) }
+.step-2{ background:linear-gradient(135deg,var(--s2p),var(--s2)) }
+.step-3{ background:linear-gradient(135deg,var(--s3p),var(--s3)) }
+.step-4{ background:linear-gradient(135deg,var(--s4p),var(--s4)) }
+.step-5{ background:linear-gradient(135deg,var(--s5p),var(--s5)) }
+.step-6{ background:linear-gradient(135deg,var(--s6p),var(--s6)) }
+
+.pssr-legend{ display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin-top:6px }
+.pssr-card{ position:relative; cursor:pointer; padding:14px 16px; border:1px solid rgba(138,84,204,.22); border-radius:16px; background:#fff; box-shadow:var(--card-shadow); touch-action:manipulation }
+.pssr-card::before{ content:""; position:absolute; inset:0 auto 0 0; width:4px; border-radius:4px 0 0 4px; background:var(--accent,#cfa9ff); opacity:.6 }
+.pssr-card:hover{ background:#f1e5fb }
+.pssr-card.active{ outline:3px solid var(--accent,#cfa9ff) }
+.pssr-card.active::before{ opacity:1; width:6px }
+.pssr-card h4{ margin:0 0 4px; color:#6c2ba8; font-weight:800; font-size:1.05rem }
+.pssr-card p{ margin:0; color:#6c2ba8; font-size:.95rem }
+
+.pssr-panels{ display:grid; gap:18px; margin-top:18px }
+.pssr-panel{ display:none; position:relative; background:#f8f2ff; border:1px solid rgba(138,84,204,.22); border-radius:16px; padding:16px 18px; color:var(--muted) }
+.pssr-panel.active{ display:block; animation:fadeUp .25s ease }
+.pssr-panel::after{ content:""; position:absolute; left:0; right:0; top:0; height:4px; border-radius:16px 16px 0 0; background:var(--accent,#cfa9ff) }
+.pssr-panel h3{ margin:0 0 8px; color:#6c2ba8; font-weight:800 }
+.pssr-meta{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px }
+.pssr-tag{ background:linear-gradient(135deg,var(--l300),var(--l500)); color:#4b2f88; border-radius:999px; padding:4px 8px; font-weight:800 }
+.pssr-cols{ display:grid; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr)) }
+@media (max-width:980px){ .pssr-cols{ grid-template-columns:1fr } }
+.pssr-box{ background:#fff; border:1px solid rgba(138,84,204,.18); border-radius:12px; padding:12px }
+.pssr-box h5{ margin:0 0 6px; color:#6c2ba8; font-weight:800 }
+#pssr-cycle-iso.pssr-solo .pssr-legend .pssr-card{ opacity:.55 }
+#pssr-cycle-iso.pssr-solo .pssr-legend .pssr-card.active{ opacity:1 }
+#pssr-cycle-iso.pssr-solo .pssr-panel{ display:none }
+#pssr-cycle-iso.pssr-solo .pssr-panel.active{ display:block }
+#pssr-cycle-iso.pssr-solo .pssr-node{ visibility:hidden }
+#pssr-cycle-iso.pssr-solo .pssr-node.active{ visibility:visible }
+#pssr-cycle-iso.pssr-solo .pssr-center{ visibility:hidden }
+.pssr-actions{ display:none; justify-content:center; margin-top:16px }
+.pssr-ghost{ background:#fff; border:1px solid rgba(138,84,204,.35); color:#6c2ba8; border-radius:999px; padding:10px 16px; min-height:40px; font-weight:800 }
+
+/* Sections */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+.info-card{display:block;padding:22px}
+.info-card ul{margin:10px 0 0 20px;padding:0;color:var(--muted)}
+.info-card li{margin-bottom:8px}
+
+.schedule-card{display:block;padding:20px}
+.schedule-card h3{margin-bottom:18px}
+.schedule-item{padding:0 0 18px;margin:0 0 18px;border-bottom:1px solid rgba(138,84,204,.18)}
+.schedule-item:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
+.price-card{text-align:center;margin-bottom:18px}
+.price-card h3{margin-bottom:4px}
+.price-card .price{margin:0;font-weight:900;font-size:1.5rem;color:var(--ink-strong)}
+
+.download-card{display:block;padding:24px;text-align:center}
+.download-card img{
+  max-width:300px;
+  width:100%;
+  margin:18px auto;
+  border-radius:16px;
+  border:1px solid rgba(138,84,204,.22);
+  box-shadow:0 12px 32px rgba(91,62,168,.12);
+}
+.download-card .btn{margin:6px}
+
+.site-footer{background:linear-gradient(180deg,#ffffffcc,#f6efff);border-top:1px solid rgba(138,84,204,.25);color:var(--ink);margin-top:32px}
+.foot-legal{border-top:1px solid rgba(138,84,204,.25);padding:14px 20px;text-align:center;color:var(--muted); font-size:var(--fs-100)}
+.contact-chip{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  background:linear-gradient(135deg,var(--l300),var(--l500));color:#4b2f88;font-weight:800;border:1px solid rgba(138,84,204,.25)
+}
+.appel-banner{position:relative;border:1px solid rgba(138,84,204,.25);border-radius:16px;padding:16px 18px;background:var(--glass);box-shadow:0 6px 18px rgba(0,0,0,.04);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.appel-banner .label{display:flex;align-items:center;gap:10px;font-weight:800}
+.appel-banner .label .dot{inline-size:10px;block-size:10px;border-radius:999px;background:conic-gradient(from 0deg,#b9c7ff,#e393ff,#b9c7ff);box-shadow:0 0 0 4px rgba(207,169,255,.25)}
+.btn-appel{color:#fff;background:var(--cta-grad);box-shadow:var(--shadow-soft);border:0}
+.btn-appel:hover{transform:translateY(-2px);background:var(--cta-grad-strong)}
+.btn-appel-ghost{color:#6c2ba8;background:#fff;border:1px solid rgba(138,84,204,.25)}
+.btn-appel-ghost:hover{transform:translateY(-2px);border-color:#bba7f5;box-shadow:0 8px 24px rgba(91,62,168,.12)}
+.callout{border:1px dashed var(--l500);background:radial-gradient(500px 220px at 10% -10%, #b9c7ff22 0%, transparent 60%),radial-gradient(500px 220px at 90% 110%, #e393ff22 0%, transparent 60%),#fff;color:var(--ink);border-radius:16px;padding:16px 18px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+#cta-float{position:fixed;right:16px;bottom:16px;z-index:1200;display:none}
+#cta-float .btn-appel{padding:14px 22px;font-size:1.02rem;box-shadow:0 18px 44px rgba(91,62,168,.28)}
+
+@media (max-width:980px) {
+  .section-wrap { padding:48px 4vw }
+  .hero { padding:96px 4vw 72px }
+  .burger{display:inline-flex}
+  .menu{flex-direction:column;gap:0;position:fixed;top:0;right:0;left:0;background:var(--glass);z-index:1102;padding:60px 0 0 0;display:none}
+  #nav .menu.open{display:flex}
+  #nav.show .menu{display:none}
+  #nav.show .menu.open{display:flex}
+  #nav .inner { flex-direction:row; gap:10px }
+  .menu a { padding:16px 0; font-size:var(--fs-300); border-bottom:1px solid #ececec; width:100%; text-align:center }
+  .cta { margin-left:0; margin-top:8px }
+}
+@media (max-width:700px) {
+  .section-wrap { padding:32px 3vw }
+  #contact .section-wrap { padding:24px 3vw 32px; max-width:98vw }
+  h2.sec-title { font-size:clamp(1.35rem, 1.2rem + 1.4vw, 1.75rem) }
+  .hero h1{ font-size: clamp(4.4rem, 2.8rem + 14vw, 6.4rem); color:#7a2ecc; }
+  .hero .btn{ font-size:clamp(1rem, .9rem + 1.2vw, 1.1rem) }
+  .pssr-ring{ width:min(82vw, 320px); height:min(82vw, 320px) }
+  .pssr-center{ width:min(36vw, 120px); height:min(36vw, 120px) }
+  .pssr-node{ width:min(12vw, 48px); height:min(12vw, 48px) }
+}
+
+@keyframes fadeUp{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none} }
+.hero h1 .char{ display:inline-block; opacity:0; transform:translateY(.45em); animation:hero-rise .6s ease-out forwards }
+@keyframes hero-rise{ to{ opacity:1; transform:translateY(0) } }
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease }
+.reveal.in{ opacity:1; transform:none }
+@media (prefers-reduced-motion:reduce){
+  .hero h1 .char{ opacity:1; transform:none; animation:none!important }
+  .reveal{ opacity:1; transform:none; transition:none!important }
+}
+</style>
+</head>
+
+<body id="accueil">
+  <!-- ===== Nav ===== -->
+  <div id="nav-wrap" aria-hidden="false">
+    <div class="trigger" aria-hidden="true"></div>
+    <nav id="nav" aria-label="Navigation principale">
+      <div class="inner">
+        <a class="brand" href="#accueil" aria-label="Accueil — PSSR">
+          <span style="display:inline-block;width:44px;height:44px;border-radius:8px;overflow:hidden;">
+            <img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo Équilibre Vital" />
+          </span>
+          <span style="font-size:1.25rem;font-weight:800;">PSSR</span>
+        </a>
+
+        <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+
+        <div id="menu" class="menu" role="menubar">
+          <a role="menuitem" href="#inscriptions" class="cta">Nos horaires</a>
+          <a role="menuitem" href="#parcours">PSSR</a>
+          <a role="menuitem" href="#ateliers">Les ateliers</a>
+          <a role="menuitem" href="#atl">Projets Scolaires ATL</a>
+          <a role="menuitem" href="#documents">Téléchargements</a>
+          <a role="menuitem" href="./admin/index.html" target="_blank" rel="noopener">Tableau de bord</a>
+          <a role="menuitem" href="#contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero" role="banner">
+    <div class="wrap">
+      <h1 aria-live="polite">PSSR</h1>
+      <a class="btn" href="#inscriptions">Parcours Socio-Sportif Renforcé — Découvrez nos horaires !</a>
+    </div>
+  </header>
+
+  <!-- ===== Bandeau d’appel ===== -->
+  <div class="section-wrap appel-banner" role="region" aria-label="Appel à l'action principal">
+    <div class="label"><span class="dot" aria-hidden="true"></span>Prêt·e à rejoindre le PSSR ?</div>
+    <div>
+      <a class="btn-appel" href="#inscriptions">Voir nos horaires</a>
+      <a class="btn-appel-ghost" href="#contact" style="margin-left:8px">Poser une question</a>
+    </div>
+  </div>
+
+  <!-- ===== Nos horaires ===== -->
+  <section id="inscriptions" aria-labelledby="ins-title">
+    <div class="section-wrap">
+      <h2 id="ins-title" class="sec-title">Nos horaires</h2>
+      <p class="sec-sub">Septembre - Juin</p>
+
+      <div class="callout price-card">
+        <h3>Tarif Solidaire</h3>
+        <p class="price">165€/année académique</p>
+      </div>
+
+      <div class="grid">
+        <div class="card schedule-card">
+          <h3>Mardi</h3>
+
+          <div class="schedule-item">
+            <p class="ttl">Cardio Fit Ados</p>
+            <p class="txt">18h00 - 19h00</p>
+            <p class="txt">13-17 ans</p>
+            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+          </div>
+
+          <div class="schedule-item">
+            <p class="ttl">Initiation Boxe/Kick-Boxing</p>
+            <p class="txt">19h00 - 20h00</p>
+            <p class="txt">13+ ans</p>
+            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+          </div>
+        </div>
+
+        <div class="card schedule-card">
+          <h3>Vendredi</h3>
+
+          <div class="schedule-item">
+            <p class="ttl">Kids Move</p>
+            <p class="txt">16h00 - 17h00</p>
+            <p class="txt">6-12 ans</p>
+            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+          </div>
+
+          <div class="schedule-item">
+            <p class="ttl">Training Jeunes</p>
+            <p class="txt">17h00 - 18h00</p>
+            <p class="txt">13-17 ans</p>
+            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+          </div>
+
+          <div class="schedule-item">
+            <p class="ttl">Fitness Loisirs Mixte</p>
+            <p class="txt">19h00 - 20h00</p>
+            <p class="txt">18+ ans</p>
+            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+          </div>
+
+          <div class="schedule-item">
+            <p class="ttl">Boxing Loisir</p>
+            <p class="txt">20h00 - 21h00</p>
+            <p class="txt">18+ ans</p>
+            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+          </div>
+        </div>
+
+        <div class="card schedule-card">
+          <h3>Samedi</h3>
+
+          <div class="schedule-item">
+            <p class="ttl">Mobility & Recovery (40+)</p>
+            <p class="txt">08h00 - 10h00</p>
+            <p class="txt">40+ ans</p>
+            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PSSR ===== -->
+  <section id="parcours" aria-labelledby="pssr-title">
+    <div class="section-wrap" id="pssr-cycle-iso">
+      <h2 id="pssr-title" class="pssr-title">PSSR — Parcours Socio-Sportif Renforcé</h2>
+      <p class="sec-sub">Un accompagnement progressif pour remettre le mouvement au cœur du quotidien.</p>
+
+      <div class="pssr-toolbar" role="toolbar" aria-label="Filtrer par phase (Kolb)">
+        <button class="pssr-pill" data-phase="CE" aria-pressed="false">🧪 CE — Expérience concrète</button>
+        <button class="pssr-pill" data-phase="RO" aria-pressed="false">🔎 RO — Observation réflexive</button>
+        <button class="pssr-pill" data-phase="AC" aria-pressed="false">🧠 AC — Conceptualisation abstraite</button>
+        <button class="pssr-pill" data-phase="AE" aria-pressed="false">🚀 AE — Expérimentation active</button>
+        <button class="pssr-pill" data-phase="reset" aria-pressed="false">Réinitialiser</button>
+      </div>
+
+      <div class="pssr-ring" id="ring" aria-label="Parcours circulaire"></div>
+      <div class="pssr-legend" id="legend" aria-label="Étapes du parcours"></div>
+      <div class="pssr-panels" id="panels"></div>
+
+      <div class="pssr-actions" id="actions">
+        <button class="pssr-ghost" id="showAllBtn" type="button">Tout afficher</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Les ateliers ===== -->
+  <section id="ateliers" aria-labelledby="ateliers-title">
+    <div class="section-wrap">
+      <h2 id="ateliers-title" class="sec-title">Les ateliers</h2>
+      <p class="sec-sub">Des moments pratiques pour bouger, apprendre et progresser à son rythme.</p>
+
+      <div class="grid">
+        <div class="card info-card">
+          <div class="ico" style="margin-bottom:12px">💪</div>
+          <h3>Ateliers sportifs</h3>
+          <p class="txt">Séances encadrées et adaptées aux profils des participant·es.</p>
+          <ul>
+            <li>Remise en forme progressive</li>
+            <li>Cardio, mobilité, renforcement</li>
+            <li>Initiation boxe / kick-boxing</li>
+            <li>Activités jeunes et adultes</li>
+          </ul>
+        </div>
+
+        <div class="card info-card">
+          <div class="ico" style="margin-bottom:12px">🤝</div>
+          <h3>Ateliers socio-sportifs</h3>
+          <p class="txt">Un cadre bienveillant pour travailler la confiance, le lien social et l’engagement.</p>
+          <ul>
+            <li>Accueil et orientation</li>
+            <li>Suivi individuel ou collectif</li>
+            <li>Objectifs adaptés à chacun·e</li>
+            <li>Collaboration avec les référent·es sociaux</li>
+          </ul>
+        </div>
+
+        <div class="card info-card">
+          <div class="ico" style="margin-bottom:12px">🌱</div>
+          <h3>Bien-être & prévention</h3>
+          <p class="txt">Des ateliers pour soutenir la santé, la motivation et la régularité.</p>
+          <ul>
+            <li>Prévention santé</li>
+            <li>Récupération et mobilité</li>
+            <li>Gestion du rythme personnel</li>
+            <li>Valorisation des progrès</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Projets Scolaires ATL ===== -->
+  <section id="atl" aria-labelledby="atl-title">
+    <div class="section-wrap">
+      <h2 id="atl-title" class="sec-title">Projets Scolaires ATL</h2>
+      <p class="sec-sub">Des animations sportives et éducatives pour les écoles, l’accueil temps libre et les partenaires jeunesse.</p>
+
+      <div class="grid">
+        <div class="card info-card">
+          <div class="ico" style="margin-bottom:12px">🏫</div>
+          <h3>Pour les écoles</h3>
+          <p class="txt">Activités adaptées aux groupes scolaires, avec une approche inclusive et progressive.</p>
+          <ul>
+            <li>Animations sportives en milieu scolaire</li>
+            <li>Découverte de disciplines</li>
+            <li>Sensibilisation au mouvement</li>
+            <li>Activités adaptées selon l’âge</li>
+          </ul>
+        </div>
+
+        <div class="card info-card">
+          <div class="ico" style="margin-bottom:12px">🎯</div>
+          <h3>Objectifs pédagogiques</h3>
+          <p class="txt">Développer la confiance, la coopération et le plaisir de bouger.</p>
+          <ul>
+            <li>Coopération et respect</li>
+            <li>Motricité et coordination</li>
+            <li>Gestion de l’effort</li>
+            <li>Bien-être collectif</li>
+          </ul>
+        </div>
+
+        <div class="card info-card">
+          <div class="ico" style="margin-bottom:12px">📅</div>
+          <h3>Organisation</h3>
+          <p class="txt">Les projets peuvent être construits avec les équipes éducatives et les structures ATL.</p>
+          <ul>
+            <li>Interventions ponctuelles ou cycles</li>
+            <li>Groupes enfants / ados</li>
+            <li>Adaptation au lieu disponible</li>
+            <li>Contact via le formulaire ci-dessous</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Téléchargements ===== -->
+  <section id="documents" aria-labelledby="docs-title">
+    <div class="section-wrap">
+      <h2 id="docs-title" class="sec-title">Téléchargements</h2>
+      <p class="sec-sub">Flyers et documents à télécharger</p>
+
+      <div class="grid">
+        <div class="card download-card">
+          <h3>📄 Flyer PSSR</h3>
+          <p class="txt">Présentation du Parcours Socio-Sportif Renforcé.</p>
+
+          <img
+            src="./wp-content/uploads/2026/06/file_000000000c647246a3559d84ca3a432d.png"
+            alt="Flyer PSSR"
+          >
+
+          <a
+            class="btn"
+            href="./wp-content/uploads/2026/06/IMG-20260524-WA0017.jpg"
+            target="_blank"
+            rel="noopener"
+            download
+          >Télécharger le flyer PSSR</a>
+        </div>
+
+        <div class="card download-card">
+          <h3>🏃 Animations sportives</h3>
+          <p class="txt">Document d’information sur les animations sportives.</p>
+
+          <img
+            src="./wp-content/uploads/2026/06/IMG-20260524-WA0016.jpg"
+            alt="Animations sportives"
+          >
+
+          <a
+            class="btn"
+            href="./wp-content/uploads/2026/06/IMG-20260524-WA0016.jpg"
+            target="_blank"
+            rel="noopener"
+            download
+          >Télécharger les animations sportives</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact" aria-labelledby="ct-title">
+    <div class="section-wrap" style="max-width:1280px;margin:0 auto;padding:48px 20px 56px;background:#fff;border-radius:24px;box-shadow:0 8px 32px #e1bee7;">
+
+      <h2 id="ct-title" class="sec-title">Contact</h2>
+      <p class="sec-sub">Une question, une inscription ou un projet ? Contactez-nous.</p>
+
+      <form class="form" id="contact-form" method="post" action="#" data-firebase-collection="messages" autocomplete="on" style="margin-top:18px;max-width:100%;" novalidate>
+        <input type="hidden" name="type" value="contact" />
+        <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" aria-hidden="true">
+
+        <h3>Formulaire de contact</h3>
+        <div class="row">
+          <div class="card field">
+            <div class="ico">👤</div>
+            <div class="field-body">
+              <p class="ttl">Prénom & Nom</p>
+              <input id="c-nom" type="text" name="nom" placeholder="Ex. Sofya Vander" required />
+            </div>
+          </div>
+
+          <div class="card field">
+            <div class="ico">✉️</div>
+            <div class="field-body">
+              <p class="ttl">Email</p>
+              <input id="c-mail" type="email" name="email" placeholder="exemple@domaine.be" required />
+            </div>
+          </div>
+
+          <div class="card field">
+            <div class="ico">📞</div>
+            <div class="field-body">
+              <p class="ttl">Tél</p>
+              <input id="c-tel" type="tel" inputmode="tel" name="tel" placeholder="0492 691 070" maxlength="20" />
+            </div>
+          </div>
+
+          <div class="card field" style="grid-template-columns:auto 1fr;">
+            <div class="ico">📝</div>
+            <div class="field-body">
+              <p class="ttl">Message</p>
+              <textarea id="c-msg" name="message" placeholder="Écris ton message ici…" rows="3" required></textarea>
+            </div>
+          </div>
+
+          <div class="card action">
+            <button type="submit" class="btn" aria-label="Envoyer">Envoyer</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="ok" id="contact-msg" role="status" aria-live="polite" style="display:none;">Merci ! Message bien envoyé.</div>
+
+      <div class="card" style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:center;text-align:center;box-shadow:none;background:#f8f2ff;border-radius:16px;margin-top:18px;">
+        <div style="flex:1 1 220px;min-width:180px;display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">✉️</span>
+          <a href="mailto:contact@pssr.be" style="font-weight:700;color:#5b3ea8;">contact@pssr.be</a>
+        </div>
+        <div style="flex:1 1 180px;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">📞</span>
+          <a href="tel:+32492691070" style="font-weight:700;color:#5b3ea8;">0492/691.070</a>
+        </div>
+        <div style="flex:1 1 180px;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">🌐</span>
+          <a href="https://www.equilibrevital.net" target="_blank" rel="noopener" style="font-weight:700;color:#5b3ea8;">www.equilibrevital.net</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="foot-legal" style="padding:18px 20px;text-align:center">
+      <p class="org" style="margin:0 0 6px;color:var(--ink)">Équilibre Vital asbl — Bruxelles-Capitale</p>
+      <p class="fine" style="margin:0 0 6px;color:var(--muted)">IBAN : BE17 5230 8164 9221 • BIC : TRIOBEBB • BCE : 1019487618</p>
+      <p class="txt" style="margin:0;color:#777">EV© 2025 — Mentions légales • RGPD • Cookies</p>
+    </div>
+  </footer>
+
+  <div id="cta-float">
+    <a href="#inscriptions" class="btn-appel">🚀 Voir nos horaires</a>
+  </div>
+
+<script>
+/* NAV : show/hide + lien actif + burger */
+(function(){
+  const nav=document.querySelector('#nav');
+  const trigger=document.querySelector('#nav-wrap .trigger');
+  const menu=document.getElementById('menu');
+  const burger=document.querySelector('.burger');
+  const links=[...document.querySelectorAll('#nav .menu a, #nav .brand')].filter(a=>a.hash);
+  let hideTimer;
+
+  function show(){ clearTimeout(hideTimer); nav.classList.add('show'); }
+  function hide(){ hideTimer=setTimeout(()=>{ if (scrollY>10 && !nav.matches(':hover')) nav.classList.remove('show'); },180); }
+  function sync(){ if(scrollY<=10) nav.classList.add('show'); else if(!nav.matches(':hover')) nav.classList.remove('show'); }
+  addEventListener('load',sync); addEventListener('scroll',sync);
+  trigger.addEventListener('mouseenter',show); nav.addEventListener('mouseenter',show); nav.addEventListener('mouseleave',hide);
+  addEventListener('mousemove',e=>{ if(e.clientY<32) show(); });
+
+  function isMobile(){ return matchMedia('(max-width:980px)').matches; }
+  function closeMenu(){ if(!menu) return; menu.classList.remove('open'); if (burger) burger.setAttribute('aria-expanded','false'); }
+  function toggleMenu(){ if(!menu) return; const willOpen=!menu.classList.contains('open'); menu.classList.toggle('open', willOpen); if(burger) burger.setAttribute('aria-expanded',String(willOpen)); }
+  if (burger){
+    burger.addEventListener('click', e => { e.preventDefault(); if (!isMobile()) return; toggleMenu(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && isMobile()) closeMenu(); });
+  }
+  if (menu){
+    menu.addEventListener('click', e => { const a=e.target.closest('a[href^="#"]'); if (a && isMobile()) closeMenu(); });
+  }
+  addEventListener('resize', () => { if (!isMobile()) closeMenu(); }, {passive:true});
+
+  const sections=links.map(a=>document.querySelector(a.hash)).filter(Boolean);
+  const io=new IntersectionObserver((entries)=>{
+    const vis=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!vis) return;
+    links.forEach(a=>a.removeAttribute('aria-current'));
+    const current=links.find(a=>a.hash===('#'+vis.target.id));
+    if(current) current.setAttribute('aria-current','page');
+  },{rootMargin:'-50% 0px -49% 0px',threshold:[0,0.25,0.5,0.75,1]});
+  sections.forEach(s=>s && io.observe(s));
+})();
+</script>
+
+<script>
+/* Parcours — données + interactions */
+window.addEventListener('DOMContentLoaded',function(){
+  const root   = document.getElementById('pssr-cycle-iso');
+  const ring   = root.querySelector('#ring');
+  const legend = root.querySelector('#legend');
+  const panels = root.querySelector('#panels');
+  const pills  = root.querySelectorAll('.pssr-pill[data-phase]');
+  const showAll= root.querySelector('#showAllBtn');
+  const actions= root.querySelector('#actions');
+
+  let activeId=null;
+  let filterPhase=null;
+
+  const PHASE_OF_STEP = { ARF:'CE', BSS:'RO', PDS:'AC', APA:'AC', CPE:'AE', SRS:'AE' };
+
+  const cand = {
+    id:"cand", title:"Apprenant — Modèle filtré D. Kolb", subtitle:"Dépôt & entrée dans le parcours",
+    objectif:"Confirmer les besoins, accueillir la personne et planifier l’entrée dans le parcours.",
+    contenu:["Présenter le dispositif et recueillir le consentement.","Identifier les besoins, les envies et les freins.","Planifier le démarrage du parcours."],
+    acteurs:["Référent social","Référent EV"]
+  };
+
+  const steps = [
+    { idx:1, code:"ARF", title:"Ateliers de Remise en Forme", subtitle:"Sensibiliser, informer, mise en mouvement.", phases:["AC","RO"],
+      objectif:"Allumer l’étincelle : comprendre les enjeux et bouger en douceur.",
+      contenu:["Présentation du programme et de ses bénéfices.","Éveil à l’activité physique.","Notions clés santé/mouvement.","Exercices de mise en action.","Échanges pour cerner besoins & attentes."],
+      acteurs:["Coordinateur EV","Formateur","Coach, Clubs","Intervenant pédagogique externe"] },
+    { idx:2, code:"BSS", title:"Bilan Socio-Sportif", subtitle:"Comprendre les besoins pour adapter l’accompagnement.", phases:["RO","AC"],
+      objectif:"Dresser un état des lieux personnalisé pour mieux orienter la suite.",
+      contenu:["Évaluation état de santé & niveau d’activité.","Freins et motivations.","Tests physiques adaptés.","Plan individuel de reprise."],
+      acteurs:["Référent EV","Coach socio-sportif","Référent psycho-social","Médecin du sport"] },
+    { idx:3, code:"PDS", title:"Parcours Découverte Sportive", subtitle:"Tester des disciplines avec les partenaires.", phases:["CE","RO"],
+      objectif:"Explorer, essayer, ressentir : trouver l’activité qui te convient.",
+      contenu:["Mise en relation avec des structures locales.","Séances d’essai dans divers clubs partenaires.","Découverte de disciplines variées.","Coordination & retours d’expérience."],
+      acteurs:["Coordinateur EV","Clubs partenaires","Coach socio-sportif"] },
+    { idx:4, code:"APA", title:"Activité Physique Adaptée", subtitle:"Pratique régulière et progressive.", phases:["AE","CE"],
+      objectif:"Installer une routine sécurisée et motivante.",
+      contenu:["Choix de l’activité selon profils & envies.","Adaptation des séances.","Suivi régulier et encouragements.","Valorisation des progrès."],
+      acteurs:["Travailleurs sociaux","Professionnels de la santé","Intervenants socio-sportifs"] },
+    { idx:5, code:"CPE", title:"Concertation Partagée d’Engagement", subtitle:"Avancer ensemble.", phases:["RO","AC"],
+      objectif:"Coordonner les services et lever les obstacles.",
+      contenu:["Lien sport/santé/social.","Relais vers les dispositifs utiles.","Partage d’informations & suivi.","Actions conjointes ciblées."],
+      acteurs:["Référent EV","Partenaire emploi","Professionnel du social"] },
+    { idx:6, code:"SRS", title:"Suivi Renforcé Solution", subtitle:"Maintenir une pratique durable.", phases:["AE","RO"],
+      objectif:"Pérenniser l’activité physique choisie, dans la durée.",
+      contenu:["Suivi après intégration dans une pratique régulière.","Soutien à la persévérance.","Ajustements au fil du temps.","Un cadre pour durer","Opportunités créatives et transversales"],
+      acteurs:["Référent EV","Structures sportives","Mentor","Conseiller emploi","Travailleurs sociaux"] }
+  ];
+
+  const STEP_COLORS={1:{v:'var(--s1)'},2:{v:'var(--s2)'},3:{v:'var(--s3)'},4:{v:'var(--s4)'},5:{v:'var(--s5)'},6:{v:'var(--s6)'}};
+
+  function panelTpl(id, title, sub, obj, list, actors, phases, accent, phase){
+    const tags=(phases||[]).map(p=>`<span class="pssr-tag">${p}</span>`).join("");
+    const items=(list||[]).map(li=>`<li>${li}</li>`).join("");
+    const actorsArr = Array.isArray(actors) ? actors : (String(actors||'').split(/\s*,\s*|\n+/).filter(Boolean));
+    const actorsHtml = actorsArr.length ? `<ul class="actors-list" style="list-style:none;margin:0;padding:0">${actorsArr.map(a=>`<li>${a}</li>`).join('')}</ul>` : `<p style="margin:0;">—</p>`;
+    return `
+      <div class="pssr-panel" id="pssr-panel-${id}" data-step="${id}" data-phase="${phase||''}" style="--accent:${accent}" aria-hidden="true">
+        <button class="btn-appel-ghost" type="button" data-back style="position:absolute; right:12px; top:12px; padding:8px 12px; min-height:36px">Contenu</button>
+        <h3>${title}</h3>
+        <div class="pssr-meta">
+          ${sub?`<span class="pssr-tag">${sub}</span>`:""}
+          ${tags}
+        </div>
+        <div class="pssr-cols">
+          <div class="pssr-box"><h5>Objectif</h5><p style="margin:0;color:var(--ink)">${obj||""}</p></div>
+          <div class="pssr-box"><h5>Contenu</h5><ul style="margin:6px 0 0 18px;padding:0">${items}</ul></div>
+          <div class="pssr-box"><h5>Acteurs principaux</h5>${actorsHtml}</div>
+        </div>
+      </div>`;
+  }
+
+  function buildPanels(){
+    panels.replaceChildren();
+    panels.insertAdjacentHTML('beforeend', panelTpl(cand.id, cand.title, cand.subtitle, cand.objectif, cand.contenu, cand.acteurs, [], 'var(--l500)', ''));
+    steps.forEach(s=>{
+      const accent = STEP_COLORS[s.idx].v;
+      const phase  = PHASE_OF_STEP[s.code];
+      panels.insertAdjacentHTML('beforeend', panelTpl(String(s.idx), `${s.idx}. ${s.code} — ${s.title}`, s.subtitle, s.objectif, s.contenu, s.acteurs, s.phases, accent, phase));
+    });
+    panels.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',showAllFn));
+  }
+
+  function buildLegend(){
+    legend.innerHTML="";
+    const c=document.createElement('div');
+    c.className="pssr-card"; c.dataset.step=cand.id; c.style.setProperty('--accent','var(--l500)');
+    c.tabIndex=0; c.role='button'; c.setAttribute('aria-label','Ouvrir : Apprenant'); c.setAttribute('aria-expanded','false');
+    c.innerHTML=`<h4>${cand.title}</h4><p>${cand.subtitle}</p>`;
+    c.addEventListener('click',()=>toggleStep(cand.id));
+    c.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); toggleStep(cand.id); }});
+    legend.appendChild(c);
+
+    steps.forEach(s=>{
+      const d=document.createElement('div');
+      d.className="pssr-card"; d.dataset.step=s.idx; d.dataset.phase = PHASE_OF_STEP[s.code];
+      d.style.setProperty('--accent', STEP_COLORS[s.idx].v);
+      d.tabIndex=0; d.role='button'; d.setAttribute('aria-label',`Ouvrir : ${s.idx}. ${s.code} — ${s.title}`); d.setAttribute('aria-expanded','false');
+      d.innerHTML=`<h4>${s.idx}. ${s.code} — ${s.title}</h4><p>${s.subtitle}</p>`;
+      d.addEventListener('click',()=>toggleStep(String(s.idx)));
+      d.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); toggleStep(String(s.idx)); }});
+      legend.appendChild(d);
+    });
+  }
+
+  function placeNodes(){
+    ring.innerHTML="";
+    const center=document.createElement('button');
+    center.type="button"; center.className="pssr-center"; center.dataset.step=cand.id; center.textContent="Apprenant";
+    center.setAttribute('aria-label','Apprenant'); center.setAttribute('aria-pressed','false');
+    center.addEventListener('click',()=>toggleStep(cand.id));
+    center.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); toggleStep(cand.id); }});
+    ring.appendChild(center);
+
+    const R=ring.clientWidth/2-22, cx=ring.clientWidth/2, cy=ring.clientHeight/2;
+    steps.forEach((s,i)=>{
+      const a=(i/steps.length)*Math.PI*2 - Math.PI/2, x=cx+R*Math.cos(a), y=cy+R*Math.sin(a);
+      const n=document.createElement('button');
+      n.type="button";
+      n.className=`pssr-node step-${s.idx}`;
+      n.style.setProperty('--accent', STEP_COLORS[s.idx].v);
+      n.textContent=s.idx;
+      n.dataset.step=s.idx;
+      n.dataset.phase = PHASE_OF_STEP[s.code];
+      n.style.left=x+"px"; n.style.top=y+"px";
+      n.setAttribute('aria-label',`${s.idx}. ${s.code} — ${s.title}`);
+      n.setAttribute('aria-pressed','false');
+      n.addEventListener('click',()=>toggleStep(String(s.idx)));
+      n.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); toggleStep(String(s.idx)); }});
+      ring.appendChild(n);
+    });
+    updateAriaStates();
+  }
+
+  function clearActive(){
+    ring.querySelectorAll('.pssr-node, .pssr-center').forEach(n=>n.classList.remove('active'));
+    panels.querySelectorAll('.pssr-panel').forEach(p=>p.classList.remove('active'));
+    legend.querySelectorAll('.pssr-card').forEach(c=>c.classList.remove('active'));
+  }
+
+  function updateAriaStates(){
+    panels.querySelectorAll('.pssr-panel').forEach(p=>{
+      const isActive = p.classList.contains('active');
+      p.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+    });
+    ring.querySelectorAll('.pssr-node, .pssr-center').forEach(el=>{
+      const isActive = el.classList.contains('active');
+      el.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+    legend.querySelectorAll('.pssr-card').forEach(card=>{
+      const isActive = card.classList.contains('active');
+      card.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    });
+  }
+
+  function openStep(id){
+    activeId=id; clearActive();
+    root.classList.add('pssr-solo');
+    actions.style.display='flex';
+
+    ring.querySelector(`[data-step="${id}"]`)?.classList.add('active');
+    panels.querySelector(`.pssr-panel[data-step="${id}"]`)?.classList.add('active');
+    legend.querySelector(`.pssr-card[data-step="${id}"]`)?.classList.add('active');
+
+    updateAriaStates();
+
+    setTimeout(() => {
+      panels.querySelector(`.pssr-panel[data-step="${id}"]`)?.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }, 0);
+  }
+
+  function toggleStep(id){
+    if (activeId === id) {
+      showAllFn();
+    } else {
+      openStep(id);
+    }
+  }
+
+  function showAllFn(){
+    activeId=null; clearActive();
+    root.classList.remove('pssr-solo');
+    actions.style.display='none';
+    panels.querySelectorAll('.pssr-panel').forEach(p=>p.classList.remove('active'));
+    filterPhase=null;
+    pills.forEach(x=>x.setAttribute('aria-pressed','false'));
+    dimByPhase();
+    updateAriaStates();
+    ring.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  showAll.addEventListener('click',showAllFn);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && activeId !== null) {
+      showAllFn();
+    }
+  });
+
+  function dimByPhase(){
+    const nodes = ring.querySelectorAll('.pssr-node');
+    const cards = legend.querySelectorAll('.pssr-card');
+    if(!filterPhase){
+      nodes.forEach(n=>n.classList.remove('dim'));
+      cards.forEach(c=>c.style.opacity="1");
+      ring.style.boxShadow = 'var(--ring-shadow)';
+      return;
+    }
+    const halo = getComputedStyle(document.documentElement).getPropertyValue(`--${filterPhase}`).trim() || '#999';
+    ring.style.boxShadow = `0 0 0 12px ${halo}22, var(--ring-shadow)`;
+    nodes.forEach(n=>n.classList.toggle('dim', n.dataset.phase !== filterPhase));
+    cards.forEach(c=>{
+      const ok = (c.dataset.phase === filterPhase) || !c.dataset.phase;
+      c.style.opacity = ok ? "1" : ".45";
+    });
+  }
+
+  pills.forEach(p=>{
+    p.addEventListener('click',()=>{
+      const ph=p.dataset.phase;
+      if(ph==="reset"){
+        filterPhase=null;
+        pills.forEach(x=>x.setAttribute('aria-pressed','false'));
+        dimByPhase();
+        panels.scrollIntoView({behavior:'smooth',block:'nearest'});
+        return;
+      }
+      const isPressed = p.getAttribute('aria-pressed')==='true';
+      pills.forEach(x=>x.setAttribute('aria-pressed','false'));
+      filterPhase = isPressed ? null : ph;
+      if(!isPressed) p.setAttribute('aria-pressed','true');
+      if(root.classList.contains('pssr-solo')){ showAllFn(); }
+      dimByPhase();
+      ring.scrollIntoView({behavior:'smooth',block:'nearest'});
+    });
+  });
+
+  buildPanels(); buildLegend(); placeNodes();
+  dimByPhase();
+
+  const ro = new ResizeObserver(placeNodes);
+  ro.observe(ring);
+  addEventListener('orientationchange', placeNodes, {passive:true});
+  addEventListener('resize', placeNodes, {passive:true});
+});
+</script>
+
+<script>
+/* CTA flottant */
+(function(){
+  const btn = document.getElementById('cta-float');
+  if(!btn) return;
+  const THRESH = 600; let shown = false;
+  const toggle = () => {
+    const shouldShow = scrollY > THRESH;
+    if (shouldShow !== shown){ shown = shouldShow; btn.style.display = shown ? 'block' : 'none'; }
+  };
+  addEventListener('scroll', toggle, {passive:true});
+  addEventListener('load', toggle);
+})();
+</script>
+
+<script>
+/* H1 "PSSR" : apparition lettre par lettre */
+(function(){
+  const h1 = document.querySelector('.hero h1');
+  if(!h1 || h1.dataset.typed === '1') return;
+
+  const prefersReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const text = h1.textContent.trim();
+  h1.textContent = '';
+  h1.setAttribute('aria-label', text);
+  h1.dataset.typed = '1';
+
+  [...text].forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.className = 'char';
+    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    if(!prefersReduce){ span.style.animationDelay = (i * 0.06) + 's'; }
+    h1.appendChild(span);
+  });
+})();
+</script>
+
+<script>
+/* Effet de reveal */
+(function(){
+  const prefersReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduce) return;
+
+  const targets = [
+    ...document.querySelectorAll('section'),
+    ...document.querySelectorAll('.appel-banner'),
+    ...document.querySelectorAll('.card, .pssr-card, .pssr-panel, .form')
+  ];
+  targets.forEach(el => el.classList.add('reveal'));
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -12%', threshold: 0.15 });
+
+  targets.forEach(el => io.observe(el));
+})();
+</script>
+
+
+<script type="module" src="./assets/js/firebase-contact.js"></script>
+<script src="./assets/js/media-fallback.js" defer></script>
+</body>
+</html>

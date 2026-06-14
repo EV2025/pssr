@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function validText(field, max) {
+      return field is string && field.size() > 0 && field.size() <= max;
+    }
+
+    match /admins/{uid} {
+      allow get: if signedIn() && request.auth.uid == uid;
+      allow list, create, update, delete: if isAdmin();
+    }
+
+    match /messages/{id} {
+      allow create: if request.resource.data.keys().hasOnly([
+          'nom', 'email', 'tel', 'message', 'type', 'source', 'userAgent', 'createdAt'
+        ])
+        && validText(request.resource.data.nom, 300)
+        && validText(request.resource.data.email, 300)
+        && validText(request.resource.data.message, 3000)
+        && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /reservations/{id} {
+      allow create: if request.resource.data.keys().hasOnly([
+          'nom', 'email', 'tel', 'creneau', 'message', 'source', 'userAgent', 'createdAt'
+        ])
+        && validText(request.resource.data.nom, 300)
+        && validText(request.resource.data.email, 300)
+        && validText(request.resource.data.creneau, 300)
+        && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /pages/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
