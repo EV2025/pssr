@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tableau de bord PSSR</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site-overrides.css">
+</head>
+<body class="pssr-page admin-page">
+<header class="pssr-header">
+  <a class="brand" href="../index.html"><img src="../wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR Admin</strong></a>
+  <nav><a href="../index.html">Voir le site</a><button id="logout" class="link-button" hidden>Déconnexion</button></nav>
+</header>
+<main class="pssr-main">
+  <section class="panel" id="config-warning" hidden>
+    <h1>Configuration Firebase requise</h1>
+    <p>Ouvrez <code>assets/js/firebase-config.js</code>, collez votre configuration Firebase, puis activez Authentication, Firestore et les domaines autorisés.</p>
+  </section>
+  <section class="panel" id="login-panel">
+    <p class="eyebrow">Accès privé</p>
+    <h1>Connexion au tableau de bord</h1>
+    <form id="login-form" class="form-grid small">
+      <label>Email admin<input type="email" name="email" required></label>
+      <label>Mot de passe<input type="password" name="password" required></label>
+      <button class="btn" type="submit">Connexion</button>
+      <p id="login-msg" class="msg" hidden></p>
+    </form>
+  </section>
+  <section class="panel" id="dashboard-panel" hidden>
+    <p class="eyebrow">Back-office Firebase</p>
+    <h1>Tableau de bord</h1>
+    <div class="tabs"><button class="tab active" data-tab="messages">Messages</button><button class="tab" data-tab="reservations">Réservations</button><button class="tab" data-tab="pages">Contenu pages</button></div>
+    <div class="toolbar"><button id="export-csv" class="btn secondary">Exporter CSV</button><button id="seed-pages" class="btn secondary">Importer le contenu WordPress</button></div>
+    <h2 id="collection-title" class="section-heading">Messages reçus</h2>
+    <div id="records" class="records"></div>
+  </section>
+</main>
+<script type="module" src="../assets/js/admin.js"></script>
+<script src="../assets/js/media-fallback.js" defer></script>
+</body>
+</html>
