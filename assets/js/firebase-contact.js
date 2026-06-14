@@ -138,7 +138,7 @@ async function attachForms(){
         await writeEmailLog(payload, isReservation ? 'reservation-receipt' : 'contact-receipt');
         form.reset();
         if (isReservation) {
-          showMessage(form, `Merci, votre demande de réservation a bien été enregistrée. Votre référence est : ${reservationCode}. Gardez ce code : il sert au suivi de votre demande, il ne donne pas accès au tableau de bord admin.`);
+          showMessage(form, `Merci, votre demande de réservation a bien été enregistrée. Votre référence est : ${reservationCode}. L’équipe PSSR vous recontactera pour confirmer les disponibilités et les modalités.`);
         } else {
           showMessage(form, 'Merci, votre message a bien été enregistré. Nous reviendrons vers vous dès que possible.');
         }

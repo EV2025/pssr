@@ -1,10 +1,77 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Espace membre PSSR</title><meta name="robots" content="noindex,nofollow"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/site-overrides.css"></head>
-<body class="pssr-page"><header class="pssr-header"><a class="brand" href="../index.html"><img src="../wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>Espace membre</strong></a><nav><a href="../index.html">Site</a><a href="../inscription.html">Inscription</a><button id="logout" class="link-button" hidden>Déconnexion</button></nav></header>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espace membre PSSR</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site-overrides.css">
+</head>
+<body class="pssr-page">
+<header class="pssr-header">
+  <a class="brand" href="../index.html"><img src="../wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>Espace membre</strong></a>
+  <nav><a href="../index.html">Accueil</a><a href="../reservation.html">Réserver</a><a href="../inscription.html">Inscription</a><button id="logout" class="link-button" hidden>Déconnexion</button></nav>
+</header>
 <main class="pssr-main">
-<section class="panel" id="login-panel"><p class="eyebrow">Connexion membre</p><h1>Mon espace PSSR</h1><p>Connectez-vous avec le compte créé via l’inscription intelligente.</p><form id="login-form" class="form-grid small"><label>Email<input type="email" name="email" required></label><label>Mot de passe<input type="password" name="password" required></label><button class="btn" type="submit">Connexion</button><p id="login-msg" class="msg" hidden></p></form><p class="notice">Pas encore de compte ? <a href="../inscription.html"><strong>Créer un espace membre</strong></a>.</p></section>
-<section class="panel" id="dashboard" hidden><p class="eyebrow">Parcours personnel</p><h1 id="welcome">Bienvenue</h1><div class="grid-cards"><div class="metric"><span>Niveau PSSR</span><strong id="level">ARF</strong></div><div class="metric"><span>Présences</span><strong id="attendance-count">0</strong></div><div class="metric"><span>Code membre</span><strong id="member-code">—</strong></div></div><div class="portal-actions"><a class="btn secondary" href="#slots">Réserver un créneau</a><button class="btn secondary" id="print-passport">Imprimer mon passeport</button></div></section>
-<section class="panel" id="passport-panel" hidden><div class="passport" id="passport"><h2>Passeport Socio-Sportif Numérique</h2><p><strong>Nom :</strong> <span id="pass-name">—</span></p><p><strong>Email :</strong> <span id="pass-email">—</span></p><p><strong>Code membre :</strong> <span id="pass-code">—</span></p><p><strong>Niveau :</strong> <span id="pass-level">—</span></p><p><strong>Présences validées :</strong> <span id="pass-att">0</span></p><div class="badge-row" id="badges"></div></div></section>
+<section class="panel" id="login-panel">
+  <p class="eyebrow">Connexion membre</p>
+  <h1>Mon espace PSSR</h1>
+  <p>Connectez-vous pour consulter votre parcours, vos réservations et votre passeport socio-sportif.</p>
+  <form id="login-form" class="form-grid small">
+    <label>Email<input type="email" name="email" required></label>
+    <label>Mot de passe<input type="password" name="password" required></label>
+    <button class="btn" type="submit">Connexion</button>
+    <p id="login-msg" class="msg" hidden></p>
+  </form>
+  <p class="notice">Pas encore de compte ? <a href="../inscription.html"><strong>Créer un espace membre</strong></a>.</p>
+</section>
+
+<section class="panel" id="dashboard" hidden>
+  <p class="eyebrow">Parcours personnel</p>
+  <h1 id="welcome">Bienvenue</h1>
+  <div class="grid-cards">
+    <div class="metric"><span>Étape actuelle</span><strong id="level">CAND</strong></div>
+    <div class="metric"><span>Présences</span><strong id="attendance-count">0</strong></div>
+    <div class="metric"><span>Code membre</span><strong id="member-code">—</strong></div>
+  </div>
+  <div class="portal-actions"><a class="btn secondary" href="#slots">Réserver un créneau</a><button class="btn secondary" id="print-passport">Imprimer mon passeport</button></div>
+</section>
+
+<section class="panel" id="participant-panel" hidden>
+  <p class="eyebrow">Informations personnelles</p>
+  <h2>Mon dossier</h2>
+  <div class="pssr-card participant-card">
+    <div class="pssr-kv" id="participant-kv"></div>
+  </div>
+</section>
+
+<section class="panel" id="journey-panel" hidden>
+  <p class="eyebrow">Suivi du parcours</p>
+  <h2>Mes étapes PSSR</h2>
+  <p class="muted">Cliquez sur une étape pour voir son objectif. L’équipe PSSR mettra à jour les dates prévues/réalisées selon votre accompagnement.</p>
+  <ol class="pssr-steps" id="journey-steps" role="tablist"></ol>
+  <div id="journey-panels"></div>
+</section>
+
+<section class="panel" id="passport-panel" hidden>
+  <div class="passport" id="passport"><h2>Passeport Socio-Sportif Numérique</h2><p><strong>Nom :</strong> <span id="pass-name">—</span></p><p><strong>Email :</strong> <span id="pass-email">—</span></p><p><strong>Code membre :</strong> <span id="pass-code">—</span></p><p><strong>Étape :</strong> <span id="pass-level">—</span></p><p><strong>Présences validées :</strong> <span id="pass-att">0</span></p><div class="badge-row" id="badges"></div></div>
+</section>
+
 <section class="panel" id="my-reservations" hidden><p class="eyebrow">Mes demandes</p><h1>Mes réservations</h1><div id="reservation-list" class="records"></div></section>
 <section class="panel" id="slots" hidden><p class="eyebrow">Agenda PSSR</p><h1>Créneaux disponibles</h1><div id="slot-list" class="grid-cards"></div></section>
-</main><script type="module" src="../assets/js/member.js"></script><script src="../assets/js/media-fallback.js" defer></script></body></html>
+
+<section class="panel" id="gdpr-panel" hidden>
+  <p class="eyebrow">Données personnelles</p>
+  <h2>Demander la suppression de mes données</h2>
+  <p class="muted">Vous pouvez demander la suppression de vos données personnelles liées à votre parcours. L’équipe PSSR traitera votre demande conformément au RGPD.</p>
+  <form id="gdpr-form" class="form-grid small">
+    <label class="full">Motif facultatif<textarea name="reason" rows="3" placeholder="Expliquez votre demande si nécessaire"></textarea></label>
+    <button class="btn secondary" type="submit">Envoyer la demande</button>
+    <p id="gdpr-msg" class="msg" hidden></p>
+  </form>
+</section>
+</main>
+<script type="module" src="../assets/js/member.js"></script><script src="../assets/js/media-fallback.js" defer></script>
+</body></html>

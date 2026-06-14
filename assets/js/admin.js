@@ -30,7 +30,7 @@ const labels = {
   payments:'Paiements — suivi manuel',
   notifications:'Notifications internes',
   attendances:'Présences',
-  emailLogs:'Logs emails',
+  emailLogs:'Journaux d’e-mails',
   stats:'Statistiques'
 };
 
@@ -43,6 +43,117 @@ function setMsg(text, ok = false){
 function fmtDate(v){
   try { return v?.toDate ? v.toDate().toLocaleString('fr-BE') : (v || ''); }
   catch { return ''; }
+}
+
+
+const fieldLabels = {
+  nom: 'Nom',
+  fullName: 'Nom complet',
+  displayName: 'Nom affiché',
+  firstName: 'Prénom',
+  lastName: 'Nom de famille',
+  email: 'E-mail',
+  tel: 'Téléphone',
+  phone: 'Téléphone',
+  subject: 'Sujet',
+  message: 'Message',
+  notes: 'Notes',
+  type: 'Type de demande',
+  status: 'Statut',
+  createdAt: 'Date de création',
+  updatedAt: 'Dernière mise à jour',
+  source: 'Page d’origine',
+  userAgent: 'Navigateur / appareil',
+  service: 'Service demandé',
+  serviceName: 'Service',
+  activity: 'Activité',
+  price: 'Prix',
+  priceLabel: 'Tarif',
+  day: 'Jour',
+  time: 'Horaire',
+  startTime: 'Heure de début',
+  endTime: 'Heure de fin',
+  public: 'Public',
+  capacity: 'Capacité',
+  active: 'Actif',
+  order: 'Ordre d’affichage',
+  slug: 'Identifiant de page',
+  title: 'Titre',
+  content: 'Contenu',
+  published: 'Publié',
+  reservationCode: 'Référence de réservation',
+  memberCode: 'Code membre',
+  uid: 'ID utilisateur',
+  role: 'Rôle',
+  level: 'Niveau PSSR',
+  paymentStatus: 'Statut paiement',
+  amount: 'Montant',
+  method: 'Méthode',
+  consentRgpd: 'Consentement RGPD',
+  rgpdConsent: 'Consentement RGPD',
+  newsletterConsent: 'Consentement newsletter',
+  importedFrom: 'Source d’import',
+  slotId: 'ID du créneau',
+  reservationId: 'ID réservation',
+  attendanceStatus: 'Statut présence',
+  date: 'Date',
+  preferredDate: 'Date souhaitée',
+  preferredTime: 'Heure souhaitée'
+};
+
+const valueLabels = {
+  contact: 'Demande de contact',
+  reservation: 'Réservation',
+  nouveau: 'Nouveau',
+  nouvelle: 'Nouvelle',
+  traité: 'Traité',
+  traitee: 'Traitée',
+  confirmée: 'Confirmée',
+  confirmee: 'Confirmée',
+  'liste attente': 'Liste d’attente',
+  annulée: 'Annulée',
+  annulee: 'Annulée',
+  payé: 'Payé',
+  paye: 'Payé',
+  'à relancer': 'À relancer',
+  actif: 'Actif',
+  inactif: 'Inactif',
+  member: 'Membre',
+  coach: 'Coach',
+  admin: 'Administrateur'
+};
+
+const technicalFields = new Set([
+  'userAgent',
+  'source',
+  'uid',
+  'slotId',
+  'reservationId',
+  'importedFrom',
+  'ownerUid',
+  'createdBy',
+  'updatedBy'
+]);
+
+function labelForField(key){
+  return fieldLabels[key] || key.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase());
+}
+
+function labelForValue(value){
+  if (typeof value === 'boolean') return value ? 'Oui' : 'Non';
+  if (typeof value === 'string') return valueLabels[value] || value;
+  return value;
+}
+
+function formatValue(key, value){
+  if (key === 'createdAt' || key === 'updatedAt' || key === 'date') return fmtDate(value);
+  const labelled = labelForValue(value);
+  if (Array.isArray(labelled)) return labelled.map(v => String(labelForValue(v))).join(', ');
+  if (labelled && typeof labelled === 'object') {
+    try { return JSON.stringify(labelled, null, 2); }
+    catch { return String(labelled); }
+  }
+  return labelled ?? '';
 }
 
 function esc(v){
@@ -177,7 +288,18 @@ function renderRows(){
   recordsEl.innerHTML = rows.map(r => {
     const title = titleForRow(r);
     const entries = Object.entries(r).filter(([k]) => k !== 'id');
-    return `<article class="record"><h3>${esc(title)}</h3><dl>${entries.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(k === 'createdAt' || k === 'updatedAt' ? fmtDate(v) : v)}</dd>`).join('')}</dl>${actionsFor(r)}</article>`;
+    const visibleEntries = entries.filter(([k]) => !technicalFields.has(k));
+    const technicalEntries = entries.filter(([k]) => technicalFields.has(k));
+
+    const visibleHtml = visibleEntries.map(([k,v]) =>
+      `<dt>${esc(labelForField(k))}</dt><dd>${esc(formatValue(k, v))}</dd>`
+    ).join('');
+
+    const technicalHtml = technicalEntries.length ?
+      `<details class="technical-details"><summary>Détails techniques</summary><dl>${technicalEntries.map(([k,v]) => `<dt>${esc(labelForField(k))}</dt><dd>${esc(formatValue(k, v))}</dd>`).join('')}<dt>ID du document</dt><dd>${esc(r.id)}</dd></dl></details>` :
+      `<details class="technical-details"><summary>Détails techniques</summary><dl><dt>ID du document</dt><dd>${esc(r.id)}</dd></dl></details>`;
+
+    return `<article class="record"><h3>${esc(title)}</h3><dl>${visibleHtml}</dl>${technicalHtml}${actionsFor(r)}</article>`;
   }).join('');
 }
 
@@ -206,8 +328,8 @@ exportBtn.addEventListener('click', () => {
   if (!rows.length) return;
   const keys = [...new Set(rows.flatMap(r => Object.keys(r)))];
   const csv = [
-    keys.join(','),
-    ...rows.map(r => keys.map(k => '"' + String(k === 'createdAt' || k === 'updatedAt' ? fmtDate(r[k]) : (r[k] ?? '')).replace(/"/g, '""') + '"').join(','))
+    keys.map(labelForField).join(','),
+    ...rows.map(r => keys.map(k => '"' + String(formatValue(k, r[k])).replace(/"/g, '""') + '"').join(','))
   ].join('\n');
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
   const a = document.createElement('a');

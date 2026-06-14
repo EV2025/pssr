@@ -19,6 +19,7 @@ form.addEventListener('submit', async (e)=>{
     situation: clean(fd.get('situation'),180),
     activityLevel: clean(fd.get('activityLevel'),80),
     needs: clean(fd.get('needs'),1500),
+    modules: clean(fd.get('modules'),1000),
     goals: clean(fd.get('goals'),1500),
     role: 'member',
     memberCode: makeCode('MEMBRE'),

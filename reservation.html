@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Réservation PSSR</title>
-<meta name="description" content="Formulaire de réservation PSSR relié à Firebase Firestore.">
+<meta name="description" content="Formulaire de réservation PSSR pour demander une activité ou un accompagnement.">
 <link rel="canonical" href="https://ev2025.github.io/pssr/reservation.html">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
@@ -19,14 +19,15 @@
   <section class="panel">
     <p class="eyebrow">Réservation</p>
     <h1>Réservation PSSR</h1>
-    <p>Ce formulaire enregistre les demandes dans Firebase Firestore, collection <code>reservations</code>. Après l'envoi, une référence de réservation PSSR s'affiche à l'écran. Cette référence sert uniquement au suivi de la demande : elle ne donne pas accès au tableau de bord admin.</p>
-    <p class="msg-note"><strong>Adresse :</strong> Gare de l'Ouest — Centre Sportif Pythagoras · urban.brussels — Molenbeek. <strong>Tarif solidaire :</strong> 165€ / année académique.</p>
+    <p>Complétez votre demande : l’équipe PSSR vous recontactera pour confirmer le module, les disponibilités et les modalités pratiques.</p>
+    <p class="msg-note"><strong>Adresse :</strong> Gare de l'Ouest — Centre Sportif Pythagoras · urban.brussels — Molenbeek. <strong>Tarif solidaire :</strong> 165€ / année académique. Le paiement en ligne n'est pas activé dans cette version ; l'équipe confirme les modalités après validation.</p>
     <form id="reservation-form" class="form-grid" data-firebase-collection="reservations">
       <label>Nom complet<input name="nom" required placeholder="Prénom Nom"></label>
       <label>Email<input name="email" type="email" required placeholder="exemple@domaine.be"></label>
       <label>Téléphone<input name="tel" type="tel" placeholder="0492 691 070"></label>
       <label>Objectif principal<select name="objectif"><option value="">Choisir un objectif</option><option>Remise en forme</option><option>Découverte sportive</option><option>Bien-être / santé</option><option>Accompagnement socio-professionnel</option><option>Enfant / adolescent</option></select></label>
-      <label>Créneau souhaité<select name="creneau" required>
+      <label class="full">Modules sélectionnés<input name="modules" id="selected-modules-input" placeholder="Ex. Kids Move, Cardio Fit Ados" readonly></label>
+      <label>Créneau souhaité <span class="muted">(facultatif si modules déjà sélectionnés)</span><select name="creneau">
         <option value="">Choisir un créneau</option>
         <optgroup label="Activités sportives officielles">
           <option>Mardi 18:00–19:00 — Cardio Fit Ados — 13–17 ans</option>
@@ -38,18 +39,18 @@
           <option>Samedi 08:00–10:00 — Mobility & Recovery — 40 ans+</option>
         </optgroup>
         <optgroup label="Accompagnement socio-professionnel PSSR">
-          <option>Lundi 10:00–11:00 — Coaching individuel</option>
-          <option>Lundi 11:00–12:30 — Employabilité</option>
-          <option>Lundi 14:00–15:30 — Création & mise à jour du CV</option>
-          <option>Lundi 15:30–17:00 — Recherche d'emploi</option>
-          <option>Mercredi 10:00–11:30 — Simulations d'entretien</option>
-          <option>Mercredi 11:30–12:30 — Développement personnel</option>
-          <option>Mercredi 14:00–15:00 — Gestion du stress</option>
-          <option>Mercredi 15:00–16:30 — Nutrition et bien-être</option>
-          <option>Jeudi 10:00–11:30 — Orientation vers la formation</option>
-          <option>Jeudi 11:30–13:00 — Orientation professionnelle</option>
-          <option>Jeudi 14:00–15:30 — Accompagnement administratif</option>
-          <option>Jeudi 15:30–17:00 — Coaching motivationnel</option>
+          <option>Coaching individuel</option>
+          <option>Employabilité</option>
+          <option>Création et mise à jour du CV</option>
+          <option>Recherche d'emploi</option>
+          <option>Simulations d'entretien</option>
+          <option>Développement personnel</option>
+          <option>Gestion du stress</option>
+          <option>Nutrition et bien-être</option>
+          <option>Orientation vers la formation</option>
+          <option>Orientation professionnelle</option>
+          <option>Accompagnement administratif</option>
+          <option>Coaching motivationnel</option>
         </optgroup>
       </select></label>
       <label class="full">Message<textarea name="message" rows="4" placeholder="Âge, disponibilité, question éventuelle…"></textarea></label>
@@ -57,10 +58,36 @@
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
       <button class="btn" type="submit">Envoyer la demande</button>
       <p id="reservation-msg" class="msg" hidden></p>
-      <p class="msg-note">Le tableau de bord est réservé à l'équipe PSSR. Les participant·es n'ont pas besoin de code admin. Le paiement en ligne n'est pas activé dans cette version ; l'équipe confirme les modalités après validation.</p>
     </form>
   </section>
 </main>
+
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  const raw = params.get('modules') || params.get('module') || '';
+  if(!raw) return;
+  const modules = raw.split('|').map(x=>decodeURIComponent(x).trim()).filter(Boolean);
+  const input = document.getElementById('selected-modules-input');
+  if(input) input.value = modules.join(', ');
+  const select = document.querySelector('select[name="creneau"]');
+  if(select && modules.length === 1){
+    const wanted = modules[0].toLowerCase();
+    Array.from(select.options).some(opt=>{
+      if(opt.textContent.toLowerCase().includes(wanted)){
+        select.value = opt.value;
+        return true;
+      }
+      return false;
+    });
+  }
+  const msg = document.querySelector('textarea[name="message"]');
+  if(msg && modules.length > 1){
+    msg.value = 'Modules souhaités : ' + modules.join(', ') + '\n';
+  }
+})();
+</script>
+
 <script type="module" src="./assets/js/firebase-contact.js"></script>
 <script src="./assets/js/media-fallback.js" defer></script>
 </body>

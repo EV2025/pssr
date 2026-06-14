@@ -6,10 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-<meta name="description" content="PSSR — Bouge ton corps, avance dans ta vie ! Parcours socio-sportif, ateliers, réservations, accompagnement socio-professionnel et contact à Bruxelles.">
+<meta name="description" content="PSSR — Parcours socio-sportif, activités adaptées, réservations, accompagnement et contact à Bruxelles.">
 <link rel="canonical" href="https://ev2025.github.io/pssr/">
 <meta property="og:title" content="PSSR — Parcours Socio-Sportif Renforcé">
-<meta property="og:description" content="Bouge ton corps, avance dans ta vie ! Activités sportives, accompagnement socio-sportif et réservations PSSR.">
+<meta property="og:description" content="Activités sportives, accompagnement socio-sportif et réservations PSSR à Bruxelles.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ev2025.github.io/pssr/">
 
@@ -343,11 +343,9 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
           <a role="menuitem" href="#parcours">PSSR</a>
           <a role="menuitem" href="./services.html">Services</a>
           <a role="menuitem" href="#ateliers">Les ateliers</a>
-          <a role="menuitem" href="#socio-pro">Socio-pro</a>
           <a role="menuitem" href="#atl">Projets Scolaires ATL</a>
           <a role="menuitem" href="./calendrier.html">Calendrier</a>
           <a role="menuitem" href="#documents">Téléchargements</a>
-          <a role="menuitem" href="#vision">Vision</a>
           <a role="menuitem" href="./faq.html">FAQ</a>
           <a role="menuitem" href="./avis.html">Avis</a>
           <a role="menuitem" href="#contact">Contact</a>
@@ -360,8 +358,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <header class="hero" role="banner">
     <div class="wrap">
       <h1 aria-live="polite">PSSR</h1>
-      <p class="sec-sub" style="font-size:clamp(1.2rem,1rem + 1.4vw,1.7rem);font-weight:800;color:#5b3ea8;margin:12px auto 18px;max-width:760px">Bouge ton corps, avance dans ta vie !</p>
-      <a class="btn" href="#inscriptions">Parcours Socio-Sportif Renforcé — Découvrez nos horaires !</a>
+      <a class="btn" href="#inscriptions">Parcours Socio-Sportif Renforcé — choisir une activité</a>
     </div>
   </header>
 
@@ -370,7 +367,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     <div class="label"><span class="dot" aria-hidden="true"></span>Prêt·e à rejoindre le PSSR ?</div>
     <div>
       <a class="btn-appel" href="./reservation.html">Faire une réservation</a>
-      <a class="btn-appel-ghost" href="./calendrier.html" style="margin-left:8px">Voir le calendrier</a>
+      <a class="btn-appel-ghost" href="#inscriptions" style="margin-left:8px">Choisir un module</a>
       <a class="btn-appel-ghost" href="#contact" style="margin-left:8px">Poser une question</a>
     </div>
   </div>
@@ -394,14 +391,16 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
             <p class="ttl">Cardio Fit Ados</p>
             <p class="txt">18h00 - 19h00</p>
             <p class="txt">13-17 ans</p>
-            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+            <label class="module-select"><input type="checkbox" data-module="Cardio Fit Ados"> Ajouter ce module</label>
+            <a class="btn" href="./reservation.html?modules=Cardio%20Fit%20Ados" style="margin-top:10px">S'inscrire</a>
           </div>
 
           <div class="schedule-item">
             <p class="ttl">Initiation Boxe/Kick-Boxing</p>
             <p class="txt">19h00 - 20h00</p>
             <p class="txt">13+ ans</p>
-            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+            <label class="module-select"><input type="checkbox" data-module="Initiation Boxe/Kick-Boxing"> Ajouter ce module</label>
+            <a class="btn" href="./reservation.html?modules=Initiation%20Boxe%2FKick-Boxing" style="margin-top:10px">S'inscrire</a>
           </div>
         </div>
 
@@ -412,28 +411,32 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
             <p class="ttl">Kids Move</p>
             <p class="txt">16h00 - 17h00</p>
             <p class="txt">6-12 ans</p>
-            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+            <label class="module-select"><input type="checkbox" data-module="Kids Move"> Ajouter ce module</label>
+            <a class="btn" href="./reservation.html?modules=Kids%20Move" style="margin-top:10px">S'inscrire</a>
           </div>
 
           <div class="schedule-item">
             <p class="ttl">Training Jeunes</p>
             <p class="txt">17h00 - 18h00</p>
             <p class="txt">13-17 ans</p>
-            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+            <label class="module-select"><input type="checkbox" data-module="Training Jeunes"> Ajouter ce module</label>
+            <a class="btn" href="./reservation.html?modules=Training%20Jeunes" style="margin-top:10px">S'inscrire</a>
           </div>
 
           <div class="schedule-item">
             <p class="ttl">Fitness Loisirs Mixte</p>
             <p class="txt">19h00 - 20h00</p>
             <p class="txt">18+ ans</p>
-            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+            <label class="module-select"><input type="checkbox" data-module="Fitness Loisirs Mixte"> Ajouter ce module</label>
+            <a class="btn" href="./reservation.html?modules=Fitness%20Loisirs%20Mixte" style="margin-top:10px">S'inscrire</a>
           </div>
 
           <div class="schedule-item">
             <p class="ttl">Boxing Loisir</p>
             <p class="txt">20h00 - 21h00</p>
             <p class="txt">18+ ans</p>
-            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+            <label class="module-select"><input type="checkbox" data-module="Boxing Loisir"> Ajouter ce module</label>
+            <a class="btn" href="./reservation.html?modules=Boxing%20Loisir" style="margin-top:10px">S'inscrire</a>
           </div>
         </div>
 
@@ -444,8 +447,18 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
             <p class="ttl">Mobility & Recovery (40+)</p>
             <p class="txt">08h00 - 10h00</p>
             <p class="txt">40+ ans</p>
-            <a class="btn" href="./reservation.html" style="margin-top:10px">S'inscrire</a>
+            <label class="module-select"><input type="checkbox" data-module="Mobility &amp; Recovery (40+)"> Ajouter ce module</label>
+            <a class="btn" href="./reservation.html?modules=Mobility%20%26%20Recovery%20%2840%2B%29" style="margin-top:10px">S'inscrire</a>
           </div>
+        </div>
+      </div>
+
+      <div class="selection-box" id="module-selection-box" aria-live="polite">
+        <strong>Modules sélectionnés :</strong>
+        <span id="selected-modules-list">aucun module sélectionné</span>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+          <button class="btn" type="button" id="reserve-selected-modules">Réserver les modules sélectionnés</button>
+          <button class="btn-appel-ghost" type="button" id="clear-selected-modules">Effacer la sélection</button>
         </div>
       </div>
     </div>
@@ -521,49 +534,44 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     </div>
   </section>
 
-
-
   <!-- ===== Accompagnement socio-professionnel ===== -->
   <section id="socio-pro" aria-labelledby="socio-title">
     <div class="section-wrap">
       <h2 id="socio-title" class="sec-title">Accompagnement socio-professionnel PSSR</h2>
-      <p class="sec-sub">Des ateliers complémentaires pour relier activité physique, confiance, santé, autonomie et insertion.</p>
+      <p class="sec-sub">Des ateliers complémentaires, proposés selon les besoins et les places disponibles.</p>
 
       <div class="status-grid">
         <div class="status-card">
           <span class="badge">Objectif</span>
-          <h3>Avancer dans la vie quotidienne</h3>
-          <p class="txt">Le PSSR ne se limite pas au sport : il soutient aussi la motivation, l’emploi, la formation, l’organisation administrative et le bien-être.</p>
+          <h3>Reprendre confiance</h3>
+          <p class="txt">Le PSSR peut soutenir la motivation, l’organisation personnelle, l’emploi, la formation et le bien-être.</p>
         </div>
         <div class="status-card">
-          <span class="badge">Lieu</span>
-          <h3>Gare de l’Ouest</h3>
-          <p class="txt">Centre Sportif Pythagoras · urban.brussels — Molenbeek. Les créneaux peuvent être confirmés lors de la réservation ou via le formulaire de contact.</p>
+          <span class="badge">Orientation</span>
+          <h3>Sur demande</h3>
+          <p class="txt">L’équipe confirme les ateliers adaptés après réception du formulaire.</p>
         </div>
         <div class="status-card">
           <span class="badge">Tarif</span>
           <h3>Tarif solidaire</h3>
-          <p class="txt">165€ / année académique · Septembre → 6 juin. En collaboration avec L'école du dos.</p>
+          <p class="txt">165€ / année académique · Septembre → juin. Modalités confirmées par l’équipe.</p>
         </div>
       </div>
 
-      <table class="planning-table" aria-label="Planning socio-professionnel PSSR">
-        <thead><tr><th>Jour</th><th>Horaire</th><th>Atelier</th></tr></thead>
-        <tbody>
-          <tr><td data-label="Jour">Lundi</td><td data-label="Horaire">10:00 – 11:00</td><td data-label="Atelier">Coaching individuel</td></tr>
-          <tr><td data-label="Jour">Lundi</td><td data-label="Horaire">11:00 – 12:30</td><td data-label="Atelier">Employabilité</td></tr>
-          <tr><td data-label="Jour">Lundi</td><td data-label="Horaire">14:00 – 15:30</td><td data-label="Atelier">Création & mise à jour du CV</td></tr>
-          <tr><td data-label="Jour">Lundi</td><td data-label="Horaire">15:30 – 17:00</td><td data-label="Atelier">Recherche d'emploi</td></tr>
-          <tr><td data-label="Jour">Mercredi</td><td data-label="Horaire">10:00 – 11:30</td><td data-label="Atelier">Simulations d'entretien</td></tr>
-          <tr><td data-label="Jour">Mercredi</td><td data-label="Horaire">11:30 – 12:30</td><td data-label="Atelier">Développement personnel</td></tr>
-          <tr><td data-label="Jour">Mercredi</td><td data-label="Horaire">14:00 – 15:00</td><td data-label="Atelier">Gestion du stress</td></tr>
-          <tr><td data-label="Jour">Mercredi</td><td data-label="Horaire">15:00 – 16:30</td><td data-label="Atelier">Nutrition et bien-être</td></tr>
-          <tr><td data-label="Jour">Jeudi</td><td data-label="Horaire">10:00 – 11:30</td><td data-label="Atelier">Orientation vers la formation</td></tr>
-          <tr><td data-label="Jour">Jeudi</td><td data-label="Horaire">11:30 – 13:00</td><td data-label="Atelier">Orientation professionnelle</td></tr>
-          <tr><td data-label="Jour">Jeudi</td><td data-label="Horaire">14:00 – 15:30</td><td data-label="Atelier">Accompagnement administratif</td></tr>
-          <tr><td data-label="Jour">Jeudi</td><td data-label="Horaire">15:30 – 17:00</td><td data-label="Atelier">Coaching motivationnel</td></tr>
-        </tbody>
-      </table>
+      <div class="module-grid" aria-label="Modules socio-professionnels proposés">
+        <label><input type="checkbox" data-module="Coaching individuel"> Coaching individuel</label>
+        <label><input type="checkbox" data-module="Employabilité"> Employabilité</label>
+        <label><input type="checkbox" data-module="Création et mise à jour du CV"> Création et mise à jour du CV</label>
+        <label><input type="checkbox" data-module="Recherche d’emploi"> Recherche d’emploi</label>
+        <label><input type="checkbox" data-module="Simulations d’entretien"> Simulations d’entretien</label>
+        <label><input type="checkbox" data-module="Développement personnel"> Développement personnel</label>
+        <label><input type="checkbox" data-module="Gestion du stress"> Gestion du stress</label>
+        <label><input type="checkbox" data-module="Nutrition et bien-être"> Nutrition et bien-être</label>
+        <label><input type="checkbox" data-module="Orientation vers la formation"> Orientation vers la formation</label>
+        <label><input type="checkbox" data-module="Orientation professionnelle"> Orientation professionnelle</label>
+        <label><input type="checkbox" data-module="Accompagnement administratif"> Accompagnement administratif</label>
+        <label><input type="checkbox" data-module="Coaching motivationnel"> Coaching motivationnel</label>
+      </div>
     </div>
   </section>
 
@@ -659,72 +667,14 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     </div>
   </section>
 
-
-
-  <!-- ===== Vision plateforme ===== -->
-  <section id="vision" aria-labelledby="vision-title">
-    <div class="section-wrap">
-      <h2 id="vision-title" class="sec-title">Plateforme actuelle & vision d’évolution</h2>
-      <p class="sec-sub">Nous stabilisons d’abord la version GitHub Pages + Firebase, puis les modules avancés pourront être développés en phase 2.</p>
-
-      <div class="status-grid">
-        <div class="status-card">
-          <span class="badge">Version actuelle</span>
-          <h3>Déjà opérationnel</h3>
-          <ul>
-            <li>Site institutionnel PSSR</li>
-            <li>Formulaire de contact relié à Firestore</li>
-            <li>Réservations avec référence PSSR</li>
-            <li>Tableau de bord admin privé</li>
-            <li>Export CSV depuis le back-office</li>
-          </ul>
-        </div>
-        <div class="status-card">
-          <span class="badge">Ajout stabilisé</span>
-          <h3>Ce qui vient du plan global</h3>
-          <ul>
-            <li>Slogan “Bouge ton corps, avance dans ta vie !”</li>
-            <li>Créneaux officiels sportifs</li>
-            <li>Accompagnement socio-professionnel</li>
-            <li>Roadmap claire sans fausse promesse technique</li>
-            <li>Documentation séparée pour la phase 2</li>
-          </ul>
-        </div>
-        <div class="status-card">
-          <span class="badge">Phase 2</span>
-          <h3>À développer plus tard</h3>
-          <ul>
-            <li>Espace membre, coach et partenaire</li>
-            <li>Badges, passeport PDF, KPI avancés</li>
-            <li>Emails automatiques et agenda complet</li>
-            <li>Backend séparé si nécessaire</li>
-            <li>Paiement et attestations</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="kpi-strip" aria-label="Résumé PSSR">
-        <div>6 étapes PSSR</div>
-        <div>7 créneaux sportifs</div>
-        <div>12 ateliers socio-pro</div>
-        <div>Firebase opérationnel</div>
-      </div>
-
-      <p class="vision-note"><strong>Important :</strong> la roadmap complète est conservée comme document de vision. Elle ne remplace pas la version actuelle du site, afin d’éviter d’annoncer des fonctions non encore configurées.</p>
-      <p style="text-align:center;margin-top:18px"><a class="btn" href="./roadmap.html">Voir la roadmap complète</a></p>
-    </div>
-  </section>
-
-
-  <!-- ===== Phase 2A : Espaces numériques ===== -->
+  <!-- ===== Espaces numériques ===== -->
   <section id="espaces" aria-labelledby="espaces-title">
     <div class="section-wrap">
-      <h2 id="espaces-title" class="sec-title">Espaces numériques PSSR</h2>
-      <p class="sec-sub">Phase 2A : comptes membres, suivi coach, créneaux Firebase et passeport socio-sportif numérique.</p>
+      <h2 id="espaces-title" class="sec-title">Mon parcours PSSR</h2>
+      <p class="sec-sub">Créez un espace membre pour suivre vos demandes, votre parcours et votre passeport socio-sportif.</p>
       <div class="grid">
-        <div class="card info-card"><div class="ico" style="margin-bottom:12px">🧠</div><h3>Inscription intelligente</h3><p class="txt">Création de compte membre, diagnostic de départ, objectifs et code membre.</p><a class="btn" href="./inscription.html" style="margin-top:12px">Créer un espace membre</a></div>
-        <div class="card info-card"><div class="ico" style="margin-bottom:12px">🏠</div><h3>Espace membre</h3><p class="txt">Réservations, parcours, niveau PSSR, badges et passeport imprimable.</p><a class="btn" href="./member/dashboard.html" style="margin-top:12px">Ouvrir l’espace membre</a></div>
-        <div class="card info-card"><div class="ico" style="margin-bottom:12px">🧑‍🏫</div><h3>Espace coach</h3><p class="txt">Suivi des réservations, validation des présences et progression des membres.</p><a class="btn" href="./coach/index.html" style="margin-top:12px">Ouvrir l’espace coach</a></div>
+        <div class="card info-card"><div class="ico" style="margin-bottom:12px">🧠</div><h3>Créer mon espace</h3><p class="txt">Complétez votre inscription, indiquez vos besoins et recevez votre code membre.</p><a class="btn" href="./inscription.html" style="margin-top:12px">Créer mon espace membre</a></div>
+        <div class="card info-card"><div class="ico" style="margin-bottom:12px">🏠</div><h3>Suivre mon parcours</h3><p class="txt">Consultez votre progression PSSR, vos réservations et votre passeport socio-sportif.</p><a class="btn" href="./member/dashboard.html" style="margin-top:12px">Ouvrir mon espace</a></div>
       </div>
     </div>
   </section>
@@ -738,7 +688,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
       <p class="sec-sub">Accès rapide aux pages qui rendent le site plus clair pour les participant·es et partenaires.</p>
       <div class="grid">
         <article class="mini-section"><h3>Services & tarifs</h3><p class="txt">Activités, accompagnement et tarif solidaire.</p><p><a class="btn" href="./services.html">Voir les services</a></p></article>
-        <article class="mini-section"><h3>FAQ</h3><p class="txt">Réponses sur réservation, paiement, tableau de bord et données.</p><p><a class="btn" href="./faq.html">Lire la FAQ</a></p></article>
+        <article class="mini-section"><h3>FAQ</h3><p class="txt">Réponses sur réservation, paiement, inscription et données personnelles.</p><p><a class="btn" href="./faq.html">Lire la FAQ</a></p></article>
         <article class="mini-section"><h3>Avis</h3><blockquote>“Un cadre bienveillant pour reprendre confiance et bouger régulièrement.”</blockquote><p><a class="btn" href="./avis.html">Voir les avis</a></p></article>
       </div>
     </div>
@@ -823,12 +773,12 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     <div class="foot-legal" style="padding:18px 20px;text-align:center">
       <p class="org" style="margin:0 0 6px;color:var(--ink)">Équilibre Vital asbl — Bruxelles-Capitale</p>
       <p class="fine" style="margin:0 0 6px;color:var(--muted)">IBAN : BE17 5230 8164 9221 • BIC : TRIOBEBB • BCE : 1019487618</p>
-      <p class="txt" style="margin:0;color:#777">EV© 2026 — Tous droits réservés.</p><p class="footer-links"><a href="./mentions-legales.html">Mentions légales</a><a href="./confidentialite-rgpd.html">RGPD</a><a href="./faq.html">FAQ</a><a href="./admin/index.html">Admin</a></p>
+      <p class="txt" style="margin:0;color:#777">EV© 2026 — Tous droits réservés.</p><p class="footer-links"><a href="./mentions-legales.html">Mentions légales</a><a href="./confidentialite-rgpd.html">RGPD</a><a href="./faq.html">FAQ</a></p>
     </div>
   </footer>
 
   <div id="cta-float">
-    <a href="#inscriptions" class="btn-appel">🚀 Voir nos horaires</a>
+    <a href="#inscriptions" class="btn-appel">Choisir un module</a>
   </div>
 
 <script>
@@ -1182,6 +1132,31 @@ window.addEventListener('DOMContentLoaded',function(){
 })();
 </script>
 
+
+
+<script>
+/* Sélection de modules : accueil → réservation / inscription */
+(function(){
+  const checks = Array.from(document.querySelectorAll('[data-module]'));
+  const list = document.getElementById('selected-modules-list');
+  const reserve = document.getElementById('reserve-selected-modules');
+  const clear = document.getElementById('clear-selected-modules');
+  function selected(){ return checks.filter(c=>c.checked).map(c=>c.dataset.module).filter(Boolean); }
+  function sync(){
+    const items = selected();
+    if(list) list.textContent = items.length ? items.join(' · ') : 'aucun module sélectionné';
+    if(reserve) reserve.disabled = !items.length;
+  }
+  checks.forEach(c=>c.addEventListener('change', sync));
+  if(clear) clear.addEventListener('click', ()=>{ checks.forEach(c=>c.checked=false); sync(); });
+  if(reserve) reserve.addEventListener('click', ()=>{
+    const items = selected();
+    if(!items.length) return;
+    location.href = './reservation.html?modules=' + encodeURIComponent(items.join('|'));
+  });
+  sync();
+})();
+</script>
 
 <script type="module" src="./assets/js/firebase-contact.js"></script>
 <script src="./assets/js/media-fallback.js" defer></script>
