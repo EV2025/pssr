@@ -354,7 +354,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <!-- ===== Hero ===== -->
   <header class="hero hero-v8" role="banner">
     <div class="wrap">
-      <p class="hero-kicker">Équilibre Vital asbl</p>
+      <p class="hero-kicker">Parcours Socio-Sportif Renforcé</p>
       <h1 aria-live="polite">PSSR</h1>
       <p class="hero-intro">Parcours Socio-Sportif Renforcé</p>
       <div class="hero-actions" aria-label="Actions principales">
@@ -485,47 +485,50 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   </section>
 
   <!-- ===== Les ateliers ===== -->
-  <section id="ateliers" aria-labelledby="ateliers-title">
+  <section id="ateliers" aria-labelledby="ateliers-title" class="ateliers-v10">
     <div class="section-wrap">
       <h2 id="ateliers-title" class="sec-title">Les ateliers</h2>
-      <p class="sec-sub">Des moments pratiques pour bouger, apprendre et progresser à son rythme.</p>
+      <p class="sec-sub atelier-quote">Apprendre donne du sens, pratiquer construit l’expérience, partager renforce le progrès.</p>
 
-      <div class="grid">
-        <div class="card info-card">
-          <div class="ico" style="margin-bottom:12px">💪</div>
-          <h3>Ateliers sportifs</h3>
-          <p class="txt">Séances encadrées et adaptées aux profils des participant·es.</p>
+      <div class="atelier-cards-v10" aria-label="Ateliers PSSR">
+        <article class="card info-card atelier-card-v10">
+          <div class="ico" aria-hidden="true">📘</div>
+          <h3>Apprenez</h3>
+          <p class="txt"><strong>Objectif :</strong> expliquer, comprendre, sensibiliser.</p>
+          <ul>
+            <li>Prévention santé</li>
+            <li>Gestion du rythme personnel</li>
+            <li>Nutrition et bien-être</li>
+            <li>Sensibilisation au mouvement</li>
+            <li>Conseils pour progresser durablement</li>
+          </ul>
+        </article>
+
+        <article class="card info-card atelier-card-v10">
+          <div class="ico" aria-hidden="true">🏃</div>
+          <h3>Pratiquez</h3>
+          <p class="txt"><strong>Objectif :</strong> bouger, s’exercer, reprendre une activité progressivement.</p>
           <ul>
             <li>Remise en forme progressive</li>
-            <li>Cardio, mobilité, renforcement</li>
+            <li>Cardio, mobilité et renforcement</li>
             <li>Initiation boxe / kick-boxing</li>
-            <li>Activités jeunes et adultes</li>
+            <li>Activités adaptées aux jeunes et aux adultes</li>
+            <li>Récupération et mobilité</li>
           </ul>
-        </div>
+        </article>
 
-        <div class="card info-card">
-          <div class="ico" style="margin-bottom:12px">🤝</div>
-          <h3>Ateliers socio-sportifs</h3>
-          <p class="txt">Un cadre bienveillant pour travailler la confiance, le lien social et l’engagement.</p>
+        <article class="card info-card atelier-card-v10">
+          <div class="ico" aria-hidden="true">🤝</div>
+          <h3>Partagez</h3>
+          <p class="txt"><strong>Objectif :</strong> créer du lien, renforcer la confiance et avancer avec les autres.</p>
           <ul>
             <li>Accueil et orientation</li>
             <li>Suivi individuel ou collectif</li>
             <li>Objectifs adaptés à chacun·e</li>
             <li>Collaboration avec les référent·es sociaux</li>
-          </ul>
-        </div>
-
-        <div class="card info-card">
-          <div class="ico" style="margin-bottom:12px">🌱</div>
-          <h3>Bien-être & prévention</h3>
-          <p class="txt">Des ateliers pour soutenir la santé, la motivation et la régularité.</p>
-          <ul>
-            <li>Prévention santé</li>
-            <li>Récupération et mobilité</li>
-            <li>Gestion du rythme personnel</li>
             <li>Valorisation des progrès</li>
           </ul>
-        </div>
+        </article>
       </div>
     </div>
   </section>
@@ -542,34 +545,34 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
         <details class="module-group" open>
           <summary>Coaching &amp; orientation</summary>
           <div class="module-options">
-            <label class="module-card"><input type="checkbox" name="module" value="Coaching individuel"><span>Coaching individuel</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Coaching motivationnel"><span>Coaching motivationnel</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Orientation professionnelle"><span>Orientation professionnelle</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Orientation vers la formation"><span>Orientation vers la formation</span></label>
+            <label class="module-card module-choice-v10" data-icon="🎯"><input type="checkbox" name="module" value="Coaching individuel"><span>Coaching individuel</span></label>
+            <label class="module-card module-choice-v10" data-icon="⚡"><input type="checkbox" name="module" value="Coaching motivationnel"><span>Coaching motivationnel</span></label>
+            <label class="module-card module-choice-v10" data-icon="🧭"><input type="checkbox" name="module" value="Orientation professionnelle"><span>Orientation professionnelle</span></label>
+            <label class="module-card module-choice-v10" data-icon="🎓"><input type="checkbox" name="module" value="Orientation vers la formation"><span>Orientation vers la formation</span></label>
           </div>
         </details>
         <details class="module-group">
           <summary>Emploi &amp; formation</summary>
           <div class="module-options">
-            <label class="module-card"><input type="checkbox" name="module" value="Employabilité"><span>Employabilité</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Création et mise à jour du CV"><span>Création et mise à jour du CV</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Recherche d’emploi"><span>Recherche d’emploi</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Simulations d’entretien"><span>Simulations d’entretien</span></label>
+            <label class="module-card module-choice-v10" data-icon="💼"><input type="checkbox" name="module" value="Employabilité"><span>Employabilité</span></label>
+            <label class="module-card module-choice-v10" data-icon="📄"><input type="checkbox" name="module" value="Création et mise à jour du CV"><span>Création et mise à jour du CV</span></label>
+            <label class="module-card module-choice-v10" data-icon="🔎"><input type="checkbox" name="module" value="Recherche d’emploi"><span>Recherche d’emploi</span></label>
+            <label class="module-card module-choice-v10" data-icon="🗣️"><input type="checkbox" name="module" value="Simulations d’entretien"><span>Simulations d’entretien</span></label>
           </div>
         </details>
         <details class="module-group">
           <summary>Bien-être &amp; démarches</summary>
           <div class="module-options">
-            <label class="module-card"><input type="checkbox" name="module" value="Développement personnel"><span>Développement personnel</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Gestion du stress"><span>Gestion du stress</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Nutrition et bien-être"><span>Nutrition et bien-être</span></label>
-            <label class="module-card"><input type="checkbox" name="module" value="Accompagnement administratif"><span>Accompagnement administratif</span></label>
+            <label class="module-card module-choice-v10" data-icon="🌱"><input type="checkbox" name="module" value="Développement personnel"><span>Développement personnel</span></label>
+            <label class="module-card module-choice-v10" data-icon="🧘"><input type="checkbox" name="module" value="Gestion du stress"><span>Gestion du stress</span></label>
+            <label class="module-card module-choice-v10" data-icon="🍎"><input type="checkbox" name="module" value="Nutrition et bien-être"><span>Nutrition et bien-être</span></label>
+            <label class="module-card module-choice-v10" data-icon="🗂️"><input type="checkbox" name="module" value="Accompagnement administratif"><span>Accompagnement administratif</span></label>
           </div>
         </details>
       </div>
 
-      <div class="selection-box">
-        <p class="txt" id="selected-modules-text">Aucun module sélectionné pour le moment.</p>
+      <div class="selection-box selection-box-v10">
+        <p class="selection-summary" id="selected-modules-text" hidden aria-live="polite"></p>
         <div class="module-actions">
           <button class="btn" type="button" id="reserve-selected-modules">Réserver les modules sélectionnés</button>
           <button class="btn secondary" type="button" id="register-selected-modules">Créer un espace membre avec ces modules</button>
@@ -698,7 +701,6 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     <section class="footer-brand-block">
       <h2>Équilibre Vital asbl</h2>
       <p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
-      <p class="footer-note">Tarif solidaire : <strong>165€ / année académique</strong></p>
     </section>
     <section>
       <h2>Participer</h2>
@@ -715,6 +717,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
       <nav class="footer-links" aria-label="Liens secondaires">
         <a href="./index.html#ateliers">Ateliers</a>
         <a href="./ecoles-atl.html">Écoles &amp; ATL</a>
+        <a href="./sources-formation-emploi.html">Sources de formation et emploi</a>
         <a href="./calendrier.html">Calendrier</a>
         <a href="./index.html#documents">Documents</a>
         <a href="./faq.html">FAQ</a>
@@ -1109,11 +1112,12 @@ window.addEventListener('DOMContentLoaded',function(){
   function selected(){ return boxes.filter(b=>b.checked).map(b=>b.value); }
   function sync(){
     const values = selected();
-    out.textContent = values.length ? 'Modules sélectionnés : ' + values.join(', ') : 'Aucun module sélectionné pour le moment.';
+    out.hidden = values.length === 0;
+    out.textContent = values.length ? 'Choix : ' + values.join(', ') : '';
   }
   function go(base){
     const values = selected();
-    if(!values.length){ out.textContent = 'Sélectionnez au moins un module avant de continuer.'; out.scrollIntoView({behavior:'smooth',block:'nearest'}); return; }
+    if(!values.length){ out.hidden = false; out.textContent = 'Sélectionnez au moins un module avant de continuer.'; out.scrollIntoView({behavior:'smooth',block:'nearest'}); return; }
     const params = new URLSearchParams();
     params.set('modules', values.join(', '));
     location.href = base + '?' + params.toString();
