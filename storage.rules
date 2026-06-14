@@ -1,27 +1,31 @@
 rules_version = '2';
+
 service firebase.storage {
   match /b/{bucket}/o {
-    function signedIn() {
-      return request.auth != null;
-    }
-
+    function signedIn() { return request.auth != null; }
     function isAdmin() {
       return signedIn()
         && firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
     }
+    function isCoach() {
+      return signedIn()
+        && firestore.exists(/databases/(default)/documents/coaches/$(request.auth.uid));
+    }
+    function isTeam() { return isAdmin() || isCoach(); }
 
     match /public/{allPaths=**} {
       allow read: if true;
-      allow write: if isAdmin()
-        && request.resource.size < 10 * 1024 * 1024
-        && (
-          request.resource.contentType.matches('image/.*') ||
-          request.resource.contentType == 'application/pdf'
-        );
+      allow write: if isTeam();
+    }
+
+    match /passports/{userId}/{allPaths=**} {
+      allow read: if signedIn() && (request.auth.uid == userId || isTeam());
+      allow write: if signedIn() && (request.auth.uid == userId || isTeam());
     }
 
     match /{allPaths=**} {
-      allow read, write: if false;
+      allow read: if true;
+      allow write: if isTeam();
     }
   }
 }

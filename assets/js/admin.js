@@ -9,6 +9,7 @@ const logoutBtn = document.getElementById('logout');
 const recordsEl = document.getElementById('records');
 const exportBtn = document.getElementById('export-csv');
 const seedBtn = document.getElementById('seed-pages');
+const seedSlotsBtn = document.getElementById('seed-slots');
 const collectionTitle = document.getElementById('collection-title');
 
 let auth, db;
@@ -69,6 +70,7 @@ async function init(){
   }));
 
   seedBtn.addEventListener('click', seedPages);
+  if (seedSlotsBtn) seedSlotsBtn.addEventListener('click', seedSlots);
 
   modules.onAuthStateChanged(auth, user => {
     loginPanel.hidden = Boolean(user);
@@ -81,12 +83,12 @@ async function init(){
 
 function loadCollection(){
   if (unsub) unsub();
-  collectionTitle.textContent = currentCollection === 'messages' ? 'Messages reçus' : currentCollection === 'reservations' ? 'Réservations reçues' : 'Contenu des pages';
+  collectionTitle.textContent = ({messages:'Messages reçus', reservations:'Réservations reçues', pages:'Contenu des pages', users:'Membres', slots:'Créneaux', attendances:'Présences', emailLogs:'Emails logs'})[currentCollection] || currentCollection;
   recordsEl.innerHTML = '<p>Chargement…</p>';
 
   let q;
   try {
-    q = modules.query(modules.collection(db, currentCollection), modules.orderBy('createdAt', 'desc'));
+    q = modules.query(modules.collection(db, currentCollection), modules.orderBy(currentCollection === 'slots' ? 'order' : 'createdAt', currentCollection === 'slots' ? 'asc' : 'desc')); 
   } catch {
     q = modules.collection(db, currentCollection);
   }
@@ -153,6 +155,35 @@ async function seedPages(){
   }finally{
     seedBtn.disabled = false;
     seedBtn.textContent = 'Importer le contenu WordPress';
+  }
+}
+
+
+async function seedSlots(){
+  seedSlotsBtn.disabled = true;
+  seedSlotsBtn.textContent = 'Import créneaux…';
+  try{
+    const response = await fetch('../data/slots-seed.json');
+    const slots = await response.json();
+    let count = 0;
+    for (const slot of slots){
+      await modules.setDoc(modules.doc(db, 'slots', slot.id), {
+        ...slot,
+        importedFrom: 'phase2a-seed',
+        updatedAt: modules.serverTimestamp()
+      }, { merge: true });
+      count++;
+    }
+    currentCollection = 'slots';
+    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === 'slots'));
+    loadCollection();
+    alert(`${count} créneaux importés ou mis à jour dans Firestore.`);
+  }catch(err){
+    console.error(err);
+    alert('Import impossible. Vérifiez que vous êtes admin et que les règles Firestore Phase 2A sont publiées.');
+  }finally{
+    seedSlotsBtn.disabled = false;
+    seedSlotsBtn.textContent = 'Importer les créneaux officiels';
   }
 }
 

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inscription intelligente PSSR</title>
+<meta name="description" content="Inscription intelligente PSSR en 5 étapes, reliée à Firebase Authentication et Firestore.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/site-overrides.css">
+</head>
+<body class="pssr-page">
+<header class="pssr-header"><a class="brand" href="./index.html"><img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR</strong></a><nav><a href="./index.html">Accueil</a><a href="./member/dashboard.html">Espace membre</a></nav></header>
+<main class="pssr-main">
+<section class="panel auth-box">
+<p class="eyebrow">Phase 2A</p><h1>Inscription intelligente</h1>
+<p>Créez un espace membre PSSR. Les données sont enregistrées dans Firebase, collection <code>users</code>.</p>
+<div class="stepper" aria-label="Étapes d'inscription"><span class="step active">1 Identité</span><span class="step">2 Diagnostic</span><span class="step">3 Objectifs</span><span class="step">4 Parcours</span><span class="step">5 Compte</span></div>
+<form id="register-form" class="form-grid">
+<label>Prénom & nom<input name="displayName" required placeholder="Prénom Nom"></label>
+<label>Email<input name="email" type="email" required placeholder="exemple@domaine.be"></label>
+<label>Téléphone<input name="phone" type="tel" placeholder="0492 691 070"></label>
+<label>Âge / tranche d’âge<select name="ageRange"><option value="">Choisir</option><option>6–12 ans</option><option>13–17 ans</option><option>18–39 ans</option><option>40 ans+</option></select></label>
+<label>Situation actuelle<select name="situation"><option>Découverte / première demande</option><option>Reprise d’activité physique</option><option>Accompagnement social / emploi</option><option>Orientation partenaire</option></select></label>
+<label>Niveau actuel<select name="activityLevel"><option>Débutant</option><option>Intermédiaire</option><option>Régulier</option></select></label>
+<label class="full">Freins / besoins<textarea name="needs" rows="3" placeholder="Santé, motivation, mobilité, emploi, administratif…"></textarea></label>
+<label class="full">Objectifs principaux<textarea name="goals" rows="3" placeholder="Bouger régulièrement, retrouver confiance, préparer un projet, rencontrer un coach…"></textarea></label>
+<label>Mot de passe<input name="password" type="password" minlength="8" required placeholder="Minimum 8 caractères"></label>
+<label>Confirmer le mot de passe<input name="password2" type="password" minlength="8" required></label>
+<button class="btn" type="submit">Créer mon espace membre</button>
+<p id="register-msg" class="msg" hidden></p>
+</form>
+</section>
+</main>
+<script type="module" src="./assets/js/register.js"></script>
+<script src="./assets/js/media-fallback.js" defer></script>
+</body></html>

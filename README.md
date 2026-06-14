@@ -1,40 +1,25 @@
-# Équilibre Vital — PSSR
+# PSSR — Équilibre Vital asbl
 
-**Bouge ton corps, avance dans ta vie !**
-
-Site officiel GitHub Pages + Firebase du Parcours Socio-Sportif Renforcé d’Équilibre Vital asbl.
+Site GitHub Pages + Firebase pour le Parcours Socio-Sportif Renforcé.
 
 ## Version actuelle
 
-- Site public statique
-- Formulaire de contact Firebase Firestore
-- Réservations avec référence PSSR
-- Back-office admin privé
-- Export CSV
-- Créneaux sportifs et socio-professionnels
-- Roadmap publique
+- Site institutionnel PSSR.
+- Formulaire contact → Firestore `messages`.
+- Réservations → Firestore `reservations`.
+- Tableau de bord admin → `/admin/`.
+- Phase 2A : inscription membre, espace membre, espace coach, créneaux, présences, passeport numérique imprimable.
 
 ## URLs
 
 - Site : https://ev2025.github.io/pssr/
-- Réservation : https://ev2025.github.io/pssr/reservation.html
-- Roadmap : https://ev2025.github.io/pssr/roadmap.html
+- Inscription : https://ev2025.github.io/pssr/inscription.html
+- Espace membre : https://ev2025.github.io/pssr/member/dashboard.html
+- Espace coach : https://ev2025.github.io/pssr/coach/
 - Admin : https://ev2025.github.io/pssr/admin/
 
-## Stack actuel
+## Déploiement
 
-- HTML / CSS / JavaScript
-- GitHub Pages
-- Firebase Authentication
-- Firebase Firestore
+Décompresser le ZIP, copier le contenu à la racine du dépôt local `pssr`, puis GitHub Desktop : `Commit to main` → `Push origin`.
 
-## Documentation
-
-- `docs/README_PROJET_ACTUEL.md`
-- `docs/CE_QUI_A_ETE_REPRIS_DU_PLAN.md`
-- `docs/ROADMAP_PLATEFORME_COMPLETE.md`
-- `docs/CRENEAUX_OFFICIELS.md`
-
-## Phase 2
-
-La plateforme complète React / FastAPI / MongoDB reste une vision future. Elle n’est pas nécessaire pour faire fonctionner le site actuel.
+Après push, publier les règles Firestore du fichier `firestore.rules`.
