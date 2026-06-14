@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/v8-coherence.css">
 <meta name="description" content="PSSR — Parcours socio-sportif renforcé, ateliers, réservations, accompagnement et contact à Bruxelles.">
 <link rel="canonical" href="https://ev2025.github.io/pssr/">
 <meta property="og:title" content="PSSR — Parcours Socio-Sportif Renforcé">
@@ -350,91 +351,111 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   </div>
 
   <!-- ===== Hero ===== -->
-  <header class="hero" role="banner">
+  <header class="hero hero-v8" role="banner">
     <div class="wrap">
+      <p class="hero-kicker">Parcours Socio-Sportif Renforcé</p>
       <h1 aria-live="polite">PSSR</h1>
-      <a class="btn" href="#inscriptions">Voir les activités & tarifs</a>
+      <p class="hero-intro">Un parcours d’activités physiques et d’accompagnement pour jeunes, adultes et partenaires à Bruxelles. Choisissez une activité, envoyez votre demande en ligne et l’équipe vous confirme l’inscription.</p>
+      <div class="hero-actions" aria-label="Actions principales">
+        <a class="btn" href="#inscriptions">Choisir une activité</a>
+        <a class="btn btn-light" href="./reservation.html">Réserver</a>
+      </div>
     </div>
   </header>
 
   <!-- ===== Bandeau d’appel ===== -->
-  <div class="section-wrap appel-banner" role="region" aria-label="Appel à l'action principal">
-    <div class="label"><span class="dot" aria-hidden="true"></span>Prêt·e à commencer ?</div>
+  <div class="section-wrap appel-banner appel-banner-v8" role="region" aria-label="Appel à l'action principal">
+    <div class="label"><span class="dot" aria-hidden="true"></span>Inscription simple et rapide</div>
     <div>
-      <a class="btn-appel" href="./reservation.html">Faire une réservation</a>
-      <a class="btn-appel-ghost" href="#inscriptions" style="margin-left:8px">Voir les activités</a>
+      <a class="btn-appel" href="./reservation.html">Réserver</a>
       <a class="btn-appel-ghost" href="#contact" style="margin-left:8px">Poser une question</a>
     </div>
   </div>
 
+  <!-- ===== Présentation ===== -->
+  <section id="presentation" aria-labelledby="presentation-title">
+    <div class="section-wrap section-compact">
+      <h2 id="presentation-title" class="sec-title">Un parcours clair pour se remettre en mouvement</h2>
+      <p class="sec-sub">Le dispositif accompagne les participant·es vers une pratique régulière, adaptée et motivante, avec un suivi humain et progressif.</p>
+      <div class="intro-grid" aria-label="Présentation du parcours">
+        <article class="intro-card"><span class="mini-badge">Quoi</span><h3>Activités encadrées</h3><p>Des séances sportives accessibles, adaptées aux âges et aux besoins.</p></article>
+        <article class="intro-card"><span class="mini-badge">Pour qui</span><h3>Jeunes, adultes, partenaires</h3><p>Un cadre associatif pour reprendre confiance et construire une régularité.</p></article>
+        <article class="intro-card"><span class="mini-badge">Comment</span><h3>Inscription en ligne</h3><p>Choisissez une activité, envoyez la demande, l’équipe confirme les modalités.</p></article>
+        <article class="intro-card"><span class="mini-badge">Objectif</span><h3>Progresser durablement</h3><p>Avancer étape par étape vers plus d’autonomie, de santé et d’engagement.</p></article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Activités & tarifs ===== -->
   <section id="inscriptions" aria-labelledby="ins-title">
-    <div class="section-wrap">
+    <div class="section-wrap section-compact">
       <h2 id="ins-title" class="sec-title">Calendrier des activités</h2>
-      <p class="sec-sub">Choisissez rapidement une activité. Les détails pratiques restent disponibles plus bas dans la page.</p>
+      <p class="sec-sub">Un affichage compact : jour, activité, horaire, âge et inscription.</p>
 
-      <div class="callout price-card">
-        <h3>Tarif solidaire</h3>
-        <p class="price">165€ / année académique</p>
+      <div class="calendar-headline" aria-label="Tarif et inscription">
+        <strong>Tarif solidaire : 165€ / année académique</strong>
+        <span>Les places sont confirmées par l’équipe après réception de la demande.</span>
       </div>
 
-      <div class="activity-calendar-compact" aria-label="Calendrier des activités">
-      <article class="activity-day-card">
-        <h3>Mardi</h3>
-        <ul class="activity-lines">
-          <li class="activity-line">
-            <span class="activity-name">Cardio Fit Ados</span>
-            <span class="activity-meta"><span class="badge-soft">18h00 - 19h00</span><span class="badge-soft">13-17 ans</span></span>
-            <a class="btn btn-compact" href="./reservation.html?module=Cardio%20Fit%20Ados">S’inscrire</a>
-          </li>
-          <li class="activity-line">
-            <span class="activity-name">Initiation Boxe / Kick-Boxing</span>
-            <span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">13+ ans</span></span>
-            <a class="btn btn-compact" href="./reservation.html?module=Initiation%20Boxe%20/%20Kick-Boxing">S’inscrire</a>
-          </li>
-        </ul>
-      </article>
-      <article class="activity-day-card">
-        <h3>Vendredi</h3>
-        <ul class="activity-lines">
-          <li class="activity-line">
-            <span class="activity-name">Kids Move</span>
-            <span class="activity-meta"><span class="badge-soft">16h00 - 17h00</span><span class="badge-soft">6-12 ans</span></span>
-            <a class="btn btn-compact" href="./reservation.html?module=Kids%20Move">S’inscrire</a>
-          </li>
-          <li class="activity-line">
-            <span class="activity-name">Training Jeunes</span>
-            <span class="activity-meta"><span class="badge-soft">17h00 - 18h00</span><span class="badge-soft">13-17 ans</span></span>
-            <a class="btn btn-compact" href="./reservation.html?module=Training%20Jeunes">S’inscrire</a>
-          </li>
-          <li class="activity-line">
-            <span class="activity-name">Fitness Loisirs Mixte</span>
-            <span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">18+ ans</span></span>
-            <a class="btn btn-compact" href="./reservation.html?module=Fitness%20Loisirs%20Mixte">S’inscrire</a>
-          </li>
-          <li class="activity-line">
-            <span class="activity-name">Boxing Loisir</span>
-            <span class="activity-meta"><span class="badge-soft">20h00 - 21h00</span><span class="badge-soft">18+ ans</span></span>
-            <a class="btn btn-compact" href="./reservation.html?module=Boxing%20Loisir">S’inscrire</a>
-          </li>
-        </ul>
-      </article>
-      <article class="activity-day-card">
-        <h3>Samedi</h3>
-        <ul class="activity-lines">
-          <li class="activity-line">
-            <span class="activity-name">Mobility & Recovery</span>
-            <span class="activity-meta"><span class="badge-soft">08h00 - 10h00</span><span class="badge-soft">40+ ans</span></span>
-            <a class="btn btn-compact" href="./reservation.html?module=Mobility%20%26%20Recovery">S’inscrire</a>
-          </li>
-        </ul>
-      </article>
+      <div class="activity-calendar-compact v8-calendar" aria-label="Calendrier des activités">
+        <article class="activity-day-card">
+          <h3>Mardi</h3>
+          <ul class="activity-lines">
+            <li class="activity-line">
+              <span class="activity-name">Cardio Fit Ados</span>
+              <span class="activity-meta"><span class="badge-soft">18h00 - 19h00</span><span class="badge-soft">13-17 ans</span></span>
+              <a class="btn btn-compact" href="./reservation.html?module=Cardio%20Fit%20Ados">S’inscrire</a>
+            </li>
+            <li class="activity-line">
+              <span class="activity-name">Initiation Boxe / Kick-Boxing</span>
+              <span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">13+ ans</span></span>
+              <a class="btn btn-compact" href="./reservation.html?module=Initiation%20Boxe%20/%20Kick-Boxing">S’inscrire</a>
+            </li>
+          </ul>
+        </article>
+
+        <article class="activity-day-card">
+          <h3>Vendredi</h3>
+          <ul class="activity-lines">
+            <li class="activity-line">
+              <span class="activity-name">Kids Move</span>
+              <span class="activity-meta"><span class="badge-soft">16h00 - 17h00</span><span class="badge-soft">6-12 ans</span></span>
+              <a class="btn btn-compact" href="./reservation.html?module=Kids%20Move">S’inscrire</a>
+            </li>
+            <li class="activity-line">
+              <span class="activity-name">Training Jeunes</span>
+              <span class="activity-meta"><span class="badge-soft">17h00 - 18h00</span><span class="badge-soft">13-17 ans</span></span>
+              <a class="btn btn-compact" href="./reservation.html?module=Training%20Jeunes">S’inscrire</a>
+            </li>
+            <li class="activity-line">
+              <span class="activity-name">Fitness Loisirs Mixte</span>
+              <span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">18+ ans</span></span>
+              <a class="btn btn-compact" href="./reservation.html?module=Fitness%20Loisirs%20Mixte">S’inscrire</a>
+            </li>
+            <li class="activity-line">
+              <span class="activity-name">Boxing Loisir</span>
+              <span class="activity-meta"><span class="badge-soft">20h00 - 21h00</span><span class="badge-soft">18+ ans</span></span>
+              <a class="btn btn-compact" href="./reservation.html?module=Boxing%20Loisir">S’inscrire</a>
+            </li>
+          </ul>
+        </article>
+
+        <article class="activity-day-card">
+          <h3>Samedi</h3>
+          <ul class="activity-lines">
+            <li class="activity-line">
+              <span class="activity-name">Mobility &amp; Recovery</span>
+              <span class="activity-meta"><span class="badge-soft">08h00 - 10h00</span><span class="badge-soft">40+ ans</span></span>
+              <a class="btn btn-compact" href="./reservation.html?module=Mobility%20%26%20Recovery">S’inscrire</a>
+            </li>
+          </ul>
+        </article>
       </div>
 
-      <div class="activity-details-grid">
+      <div class="activity-details" aria-label="Informations pratiques complémentaires">
         <article class="activity-detail"><h3>Lieu</h3><p>Gare de l’Ouest — Centre Sportif Pythagoras · urban.brussels — Molenbeek.</p></article>
-        <article class="activity-detail"><h3>Période</h3><p>Septembre à juin. Les disponibilités sont confirmées par l’équipe après la demande.</p></article>
-        <article class="activity-detail"><h3>Accompagnement</h3><p>Les modules socio-professionnels sont sélectionnables plus bas sur la page et peuvent être ajoutés à la réservation.</p></article>
+        <article class="activity-detail"><h3>Période</h3><p>De septembre à juin. Les disponibilités sont confirmées par l’équipe.</p></article>
+        <article class="activity-detail"><h3>Accompagnement</h3><p>Les modules complémentaires peuvent être demandés plus bas sur la page.</p></article>
       </div>
     </div>
   </section>
@@ -514,7 +535,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <!-- ===== Accompagnement socio-professionnel ===== -->
   <section id="socio-pro" aria-labelledby="socio-title">
     <div class="section-wrap">
-      <h2 id="socio-title" class="sec-title">Accompagnement socio-professionnel PSSR</h2>
+      <h2 id="socio-title" class="sec-title">Accompagnement socio-professionnel</h2>
       <p class="sec-sub">Choisissez un ou plusieurs modules selon vos besoins. L’équipe PSSR vous confirme ensuite l’organisation adaptée.</p>
 
       <div class="module-grid" id="module-grid" aria-label="Modules socio-professionnels PSSR">
@@ -542,10 +563,10 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
     </div>
   </section>
 
-  <!-- ===== Projets Scolaires ATL ===== -->
+  <!-- ===== Écoles & ATL ===== -->
   <section id="atl" aria-labelledby="atl-title">
     <div class="section-wrap">
-      <h2 id="atl-title" class="sec-title">Projets Scolaires ATL</h2>
+      <h2 id="atl-title" class="sec-title">Écoles & ATL</h2>
       <p class="sec-sub">Des animations sportives et éducatives pour les écoles, l’accueil temps libre et les partenaires jeunesse.</p>
 
       <div class="grid">
@@ -592,7 +613,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <section id="documents" aria-labelledby="docs-title">
     <div class="section-wrap">
       <h2 id="docs-title" class="sec-title">Téléchargements</h2>
-      <p class="sec-sub">Flyers et documents à télécharger</p>
+      <p class="sec-sub">Documents utiles à consulter ou télécharger.</p>
 
       <div class="grid">
         <div class="card download-card">
@@ -638,7 +659,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   <section id="infos-utiles" aria-labelledby="infos-title">
     <div class="section-wrap">
       <h2 id="infos-title" class="sec-title">Informations utiles</h2>
-      <p class="sec-sub">Accès rapide aux pages qui rendent le site plus clair pour les participant·es et partenaires.</p>
+      <p class="sec-sub">Accès rapide aux pages utiles.</p>
       <div class="grid">
         <article class="mini-section"><h3>Services & tarifs</h3><p class="txt">Activités, accompagnement et tarif solidaire.</p><p><a class="btn" href="./services.html">Voir les services</a></p></article>
         <article class="mini-section"><h3>FAQ</h3><p class="txt">Réponses sur réservation, paiement, tableau de bord et données.</p><p><a class="btn" href="./faq.html">Lire la FAQ</a></p></article>
