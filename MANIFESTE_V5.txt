@@ -1,0 +1,7 @@
+V5 PSSR
+- Front-office nettoyé
+- Agenda général retiré de l’espace membre
+- Modules liés au compte affichés dans l’espace membre
+- Sélection de modules vers réservation/inscription
+- CSS moderne autonome + intégré
+- Corrections réservation : statut, prix, doublons immédiats, RGPD

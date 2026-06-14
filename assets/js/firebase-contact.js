@@ -71,7 +71,7 @@ function validate(form, data){
   if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) return 'Veuillez indiquer une adresse email valide.';
   if (!data.rgpdConsent) return 'Veuillez accepter la politique de confidentialité.';
   if (form.dataset.firebaseCollection === 'messages' && (!data.message || data.message.length < 3)) return 'Veuillez écrire un message.';
-  if (form.dataset.firebaseCollection === 'reservations' && (!data.creneau || data.creneau.length < 2)) return 'Veuillez choisir un créneau.';
+  if (form.dataset.firebaseCollection === 'reservations' && (!data.creneau || data.creneau.length < 2) && (!data.modules || data.modules.length < 2)) return 'Veuillez choisir une activité ou un module.';
   return '';
 }
 
@@ -79,6 +79,22 @@ function mailtoFallback(data){
   const subject = encodeURIComponent('Message depuis le site PSSR');
   const body = encodeURIComponent(Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n'));
   location.href = `mailto:${siteConfig.contactEmail}?subject=${subject}&body=${body}`;
+}
+
+function reservationKey(payload){
+  return ['pssrReservation', payload.email || '', payload.creneau || '', payload.modules || ''].join('|').toLowerCase();
+}
+
+function wasRecentlySubmitted(payload){
+  try{
+    const key = reservationKey(payload);
+    const last = Number(localStorage.getItem(key) || 0);
+    return last && (Date.now() - last) < 3 * 60 * 1000;
+  }catch(_){ return false; }
+}
+
+function rememberSubmission(payload){
+  try{ localStorage.setItem(reservationKey(payload), String(Date.now())); }catch(_){ }
 }
 
 async function writeEmailLog(payload, type){
@@ -119,8 +135,16 @@ async function attachForms(){
       const reservationCode = isReservation ? makeReservationCode() : '';
       if (isReservation) {
         payload.reservationCode = reservationCode;
-        payload.status = payload.status || 'nouvelle';
-        payload.paymentStatus = payload.paymentStatus || 'non demandé';
+        payload.status = payload.status || 'en attente';
+        payload.paymentStatus = payload.paymentStatus || 'à confirmer';
+        payload.priceAmount = payload.priceAmount || '165';
+        payload.priceCurrency = payload.priceCurrency || 'EUR';
+        payload.priceLabel = payload.priceLabel || 'Tarif solidaire — 165€ / année académique';
+        if (!payload.modules && payload.creneau) payload.modules = payload.creneau;
+        if (wasRecentlySubmitted(payload)) {
+          showMessage(form, 'Une demande identique vient déjà d’être envoyée. Attendez quelques minutes ou contactez l’équipe PSSR si nécessaire.', false);
+          return;
+        }
       } else {
         payload.status = payload.status || 'nouveau';
       }
@@ -135,6 +159,7 @@ async function attachForms(){
           return;
         }
         await addDoc(collection(db, collectionName), payload);
+        if (isReservation) rememberSubmission(payload);
         await writeEmailLog(payload, isReservation ? 'reservation-receipt' : 'contact-receipt');
         form.reset();
         if (isReservation) {

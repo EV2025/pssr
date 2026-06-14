@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Réservation PSSR</title>
-<meta name="description" content="Formulaire de réservation PSSR pour demander une activité ou un accompagnement.">
+<meta name="description" content="Formulaire de réservation PSSR — activités, ateliers et accompagnement.">
 <link rel="canonical" href="https://ev2025.github.io/pssr/reservation.html">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
@@ -19,16 +19,15 @@
   <section class="panel">
     <p class="eyebrow">Réservation</p>
     <h1>Réservation PSSR</h1>
-    <p>Complétez votre demande : l’équipe PSSR vous recontactera pour confirmer le module, les disponibilités et les modalités pratiques.</p>
-    <p class="msg-note"><strong>Adresse :</strong> Gare de l'Ouest — Centre Sportif Pythagoras · urban.brussels — Molenbeek. <strong>Tarif solidaire :</strong> 165€ / année académique. Le paiement en ligne n'est pas activé dans cette version ; l'équipe confirme les modalités après validation.</p>
+    <p>Complétez votre demande de réservation. L’équipe PSSR vérifie les disponibilités et vous recontacte pour confirmer l’inscription.</p>
+    <p class="msg-note"><strong>Adresse :</strong> Gare de l'Ouest — Centre Sportif Pythagoras · urban.brussels — Molenbeek. <strong>Tarif solidaire :</strong> 165€ / année académique.</p>
     <form id="reservation-form" class="form-grid" data-firebase-collection="reservations">
       <label>Nom complet<input name="nom" required placeholder="Prénom Nom"></label>
       <label>Email<input name="email" type="email" required placeholder="exemple@domaine.be"></label>
       <label>Téléphone<input name="tel" type="tel" placeholder="0492 691 070"></label>
       <label>Objectif principal<select name="objectif"><option value="">Choisir un objectif</option><option>Remise en forme</option><option>Découverte sportive</option><option>Bien-être / santé</option><option>Accompagnement socio-professionnel</option><option>Enfant / adolescent</option></select></label>
-      <label class="full">Modules sélectionnés<input name="modules" id="selected-modules-input" placeholder="Ex. Kids Move, Cardio Fit Ados" readonly></label>
-      <label>Créneau souhaité <span class="muted">(facultatif si modules déjà sélectionnés)</span><select name="creneau">
-        <option value="">Choisir un créneau</option>
+      <label>Activité ou module souhaité<select name="creneau" required>
+        <option value="">Choisir une activité ou un module</option>
         <optgroup label="Activités sportives officielles">
           <option>Mardi 18:00–19:00 — Cardio Fit Ados — 13–17 ans</option>
           <option>Mardi 19:00–20:00 — Initiation Boxe & Kick-Boxing — 13 ans+</option>
@@ -42,8 +41,8 @@
           <option>Coaching individuel</option>
           <option>Employabilité</option>
           <option>Création et mise à jour du CV</option>
-          <option>Recherche d'emploi</option>
-          <option>Simulations d'entretien</option>
+          <option>Recherche d’emploi</option>
+          <option>Simulations d’entretien</option>
           <option>Développement personnel</option>
           <option>Gestion du stress</option>
           <option>Nutrition et bien-être</option>
@@ -53,37 +52,37 @@
           <option>Coaching motivationnel</option>
         </optgroup>
       </select></label>
+      <label class="full">Modules sélectionnés<textarea name="modules" rows="2" placeholder="Si vous avez choisi plusieurs modules, ils apparaîtront ici."></textarea></label>
       <label class="full">Message<textarea name="message" rows="4" placeholder="Âge, disponibilité, question éventuelle…"></textarea></label>
       <label class="full consent"><input type="checkbox" name="rgpdConsent" required> <span>J’accepte que mes données soient utilisées pour traiter ma demande de réservation. <a href="./confidentialite-rgpd.html" target="_blank" rel="noopener">Voir la politique de confidentialité</a>.</span></label>
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
       <button class="btn" type="submit">Envoyer la demande</button>
       <p id="reservation-msg" class="msg" hidden></p>
+      <p class="msg-note">Le paiement en ligne n'est pas activé dans cette version ; l'équipe confirme les modalités après validation.</p>
     </form>
   </section>
 </main>
 
 <script>
+/* V5 — préremplissage réservation depuis les modules sélectionnés */
 (function(){
   const params = new URLSearchParams(location.search);
-  const raw = params.get('modules') || params.get('module') || '';
-  if(!raw) return;
-  const modules = raw.split('|').map(x=>decodeURIComponent(x).trim()).filter(Boolean);
-  const input = document.getElementById('selected-modules-input');
-  if(input) input.value = modules.join(', ');
-  const select = document.querySelector('select[name="creneau"]');
-  if(select && modules.length === 1){
-    const wanted = modules[0].toLowerCase();
-    Array.from(select.options).some(opt=>{
-      if(opt.textContent.toLowerCase().includes(wanted)){
-        select.value = opt.value;
-        return true;
-      }
-      return false;
-    });
-  }
-  const msg = document.querySelector('textarea[name="message"]');
-  if(msg && modules.length > 1){
-    msg.value = 'Modules souhaités : ' + modules.join(', ') + '\n';
+  const modules = params.get('modules') || params.get('module') || '';
+  if(!modules) return;
+  const decoded = modules.replace(/\s*,\s*/g, ', ');
+  const form = document.getElementById('reservation-form');
+  const select = form?.elements?.creneau;
+  const modulesField = form?.elements?.modules;
+  if(modulesField) modulesField.value = decoded;
+  if(select){
+    const first = decoded.split(',')[0].trim();
+    const options = Array.from(select.options);
+    const found = options.find(o => o.textContent.includes(first) || first.includes(o.textContent));
+    if(found) select.value = found.value;
+    else {
+      const opt = new Option(first, first, true, true);
+      select.add(opt);
+    }
   }
 })();
 </script>

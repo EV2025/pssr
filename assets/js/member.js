@@ -30,6 +30,12 @@ const steps = [
 function showLogin(text){ loginMsg.hidden=false; loginMsg.textContent=text; loginMsg.style.color='#9b2f2f'; }
 function activeStepKey(){ return profile?.journeyLevel || profile?.currentStep || 'CAND'; }
 function stepIndex(key){ return Math.max(0, steps.findIndex(s=>s.key===key)); }
+function moduleList(value){
+  if (Array.isArray(value)) return value.map(String).map(v=>v.trim()).filter(Boolean);
+  return String(value || '').split(/[,;
+]+/).map(v=>v.trim()).filter(Boolean);
+}
+function uniq(values){ return Array.from(new Set(values.filter(Boolean))); }
 function showGdpr(text, ok=false){ gdprMsg.hidden=false; gdprMsg.textContent=text; gdprMsg.style.color=ok?'#356b42':'#9b2f2f'; }
 
 async function init(){
@@ -72,7 +78,7 @@ function renderParticipant(){
     ['Référent·e social·e', profile.referent || profile.socialReferent || 'À compléter'],
     ['Session', profile.session || 'À confirmer'],
     ['Statut', profile.status || 'Inscrit'],
-    ['Modules souhaités', profile.modules || '—']
+    ['Modules souhaités', moduleList(profile.modules).join(', ') || '—']
   ];
   document.getElementById('participant-kv').innerHTML = rows.map(([k,v])=>`<div><strong>${esc(k)}</strong></div><div>${esc(v)}</div>`).join('');
 }
@@ -98,37 +104,28 @@ async function loadReservations(){
     const q = fb.query(fb.collection(fb.db,'reservations'), fb.where('uid','==',currentUser.uid), fb.orderBy('createdAt','desc'));
     fb.onSnapshot(q, snap=>{
       const rows = snap.docs.map(d=>({id:d.id,...d.data()}));
-      reservationList.innerHTML = rows.length ? rows.map(r=>`<article class="record"><h3>${esc(r.creneau || r.modules || r.slotTitle || r.reservationCode || r.id)}</h3><dl><dt>Référence</dt><dd>${esc(r.reservationCode || '—')}</dd><dt>Statut</dt><dd><span class="status-pill">${esc(r.status || 'nouvelle')}</span></dd><dt>Date</dt><dd>${esc(fmtDate(r.createdAt))}</dd><dt>Modules</dt><dd>${esc(r.modules || '—')}</dd><dt>Message</dt><dd>${esc(r.message || '')}</dd></dl></article>`).join('') : '<p>Aucune réservation membre.</p>';
-    }, err=>{ reservationList.innerHTML = `<p class="msg">Lecture impossible : ${esc(err.message)}</p>`; });
-  }catch(err){ reservationList.innerHTML = `<p class="msg">${esc(err.message)}</p>`; }
+      reservationList.innerHTML = rows.length ? rows.map(r=>`<article class="record"><h3>${esc(r.creneau || r.modules || r.slotTitle || r.reservationCode || r.id)}</h3><dl><dt>Référence</dt><dd>${esc(r.reservationCode || '—')}</dd><dt>Statut</dt><dd><span class="status-pill">${esc(r.status || 'en attente')}</span></dd><dt>Date</dt><dd>${esc(fmtDate(r.createdAt))}</dd><dt>Modules</dt><dd>${esc(r.modules || r.creneau || '—')}</dd><dt>Message</dt><dd>${esc(r.message || '')}</dd></dl></article>`).join('') : '<p>Aucune réservation membre.</p>';
+      renderLinkedModules(rows);
+    }, err=>{ reservationList.innerHTML = `<p class="msg">Lecture impossible : ${esc(err.message)}</p>`; renderLinkedModules([]); });
+  }catch(err){ reservationList.innerHTML = `<p class="msg">${esc(err.message)}</p>`; renderLinkedModules([]); }
 }
 async function loadSlots(){
-  const q = fb.query(fb.collection(fb.db,'slots'), fb.orderBy('order','asc'));
-  fb.onSnapshot(q, snap=>{
-    const rows = snap.docs.map(d=>({id:d.id,...d.data()})).filter(s=>s.active !== false);
-    slotList.innerHTML = rows.length ? rows.map(s=>`<article class="slot-card"><h3>${esc(s.activity)}</h3><p class="slot-meta">${esc(s.day)} ${esc(s.start)}–${esc(s.end)} · ${esc(s.public || '')}</p><p>${esc(s.location || '')}</p><button class="btn small" data-book="${esc(s.id)}">Réserver</button></article>`).join('') : '<p>Aucun créneau importé. L’équipe PSSR confirmera les disponibilités après votre demande.</p>';
-    slotList.querySelectorAll('[data-book]').forEach(btn=>btn.addEventListener('click',()=>book(rows.find(s=>s.id===btn.dataset.book))));
-  }, err=>{ slotList.innerHTML = `<p class="msg">Lecture impossible : ${esc(err.message)}</p>`; });
+  renderLinkedModules([]);
 }
-async function book(slot){
-  if (!slot) return;
-  const code = makeCode('PSSR');
-  await fb.addDoc(fb.collection(fb.db,'reservations'), {
-    uid: currentUser.uid,
-    nom: profile.displayName || currentUser.displayName || '',
-    email: profile.email || currentUser.email || '',
-    tel: profile.phone || '',
-    creneau: `${slot.day} ${slot.start}–${slot.end} — ${slot.activity}`,
-    modules: slot.activity,
-    slotId: slot.id,
-    slotTitle: slot.activity,
-    reservationCode: code,
-    status: 'nouvelle',
-    source: '/member/dashboard.html',
-    createdAt: fb.serverTimestamp()
-  });
-  await fb.addDoc(fb.collection(fb.db,'emailLogs'), {type:'reservation-receipt',status:'to_send',email:profile.email || currentUser.email || '',reservationCode:code,createdAt:fb.serverTimestamp()});
-  alert(`Réservation enregistrée. Référence : ${code}`);
+function renderLinkedModules(reservations = []){
+  const fromProfile = moduleList(profile?.modules);
+  const fromReservations = reservations.flatMap(r => moduleList(r.modules || r.creneau || r.slotTitle));
+  const modules = uniq([...fromProfile, ...fromReservations]);
+  if (!slotList) return;
+  if (!modules.length){
+    slotList.innerHTML = `<article class="slot-card"><h3>Aucun module lié pour le moment</h3><p class="slot-meta">Vos modules apparaîtront ici après une inscription ou une réservation.</p><a class="btn small" href="../reservation.html">Faire une demande</a></article>`;
+    return;
+  }
+  slotList.innerHTML = modules.map(m => {
+    const params = new URLSearchParams();
+    params.set('modules', m);
+    return `<article class="slot-card"><h3>${esc(m)}</h3><p class="slot-meta">Lié à votre parcours PSSR</p><p>L’équipe PSSR confirme les disponibilités et les modalités de participation.</p><a class="btn small" href="../reservation.html?${params.toString()}">Demander / modifier</a></article>`;
+  }).join('');
 }
 async function sendGdprRequest(e){
   e.preventDefault();

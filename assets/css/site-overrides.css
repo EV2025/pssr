@@ -37,3 +37,107 @@ button:disabled { opacity:.55; cursor:not-allowed; }
 .participant-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.pssr-kv{display:grid;grid-template-columns:190px 1fr;gap:10px 16px}.pssr-kv strong{color:var(--ink-strong)}
 .pssr-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;list-style:none;margin:18px 0;padding:0}.pssr-step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;cursor:pointer;color:var(--muted);min-height:88px}.pssr-step[data-active="true"]{background:linear-gradient(90deg,#b9c7ff,#cfa9ff 55%,#e393ff);color:#fff;border-color:transparent;box-shadow:0 12px 28px rgba(91,62,168,.16)}.pssr-step strong{font-size:1.15rem}.pssr-step span{font-size:.92rem}.pssr-panel{display:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:12px}.pssr-panel.active{display:block}.pssr-panel h4{margin:0 0 8px;color:var(--ink-strong);font-size:1.2rem}.msg-note{color:var(--muted);font-weight:700}
 @media(max-width:720px){.pssr-kv{grid-template-columns:1fr}.selection-box .btn,.selection-box .btn-appel-ghost{width:100%}}
+
+
+
+/* ==========================================================
+   V5 — Design moderne PSSR
+   CSS autonome, compatible GitHub Pages.
+   Objectif : améliorer l'apparence sans renommer les classes/IDs
+   ni toucher au JavaScript du cycle “Parcours PSSR”.
+   ========================================================== */
+:root{
+  --v5-bg:#f8f5ff;
+  --v5-surface:rgba(255,255,255,.94);
+  --v5-surface-strong:#ffffff;
+  --v5-text:#20143f;
+  --v5-muted:#6c6385;
+  --v5-primary:#6d3edb;
+  --v5-primary-2:#9b5cff;
+  --v5-accent:#ff5ab3;
+  --v5-lime:#d7ff5f;
+  --v5-border:rgba(95,63,175,.18);
+  --v5-shadow:0 18px 50px rgba(62,35,130,.14);
+  --v5-radius:22px;
+  --v5-radius-sm:14px;
+  --v5-grad:linear-gradient(135deg,#6d3edb 0%,#9b5cff 52%,#ff5ab3 100%);
+  --v5-grad-soft:linear-gradient(135deg,rgba(109,62,219,.12),rgba(255,90,179,.12));
+}
+html{scroll-padding-top:86px}
+body, body.pssr-page{
+  color:var(--v5-text);
+  background:
+    radial-gradient(900px 500px at 5% -10%, rgba(215,255,95,.24), transparent 58%),
+    radial-gradient(900px 520px at 95% -8%, rgba(255,90,179,.20), transparent 58%),
+    linear-gradient(135deg,#fbf9ff 0%,#f4efff 50%,#efe8ff 100%);
+}
+#nav,.pssr-header{
+  background:rgba(255,255,255,.82)!important;
+  backdrop-filter:blur(18px) saturate(150%);
+  border-bottom:1px solid var(--v5-border)!important;
+  box-shadow:0 10px 30px rgba(42,23,90,.06);
+}
+.brand img{background:#fff;box-shadow:0 8px 22px rgba(62,35,130,.10)}
+.menu a,.pssr-header a,.link-button{color:var(--v5-text)!important}
+.menu a:hover,.pssr-header a:hover,.link-button:hover{color:var(--v5-primary)!important}
+.hero{min-height:78svh;background:radial-gradient(circle at 50% 12%,rgba(255,255,255,.72),transparent 38%)}
+.hero h1{letter-spacing:-.08em!important;color:var(--v5-primary)!important;text-shadow:0 18px 45px rgba(109,62,219,.16)}
+.section-wrap{max-width:min(1220px,94vw)!important}
+.card,.panel,.pssr-panel,.pssr-card,.info-card,.schedule-card,.download-card,.mini-card,.mini-section,.status-card,.slot-card,.record,.module-card,.selection-box{
+  border:1px solid var(--v5-border)!important;
+  border-radius:var(--v5-radius)!important;
+  background:var(--v5-surface)!important;
+  box-shadow:var(--v5-shadow)!important;
+}
+h2.sec-title,.pssr-title{
+  background:var(--v5-grad)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  color:transparent!important;
+  letter-spacing:-.04em;
+}
+.sec-sub,.txt,.muted,p{line-height:1.65}
+.btn,.btn-appel,button[type="submit"]{
+  background:var(--v5-grad)!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:0 14px 34px rgba(109,62,219,.22)!important;
+  transform:translateZ(0);
+}
+.btn:hover,.btn-appel:hover,button[type="submit"]:hover{transform:translateY(-2px)}
+.btn.secondary,.btn-appel-ghost,.link-button{
+  background:#fff!important;
+  color:var(--v5-primary)!important;
+  border:1px solid var(--v5-border)!important;
+  box-shadow:0 8px 24px rgba(62,35,130,.08)!important;
+}
+input,textarea,select{
+  border:1px solid var(--v5-border)!important;
+  border-radius:var(--v5-radius-sm)!important;
+  background:#fff!important;
+  color:var(--v5-text)!important;
+}
+input:focus,textarea:focus,select:focus{outline:3px solid rgba(109,62,219,.18)!important;border-color:rgba(109,62,219,.45)!important}
+.schedule-item{border-color:var(--v5-border)!important}
+.price-card{background:var(--v5-grad-soft)!important}
+.price{color:var(--v5-primary)!important}
+.module-grid{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.module-card{transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;cursor:pointer}
+.module-card:hover{transform:translateY(-2px);border-color:rgba(109,62,219,.38)!important}
+.module-card input:checked + span{color:var(--v5-primary);font-weight:900}
+.module-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:12px}
+/* Cycle PSSR : modernisé uniquement par CSS, structure et JS intacts */
+#pssr-cycle-iso .pssr-ring{background:radial-gradient(circle at 50% 50%,#fff 0 54%,#f1eaff 55%,transparent 61%)!important;box-shadow:0 28px 70px rgba(109,62,219,.20)!important;border-color:var(--v5-border)!important}
+#pssr-cycle-iso .pssr-center{border-color:rgba(109,62,219,.42)!important;color:var(--v5-primary)!important}
+#pssr-cycle-iso .pssr-node{box-shadow:0 14px 34px rgba(62,35,130,.22), inset 0 0 0 2px rgba(255,255,255,.48)!important}
+#pssr-cycle-iso .pssr-pill{border-color:var(--v5-border)!important;background:#fff!important;color:var(--v5-text)!important}
+#pssr-cycle-iso .pssr-pill[aria-pressed="true"]{background:var(--v5-grad)!important;color:#fff!important}
+.pssr-steps{gap:12px!important}.pssr-step{transition:transform .18s ease, box-shadow .18s ease}.pssr-step:hover{transform:translateY(-2px)}
+.status-pill,.badge,.pssr-tag{background:var(--v5-grad-soft)!important;color:var(--v5-primary)!important;border:1px solid var(--v5-border)!important}
+.site-footer{background:rgba(255,255,255,.78)!important;border-top:1px solid var(--v5-border)!important}
+@media(max-width:820px){
+  .hero{min-height:68svh;padding-top:90px!important}.hero h1{font-size:clamp(4.4rem,21vw,7rem)!important}
+  .btn,.btn-appel,.btn-appel-ghost{width:100%;max-width:100%;margin-left:0!important}
+  .appel-banner{align-items:stretch}.appel-banner>div:last-child{display:grid;gap:10px;width:100%}
+  .pssr-header nav,.menu{gap:8px}.module-actions{display:grid}
+}
