@@ -1,7 +1,7 @@
 /* V15 — burger menu + bouton FR/NL discret */
 (function(){
   const dict = {
-    'Accueil':'Start','PSSR':'PSSR','Activités & tarifs':'Activiteiten & tarieven','Tableau de bord':'Dashboard','Réserver':'Reserveren','Connexion':'Inloggen','Je m’inscris':'Ik schrijf me in','Déconnexion':'Uitloggen',
+    'Accueil':'Start','PSSR':'PSSR','Parcours PSSR':'PSSR-traject','Activités & tarifs':'Activiteiten & tarieven','Ateliers':'Workshops','Ressources':'Bronnen','Contact':'Contact','Réserver':'Reserveren','Connexion':'Inloggen','Je m’inscris':'Ik schrijf me in','Déconnexion':'Uitloggen',
     'Accéder à l’espace membre':'Naar ledenruimte','Accéder à l’espace admin':'Naar beheerruimte','Mot de passe oublié ?':'Wachtwoord vergeten?','Envoyer le lien sécurisé':'Veilige link versturen','Retour espace membre':'Terug naar ledenruimte','Retour admin':'Terug naar admin',
     'Bouge ton corps,':'Beweeg je lichaam,','avance dans ta vie !':'vooruit in je leven!','Je rejoins le mouvement':'Ik doe mee','Réserver un cours collectif':'Groepsles reserveren','Demander un rendez-vous':'Afspraak aanvragen','Flyer':'Flyer',
     'confiance':'vertrouwen','santé':'gezondheid','équilibre':'evenwicht','Les ateliers':'Workshops','Apprenez':'Leren','Pratiquez':'Oefenen','Partagez':'Delen','Accompagnement socio-professionnel':'Socio-professionele begeleiding','Téléchargements':'Downloads','Contact':'Contact',
@@ -25,11 +25,10 @@
       const btn = document.createElement('button'); btn.type='button'; btn.className='menu-burger-v15'; btn.setAttribute('aria-label','Ouvrir le menu'); btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-controls',nav.id); btn.textContent='☰';
       actions.append(lang,btn); header.insertBefore(actions, nav);
     }
-    if(!nav.querySelector('.nav-login')){
+    if(!nav.querySelector('.nav-signup')){
       const prefix = location.pathname.includes('/admin/') || location.pathname.includes('/member/') || location.pathname.includes('/coach/') ? '../' : './';
-      const login=document.createElement('a'); login.href=prefix+'dashboard.html'; login.className='nav-login'; login.textContent='Connexion';
       const signup=document.createElement('a'); signup.href=prefix+'inscription.html'; signup.className='nav-signup'; signup.textContent='Je m’inscris';
-      nav.append(login,signup);
+      nav.append(signup);
     }
   }
   document.querySelectorAll('.pssr-header').forEach(ensureBurger);
