@@ -1,0 +1,334 @@
+/* V16 — transitions en dégradé + harmonisation globale
+   Objectif : corriger le défaut visuel du tableau de bord et donner aux pages
+   un fond moderne multi-couleurs inspiré du footer, sans casser la structure HTML. */
+:root{
+  --v16-deep:#24183f;
+  --v16-deep-2:#30245b;
+  --v16-purple:#5b3ea8;
+  --v16-violet:#7b55d9;
+  --v16-pink:#e393ff;
+  --v16-blue:#b9c7ff;
+  --v16-mint:#dff8ee;
+  --v16-paper:rgba(255,255,255,.94);
+  --v16-paper-strong:#ffffff;
+  --v16-ink:#2d2150;
+  --v16-muted:#6b6291;
+  --v16-line:rgba(91,62,168,.16);
+  --v16-soft-line:rgba(255,255,255,.16);
+  --v16-radius:26px;
+  --v16-radius-sm:16px;
+  --v16-shadow:0 24px 70px rgba(36,24,63,.16);
+  --v16-shadow-soft:0 12px 34px rgba(56,36,105,.10);
+}
+
+body.pssr-page,
+body.admin-page,
+body.reset-page-v10{
+  min-height:100svh;
+  background:
+    radial-gradient(880px 420px at 8% 4%, rgba(227,147,255,.34), transparent 64%),
+    radial-gradient(920px 460px at 92% 9%, rgba(185,199,255,.34), transparent 62%),
+    radial-gradient(720px 360px at 50% 45%, rgba(223,248,238,.35), transparent 62%),
+    linear-gradient(180deg, var(--v16-deep) 0%, var(--v16-deep-2) 11%, #f7f2ff 31%, #fff 58%, #f4efff 82%, #ede6ff 100%) !important;
+  background-attachment:fixed;
+}
+
+/* Un halo doux derrière le contenu pour éviter l'effet “blocs collés” */
+.pssr-main,
+main.pssr-main{
+  position:relative;
+  width:min(1120px,94vw);
+  margin:clamp(28px,4.5vw,56px) auto!important;
+  display:grid;
+  gap:clamp(22px,3.4vw,42px);
+}
+.pssr-main::before{
+  content:"";
+  position:absolute;
+  inset:-34px -2vw auto;
+  height:clamp(180px,24vw,330px);
+  pointer-events:none;
+  background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
+  border-radius:40px;
+  filter:blur(.2px);
+  z-index:-1;
+}
+
+/* Cartes de sections : séparateurs visuels fluides */
+.pssr-main > section,
+.pssr-main > .panel,
+main.pssr-main > section,
+.admin-page main > section{
+  position:relative;
+  isolation:isolate;
+}
+.pssr-main > section:not(.hero):not(.no-v16-style),
+.pssr-main > .panel,
+.admin-page .panel{
+  border-radius:var(--v16-radius)!important;
+  overflow:hidden;
+}
+.pssr-main > section:not(.hero):not(.no-v16-style)::before,
+.pssr-main > .panel::before,
+.admin-page .panel::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:7px;
+  background:linear-gradient(90deg, var(--v16-purple), var(--v16-pink), var(--v16-blue));
+  opacity:.88;
+  z-index:2;
+}
+.pssr-main > section:not(:first-child)::after{
+  content:"";
+  position:absolute;
+  left:50%;top:calc(-1 * clamp(20px,3vw,36px));
+  transform:translateX(-50%);
+  width:min(760px,82vw);
+  height:clamp(18px,2.4vw,30px);
+  pointer-events:none;
+  background:linear-gradient(90deg, transparent, rgba(91,62,168,.16), rgba(227,147,255,.18), transparent);
+  border-radius:999px;
+  filter:blur(8px);
+  z-index:-1;
+}
+
+/* Style unifié des panels/pages internes */
+.panel,
+.pssr-page .panel,
+.admin-page .panel,
+.reset-page-v10 .panel{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.91)),
+    radial-gradient(400px 180px at 12% 0%, rgba(227,147,255,.13), transparent 68%) !important;
+  border:1px solid var(--v16-line)!important;
+  box-shadow:var(--v16-shadow)!important;
+}
+.panel h1,
+.panel h2,
+.panel h3{
+  letter-spacing:-.025em;
+}
+.panel p{
+  line-height:1.7;
+}
+
+/* Dashboard : correction visuelle spécifique */
+.dashboard-page-v16 .pssr-main,
+.dashboard-main-v16{
+  min-height:calc(100svh - 360px);
+  align-content:center;
+  gap:clamp(18px,3vw,30px);
+}
+.dashboard-hero-v16{
+  text-align:center;
+  max-width:900px;
+  margin-inline:auto;
+  padding:clamp(34px,6vw,70px)!important;
+  background:
+    radial-gradient(420px 240px at 15% 0%, rgba(227,147,255,.22), transparent 68%),
+    radial-gradient(520px 260px at 92% 12%, rgba(185,199,255,.28), transparent 70%),
+    linear-gradient(145deg, rgba(255,255,255,.98), rgba(250,247,255,.94))!important;
+}
+.dashboard-hero-v16 .eyebrow{
+  margin-inline:auto;
+}
+.dashboard-hero-v16 h1{
+  margin:.15em 0 0!important;
+  font-size:clamp(2.25rem,5vw,4.4rem)!important;
+}
+.dashboard-actions-v16{
+  max-width:900px;
+  margin-inline:auto;
+  padding:clamp(22px,3.2vw,34px)!important;
+}
+.dashboard-access-v16{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(12px,2vw,18px);
+  flex-wrap:wrap;
+}
+.dashboard-access-v16 .dashboard-card,
+.dashboard-choice-v12 .dashboard-card{
+  flex:0 1 auto;
+  width:auto!important;
+  min-width:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.dashboard-access-v16 .btn,
+.dashboard-choice-v12 .btn{
+  min-height:42px!important;
+  padding:11px 18px!important;
+  font-size:.94rem!important;
+  width:auto!important;
+  max-width:max-content!important;
+}
+.dashboard-access-v16 .btn:first-child{
+  background:linear-gradient(135deg, var(--v16-purple), var(--v16-violet))!important;
+  color:#fff!important;
+}
+.dashboard-access-v16 .btn.secondary{
+  background:rgba(255,255,255,.86)!important;
+  color:var(--v16-purple)!important;
+  border:1px solid rgba(91,62,168,.22)!important;
+}
+
+/* Hero accueil : transition vers le reste de page */
+.hero.hero-v13,
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(820px 420px at 18% 16%, rgba(227,147,255,.34), transparent 65%),
+    radial-gradient(760px 380px at 84% 10%, rgba(185,199,255,.34), transparent 66%),
+    linear-gradient(150deg, #2d2150 0%, #4b2f88 42%, #6b45bd 100%)!important;
+}
+.hero.hero-v13::after,
+.hero::after{
+  content:"";
+  position:absolute;
+  left:-5%;right:-5%;bottom:-2px;
+  height:clamp(70px,10vw,130px);
+  pointer-events:none;
+  background:linear-gradient(180deg, transparent 0%, rgba(247,242,255,.75) 65%, #f7f2ff 100%);
+  z-index:0;
+}
+.hero .wrap{position:relative;z-index:1;}
+.hero-actions-v13 .btn,
+.hero .btn{
+  box-shadow:0 16px 34px rgba(36,24,63,.22)!important;
+}
+
+/* Ateliers : grille responsive plus naturelle, pas des colonnes figées */
+#ateliers .atelier-cards-v10,
+#ateliers .atelier-grid-v13{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%, 290px),1fr))!important;
+  gap:clamp(16px,2.5vw,26px)!important;
+  align-items:stretch!important;
+}
+#ateliers .atelier-card-v10,
+#ateliers .atelier-item-v13{
+  min-width:0;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+#ateliers .atelier-card-v10:hover,
+#ateliers .atelier-item-v13:hover{
+  transform:translateY(-3px);
+  border-color:rgba(91,62,168,.28)!important;
+  box-shadow:0 18px 42px rgba(56,36,105,.14)!important;
+}
+
+/* Harmonisation globale boutons, formulaires et cartes */
+.btn,
+button,
+input[type="submit"]{
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+}
+.btn:hover,
+button:hover,
+input[type="submit"]:hover{
+  transform:translateY(-1px);
+}
+.pssr-page input,
+.pssr-page select,
+.pssr-page textarea,
+.admin-page input,
+.admin-page select,
+.admin-page textarea{
+  background:rgba(255,255,255,.94)!important;
+  border-color:rgba(91,62,168,.18)!important;
+}
+.metric,
+.pssr-card,
+.card,
+.info-card,
+.dashboard-card,
+.admin-card,
+.records article{
+  border-color:rgba(91,62,168,.14)!important;
+}
+
+/* Footer : le dégradé devient le point d'ancrage visuel du site */
+.site-footer.footer-v15{
+  background:
+    radial-gradient(720px 280px at 12% 0%, rgba(227,147,255,.20), transparent 64%),
+    radial-gradient(680px 260px at 88% 0%, rgba(185,199,255,.18), transparent 62%),
+    linear-gradient(180deg, #30245b 0%, #24183f 100%)!important;
+}
+.footer-v15 .footer-grid-v15{
+  align-items:start;
+}
+.footer-v15 h2{
+  position:relative;
+  padding-bottom:10px;
+}
+.footer-v15 h2::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:0;
+  width:38px;height:3px;border-radius:999px;
+  background:linear-gradient(90deg, var(--v16-pink), var(--v16-blue));
+}
+
+@media (max-width:760px){
+  body.pssr-page,
+  body.admin-page,
+  body.reset-page-v10{background-attachment:scroll;}
+  .pssr-main,
+  main.pssr-main{gap:24px;margin:24px auto!important;}
+  .dashboard-hero-v16,
+  .dashboard-actions-v16{padding:24px 18px!important;}
+  .dashboard-access-v16{align-items:stretch;}
+  .dashboard-access-v16 .btn,
+  .dashboard-choice-v12 .btn{width:100%!important;max-width:none!important;justify-content:center!important;}
+  .pssr-main > section:not(:first-child)::after{width:70vw;height:20px;filter:blur(7px);}
+}
+
+/* Accueil historique : mêmes ambiances, sans changer la structure */
+body#accueil{
+  background:
+    radial-gradient(880px 420px at 8% 4%, rgba(227,147,255,.34), transparent 64%),
+    radial-gradient(920px 460px at 92% 9%, rgba(185,199,255,.34), transparent 62%),
+    linear-gradient(180deg, var(--v16-deep) 0%, var(--v16-deep-2) 10%, #f7f2ff 30%, #fff 58%, #f4efff 82%, #ede6ff 100%) !important;
+  background-attachment:fixed;
+}
+body#accueil .section-wrap{
+  position:relative;
+  isolation:isolate;
+}
+body#accueil section .section-wrap,
+body#accueil .appel-banner{
+  border-radius:var(--v16-radius)!important;
+  overflow:hidden;
+}
+body#accueil section .section-wrap::before,
+body#accueil .appel-banner::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg, var(--v16-purple), var(--v16-pink), var(--v16-blue));
+  opacity:.78;z-index:2;
+}
+body#accueil section + section .section-wrap::after,
+body#accueil .appel-banner::after{
+  content:"";
+  position:absolute;
+  left:50%;top:-24px;transform:translateX(-50%);
+  width:min(720px,80vw);height:28px;border-radius:999px;
+  background:linear-gradient(90deg, transparent, rgba(91,62,168,.13), rgba(227,147,255,.15), transparent);
+  filter:blur(8px);z-index:-1;
+}
+body#accueil .intro-card,
+body#accueil .info-card,
+body#accueil .download-card,
+body#accueil .contact-form,
+body#accueil .contact-card{
+  border-color:rgba(91,62,168,.14)!important;
+  box-shadow:var(--v16-shadow-soft)!important;
+}
+@media (max-width:760px){body#accueil{background-attachment:scroll;}}
