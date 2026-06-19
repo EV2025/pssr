@@ -1,102 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Tableau de bord PSSR</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site-overrides.css">
-<link rel="stylesheet" href="../assets/css/v9-organisation-pro.css">
-<link rel="stylesheet" href="../assets/css/v11-ressources-emploi.css">
-</head>
+<meta content="noindex,nofollow" name="robots"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;family=Manrope:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="../assets/css/site-overrides.css" rel="stylesheet"/>
+<link href="../assets/css/v9-organisation-pro.css" rel="stylesheet"/>
+<link href="../assets/css/v11-ressources-emploi.css" rel="stylesheet"/>
+<link href="../assets/css/v15-harmonisation.css" rel="stylesheet"/></head>
 <body class="pssr-page admin-page">
 <header class="pssr-header">
-  <a class="brand" href="../index.html"><img src="../wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo PSSR"><strong>PSSR Admin</strong></a>
-  <nav aria-label="Navigation principale" class="main-nav-short"><a href="../index.html">Accueil</a><a href="../index.html#parcours">PSSR</a><a href="../index.html#inscriptions">Activités & tarifs</a><a href="../dashboard.html">Tableau de bord</a><a class="cta-link" href="../reservation.html">Réserver</a><button id="logout" class="link-button" hidden>Déconnexion</button></nav>
+<a class="brand" href="../index.html"><img alt="Logo PSSR" src="../wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png"/><strong>PSSR Admin</strong></a>
+<div class="header-actions-v15"><button aria-label="Changer de langue" class="lang-toggle-v15" type="button">NL</button><button aria-controls="site-menu-v15" aria-expanded="false" aria-label="Ouvrir le menu" class="menu-burger-v15" type="button">☰</button></div><nav aria-label="Navigation principale" class="main-nav-short" id="site-menu-v15"><a href="../index.html">Accueil</a><a href="../index.html#parcours">PSSR</a><a href="../index.html#inscriptions">Activités &amp; tarifs</a><a href="../dashboard.html">Tableau de bord</a><a class="cta-link" href="../reservation.html">Réserver</a><a class="nav-login" href="../dashboard.html">Connexion</a><a class="nav-signup" href="../inscription.html">Je m’inscris</a><button class="link-button" hidden="" id="logout">Déconnexion</button></nav>
 </header>
 <main class="pssr-main">
-  <section class="panel" id="config-warning" hidden>
-    <h1>Configuration Firebase requise</h1>
-    <p>Ouvrez <code>assets/js/firebase-config.js</code>, collez votre configuration Firebase, puis activez Authentication, Firestore et les domaines autorisés.</p>
-  </section>
-  <section class="panel" id="login-panel">
-    <p class="eyebrow">Accès privé</p>
-    <h1>Connexion au tableau de bord</h1>
-    <form id="login-form" class="form-grid small">
-      <label>Email admin<input type="email" name="email" required></label>
-      <label>Mot de passe<input type="password" name="password" required></label>
-      <button class="btn" type="submit">Connexion</button>
-      <p class="auth-secondary-link"><a href="../mot-de-passe-oublie.html?type=admin">Mot de passe oublié ?</a></p>
-      <p id="login-msg" class="msg" hidden></p>
-    </form>
-  </section>
-  <section class="panel" id="dashboard-panel" hidden>
-    <p class="eyebrow">Administration PSSR</p>
-    <h1>Tableau de bord</h1>
-    <p class="payment-note">Gestion des demandes, réservations, clients, services, calendrier, paiements manuels, notifications et statistiques.</p>
-    <div class="tabs"><button class="tab active" data-tab="messages">Messages</button><button class="tab" data-tab="reservations">Réservations</button><button class="tab" data-tab="users">Clients</button><button class="tab" data-tab="services">Services</button><button class="tab" data-tab="slots">Calendrier</button><button class="tab" data-tab="payments">Paiements</button><button class="tab" data-tab="notifications">Notifications</button><button class="tab" data-tab="pages">Contenu pages</button><button class="tab" data-tab="attendances">Présences</button><button class="tab" data-tab="emailLogs">Journaux d’e-mails</button><button class="tab" data-tab="stats">Statistiques</button></div>
-    <div class="toolbar"><button id="export-csv" class="btn secondary">Exporter CSV</button><button id="seed-pages" class="btn secondary">Importer le contenu WordPress</button><button id="seed-slots" class="btn secondary">Importer les créneaux officiels</button><button id="seed-services" class="btn secondary">Importer services & tarifs</button></div>
-    <div class="admin-tools" aria-label="Filtres du tableau de bord">
-      <label>Recherche participant<input id="admin-search" type="search" placeholder="Nom, email, téléphone, ID…"></label>
-      <label>Statut<select id="admin-status"><option value="">Tous</option><option>nouveau</option><option>en attente</option><option>inscrit</option><option>en cours</option><option>terminé</option><option>abandonné</option><option>confirmée</option><option>annulée</option></select></label>
-      <label>Session<input id="admin-session" type="search" placeholder="Septembre 2026"></label>
-      <label>Date<input id="admin-date" type="date"></label>
-    </div>
-    <div id="admin-summary"></div>
-    <h2 id="collection-title" class="section-heading">Messages reçus</h2>
-    <div id="records" class="records"></div>
-  </section>
+<section class="panel" hidden="" id="config-warning">
+<h1>Configuration Firebase requise</h1>
+<p>Ouvrez <code>assets/js/firebase-config.js</code>, collez votre configuration Firebase, puis activez Authentication, Firestore et les domaines autorisés.</p>
+</section>
+<section class="panel" id="login-panel">
+<p class="eyebrow">Accès privé</p>
+<h1>Connexion au tableau de bord</h1>
+<form class="form-grid small" id="login-form">
+<label>Email admin<input name="email" required="" type="email"/></label>
+<label>Mot de passe<input name="password" required="" type="password"/></label>
+<button class="btn" type="submit">Connexion</button>
+<p class="auth-secondary-link"><a href="../mot-de-passe-oublie.html?type=admin">Mot de passe oublié ?</a></p>
+<p class="msg" hidden="" id="login-msg"></p>
+</form>
+</section>
+<section class="panel" hidden="" id="dashboard-panel">
+<p class="eyebrow">Administration PSSR</p>
+<h1>Tableau de bord</h1>
+<p class="payment-note">Gestion des demandes, réservations, clients, services, calendrier, paiements manuels, notifications et statistiques.</p>
+<div class="tabs"><button class="tab active" data-tab="messages">Messages</button><button class="tab" data-tab="reservations">Réservations</button><button class="tab" data-tab="users">Clients</button><button class="tab" data-tab="services">Services</button><button class="tab" data-tab="slots">Calendrier</button><button class="tab" data-tab="payments">Paiements</button><button class="tab" data-tab="notifications">Notifications</button><button class="tab" data-tab="pages">Contenu pages</button><button class="tab" data-tab="attendances">Présences</button><button class="tab" data-tab="emailLogs">Journaux d’e-mails</button><button class="tab" data-tab="stats">Statistiques</button></div>
+<div class="toolbar"><button class="btn secondary" id="export-csv">Exporter CSV</button><button class="btn secondary" id="seed-pages">Importer le contenu WordPress</button><button class="btn secondary" id="seed-slots">Importer les créneaux officiels</button><button class="btn secondary" id="seed-services">Importer services &amp; tarifs</button></div>
+<div aria-label="Filtres du tableau de bord" class="admin-tools">
+<label>Recherche participant<input id="admin-search" placeholder="Nom, email, téléphone, ID…" type="search"/></label>
+<label>Statut<select id="admin-status"><option value="">Tous</option><option>nouveau</option><option>en attente</option><option>inscrit</option><option>en cours</option><option>terminé</option><option>abandonné</option><option>confirmée</option><option>annulée</option></select></label>
+<label>Session<input id="admin-session" placeholder="Septembre 2026" type="search"/></label>
+<label>Date<input id="admin-date" type="date"/></label>
+</div>
+<div id="admin-summary"></div>
+<h2 class="section-heading" id="collection-title">Messages reçus</h2>
+<div class="records" id="records"></div>
+</section>
 </main>
-<footer class="site-footer pssr-footer-pro footer-v9" role="contentinfo">
-  <div class="footer-v9-top">
-    <section class="footer-brand-block">
-      <h2>Équilibre Vital asbl</h2>
-      <p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
-    </section>
-    <section>
-      <h2>Participer</h2>
-      <nav class="footer-links" aria-label="Liens de participation">
-        <a href="../index.html">Accueil</a>
-        <a href="../index.html#inscriptions">Activités &amp; tarifs</a>
-        <a href="../reservation.html">S’inscrire</a>
-        <a href="../dashboard.html">Tableau de bord</a>
-        <a href="../member/dashboard.html">Espace membre</a>
-      </nav>
-    </section>
-    <section>
-      <h2>Ressources</h2>
-      <nav class="footer-links" aria-label="Liens secondaires">
-        <a href="../index.html#ateliers">Ateliers</a>
-        <a href="../ecoles-atl.html">Écoles &amp; ATL</a>
-        <a href="../ressources-emploi-insertion.html">Ressources emploi &amp; insertion</a>
-        <a href="../calendrier.html">Calendrier</a>
-        <a href="../index.html#documents">Documents</a>
-        <a href="../faq.html">FAQ</a>
-        <a href="../index.html#contact">Contact</a>
-      </nav>
-    </section>
-    <section>
-      <h2>Contact</h2>
-      <p><a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
-      <p><a href="tel:+32492691070">0492/691.070</a></p>
-      <p>BCE : 1019487618</p>
-    </section>
-    <section>
-      <h2>Légal &amp; paiement</h2>
-      <p>IBAN : BE17 5230 8164 9221</p>
-      <p>BIC : TRIOBEBB</p>
-      <nav class="footer-links legal" aria-label="Liens légaux">
-        <a href="../mentions-legales.html">Mentions légales</a>
-        <a href="../confidentialite-rgpd.html">RGPD</a>
-        <a href="../confidentialite-rgpd.html">Politique de confidentialité</a>
-      </nav>
-    </section>
-  </div>
-  <div class="footer-bottom">EV© 2026 — Tous droits réservés.</div>
-</footer>
-<script type="module" src="../assets/js/admin.js"></script>
-<script src="../assets/js/media-fallback.js" defer></script>
-</body>
+
+<footer class="site-footer footer-v15" role="contentinfo">
+<div class="footer-grid-v15">
+<section class="footer-col-v15 footer-brand-block">
+<h2>Équilibre Vital asbl</h2>
+<p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
+<p>Bouger, reprendre confiance et avancer à son rythme.</p>
+</section>
+<section class="footer-col-v15">
+<h2>Participer</h2>
+<nav aria-label="Participer" class="footer-links-v15">
+<a href="../index.html">Accueil</a>
+<a href="../index.html#inscriptions">Activités &amp; tarifs</a>
+<a href="../inscription.html">S’inscrire</a>
+<a href="../calendrier.html">Calendrier</a>
+<a href="../index.html#ateliers">Ateliers</a>
+<a href="../index.html#contact">Contact</a>
+</nav>
+</section>
+<section class="footer-col-v15">
+<h2>Espaces &amp; ressources</h2>
+<nav aria-label="Espaces et ressources" class="footer-links-v15">
+<a href="../dashboard.html">Tableau de bord</a>
+<a href="../member/dashboard.html">Espace membre</a>
+<a href="../ecoles-atl.html">Écoles &amp; ATL</a>
+<a href="../ressources-emploi-insertion.html">Ressources emploi &amp; insertion</a>
+<a href="../index.html#documents">Documents</a>
+<a href="../faq.html">FAQ</a>
+</nav>
+</section>
+<section class="footer-col-v15">
+<h2>Contact &amp; informations</h2>
+<div class="footer-kv-v15">
+<p>Email : <a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
+<p>Téléphone : <a href="tel:+32492691070">0492/691.070</a></p>
+<p>BCE : 1019487618</p>
+</div>
+<div class="footer-payment-v15">
+<h3>Informations de paiement</h3>
+<p>IBAN : BE17 5230 8164 9221</p>
+<p>BIC : TRIOBEBB</p>
+</div>
+</section>
+</div>
+<div class="footer-bottom-v15">
+<div class="footer-bottom-inner-v15">
+<span>EV© 2026 — Tous droits réservés.</span>
+<nav aria-label="Liens légaux" class="footer-legal-v15">
+<a href="../mentions-legales.html">Mentions légales</a>
+<a href="../confidentialite-rgpd.html">RGPD</a>
+<a href="../confidentialite-rgpd.html">Politique de confidentialité</a>
+</nav>
+</div>
+</div>
+</footer><script src="../assets/js/admin.js" type="module"></script>
+<script defer="" src="../assets/js/media-fallback.js"></script>
+<script defer="True" src="../assets/js/v15-navigation-i18n.js"></script></body>
 </html>

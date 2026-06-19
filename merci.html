@@ -1,10 +1,11 @@
 
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Confirmation & Quiz Santé</title>
-  <style>
+<meta charset="utf-8"/>
+<title>Confirmation &amp; Quiz Santé</title>
+<style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #f9f5ff;
@@ -59,28 +60,76 @@
       border-radius: 8px;
     }
   </style>
-<link rel="stylesheet" href="./assets/css/v11-ressources-emploi.css">
-</head>
+<link href="./assets/css/v11-ressources-emploi.css" rel="stylesheet"/>
+<link href="./assets/css/v15-harmonisation.css" rel="stylesheet"/></head>
 <body>
-
-  <img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo Équilibre Vital" class="logo">
-
-  <div class="confirmation">
-    <h2>✅ Merci pour votre message !</h2>
-    <p>Nous vous répondrons dans les plus brefs délais.</p>
-    <p>En attendant, découvrez notre mini quiz santé & bien-être 👇</p>
-  </div>
-
-  <div class="quiz">
-    <h3>🧘 Quiz : Bouger pour mieux vivre</h3>
-    <div id="quiz-container"></div>
-    <div id="result"></div>
-  </div>
-
-  <a href="./index.html" class="return-btn">Retour sur PSSR</a>
-  <a href="https://" class="return-btn">Visiter le site Équilibre Vital</a>
-
-  <script>
+<img alt="Logo Équilibre Vital" class="logo" src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png"/>
+<div class="confirmation">
+<h2>✅ Merci pour votre message !</h2>
+<p>Nous vous répondrons dans les plus brefs délais.</p>
+<p>En attendant, découvrez notre mini quiz santé &amp; bien-être 👇</p>
+</div>
+<div class="quiz">
+<h3>🧘 Quiz : Bouger pour mieux vivre</h3>
+<div id="quiz-container"></div>
+<div id="result"></div>
+</div>
+<a class="return-btn" href="./index.html">Retour sur PSSR</a>
+<a class="return-btn" href="https://">Visiter le site Équilibre Vital</a>
+<footer class="site-footer footer-v15" role="contentinfo">
+<div class="footer-grid-v15">
+<section class="footer-col-v15 footer-brand-block">
+<h2>Équilibre Vital asbl</h2>
+<p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
+<p>Bouger, reprendre confiance et avancer à son rythme.</p>
+</section>
+<section class="footer-col-v15">
+<h2>Participer</h2>
+<nav aria-label="Participer" class="footer-links-v15">
+<a href="./index.html">Accueil</a>
+<a href="./index.html#inscriptions">Activités &amp; tarifs</a>
+<a href="./inscription.html">S’inscrire</a>
+<a href="./calendrier.html">Calendrier</a>
+<a href="./index.html#ateliers">Ateliers</a>
+<a href="./index.html#contact">Contact</a>
+</nav>
+</section>
+<section class="footer-col-v15">
+<h2>Espaces &amp; ressources</h2>
+<nav aria-label="Espaces et ressources" class="footer-links-v15">
+<a href="./dashboard.html">Tableau de bord</a>
+<a href="./member/dashboard.html">Espace membre</a>
+<a href="./ecoles-atl.html">Écoles &amp; ATL</a>
+<a href="./ressources-emploi-insertion.html">Ressources emploi &amp; insertion</a>
+<a href="./index.html#documents">Documents</a>
+<a href="./faq.html">FAQ</a>
+</nav>
+</section>
+<section class="footer-col-v15">
+<h2>Contact &amp; informations</h2>
+<div class="footer-kv-v15">
+<p>Email : <a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
+<p>Téléphone : <a href="tel:+32492691070">0492/691.070</a></p>
+<p>BCE : 1019487618</p>
+</div>
+<div class="footer-payment-v15">
+<h3>Informations de paiement</h3>
+<p>IBAN : BE17 5230 8164 9221</p>
+<p>BIC : TRIOBEBB</p>
+</div>
+</section>
+</div>
+<div class="footer-bottom-v15">
+<div class="footer-bottom-inner-v15">
+<span>EV© 2026 — Tous droits réservés.</span>
+<nav aria-label="Liens légaux" class="footer-legal-v15">
+<a href="./mentions-legales.html">Mentions légales</a>
+<a href="./confidentialite-rgpd.html">RGPD</a>
+<a href="./confidentialite-rgpd.html">Politique de confidentialité</a>
+</nav>
+</div>
+</div>
+</footer><script>
     const questions = [
       { text: "Faire 10 minutes de marche par jour peut améliorer l’humeur.", answer: true },
       { text: "Le sport est réservé aux personnes jeunes et en forme.", answer: false },
@@ -119,18 +168,13 @@
 
     showQuestion();
   </script>
-
-
-<script type="module" src="./assets/js/firebase-contact.js"></script>
-<script src="./assets/js/media-fallback.js" defer></script>
-</body>
+<script src="./assets/js/firebase-contact.js" type="module"></script>
+<script defer="" src="./assets/js/media-fallback.js"></script>
+<script defer="True" src="./assets/js/v15-navigation-i18n.js"></script></body>
 </html>
-
-
 <!-- wp:paragraph -->
 <p></p>
 <!-- /wp:paragraph -->
-
 <!-- wp:paragraph -->
 <p></p>
 <!-- /wp:paragraph -->

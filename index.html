@@ -1,21 +1,21 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
+<meta charset="utf-8"/>
 <title>PSSR — Parcours Socio-Sportif Renforcé</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./assets/css/v8-coherence.css">
-<link rel="stylesheet" href="./assets/css/v9-organisation-pro.css">
-<link rel="stylesheet" href="./assets/css/v14-inscription-menu.css">
-<meta name="description" content="PSSR — Parcours socio-sportif renforcé, ateliers, réservations, accompagnement et contact à Bruxelles.">
-<link rel="canonical" href="https://ev2025.github.io/pssr/">
-<meta property="og:title" content="PSSR — Parcours Socio-Sportif Renforcé">
-<meta property="og:description" content="Activités sportives, accompagnement socio-sportif, ateliers et réservations PSSR à Bruxelles.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ev2025.github.io/pssr/">
-
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;family=Manrope:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="./assets/css/v8-coherence.css" rel="stylesheet"/>
+<link href="./assets/css/v9-organisation-pro.css" rel="stylesheet"/>
+<link href="./assets/css/v14-inscription-menu.css" rel="stylesheet"/>
+<meta content="PSSR — Parcours socio-sportif renforcé, ateliers, réservations, accompagnement et contact à Bruxelles." name="description"/>
+<link href="https://ev2025.github.io/pssr/" rel="canonical"/>
+<meta content="PSSR — Parcours Socio-Sportif Renforcé" property="og:title"/>
+<meta content="Activités sportives, accompagnement socio-sportif, ateliers et réservations PSSR à Bruxelles." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://ev2025.github.io/pssr/" property="og:url"/>
 <style>
 :root{
   --ink:#5b3ea8; --ink-strong:#4b2f88; --muted:#6b6291;
@@ -311,7 +311,6 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 }
 .status-grid,.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.status-card{background:#fff;border:1px solid rgba(138,84,204,.22);border-radius:18px;padding:20px;box-shadow:var(--card-shadow)}.status-card ul{margin:10px 0 0 18px;color:var(--muted)}.badge{display:inline-flex;border-radius:999px;padding:6px 10px;background:linear-gradient(90deg,#b9c7ff,#e393ff);color:white;font-weight:900}.vision-note{background:#fff;border:1px dashed var(--l500);border-radius:16px;padding:14px 16px;color:var(--muted)}.footer-links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px}.footer-links a{text-decoration:underline;color:var(--ink-strong)}.quick-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}.mini-section{background:#fff;border:1px solid rgba(138,84,204,.22);border-radius:18px;padding:20px;box-shadow:var(--card-shadow)}.mini-section blockquote{margin:0;color:#4d426e}.consent{display:flex!important;gap:10px!important;align-items:flex-start!important}.consent input{width:auto!important;margin-top:4px}
 </style>
-
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -324,443 +323,390 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   "description":"Parcours Socio-Sportif Renforcé : activités sportives, accompagnement socio-sportif et ateliers socio-professionnels."
 }
 </script>
-<link rel="stylesheet" href="./assets/css/v11-ressources-emploi.css">
-<link rel="stylesheet" href="./assets/css/v13-accueil-ateliers.css">
-</head>
-
+<link href="./assets/css/v11-ressources-emploi.css" rel="stylesheet"/>
+<link href="./assets/css/v13-accueil-ateliers.css" rel="stylesheet"/>
+<link href="./assets/css/v15-harmonisation.css" rel="stylesheet"/></head>
 <body id="accueil">
-  <!-- ===== Nav ===== -->
-  <div id="nav-wrap" aria-hidden="false">
-    <div class="trigger" aria-hidden="true"></div>
-    <nav id="nav" aria-label="Navigation principale">
-      <div class="inner">
-        <a class="brand" href="#accueil" aria-label="Accueil — PSSR">
-          <span style="display:inline-block;width:44px;height:44px;border-radius:8px;overflow:hidden;">
-            <img src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" alt="Logo Équilibre Vital" />
-          </span>
-          <span style="font-size:1.25rem;font-weight:800;">PSSR</span>
-        </a>
-
-        <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
-
-        <div id="menu" class="menu" role="menubar">
-          <a role="menuitem" href="#accueil">Accueil</a>
-          <a role="menuitem" href="#parcours">PSSR</a>
-          <a role="menuitem" href="#inscriptions">Activités &amp; tarifs</a>
-          <a role="menuitem" href="./dashboard.html">Tableau de bord</a>
-          <a role="menuitem" href="./reservation.html" class="cta-link">Réserver</a>
-          <a role="menuitem" href="./dashboard.html" class="mobile-nav-action nav-login">Connexion</a>
-          <a role="menuitem" href="./inscription.html" class="mobile-nav-action nav-signup">Je m’inscris</a>
-        </div>
-      </div>
-    </nav>
-  </div>
-
-  <!-- ===== Hero ===== -->
-  <header class="hero hero-v8 hero-v13" role="banner">
-    <div class="wrap">
-      <p class="hero-eyebrow">PSSR · Bruxelles-Capitale</p>
-      <h1 aria-live="polite" aria-label="Bouge ton corps, avance dans ta vie !" data-typed="1">
-        <span>Bouge ton corps,</span>
-        <span class="hero-highlight">avance dans ta vie&nbsp;!</span>
-      </h1>
-      <p class="hero-intro">
+<!-- ===== Nav ===== -->
+<div aria-hidden="false" id="nav-wrap">
+<div aria-hidden="true" class="trigger"></div>
+<nav aria-label="Navigation principale" id="nav">
+<div class="inner">
+<a aria-label="Accueil — PSSR" class="brand" href="#accueil">
+<span style="display:inline-block;width:44px;height:44px;border-radius:8px;overflow:hidden;">
+<img alt="Logo Équilibre Vital" src="./wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png"/>
+</span>
+<span style="font-size:1.25rem;font-weight:800;">PSSR</span>
+</a>
+<button aria-label="Changer de langue" class="lang-toggle-v15" type="button">NL</button><button aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu" class="burger">☰</button>
+<div class="menu" id="menu" role="menubar">
+<a href="#accueil" role="menuitem">Accueil</a>
+<a href="#parcours" role="menuitem">PSSR</a>
+<a href="#inscriptions" role="menuitem">Activités &amp; tarifs</a>
+<a href="./dashboard.html" role="menuitem">Tableau de bord</a>
+<a class="cta-link" href="./reservation.html" role="menuitem">Réserver</a>
+<a class="mobile-nav-action nav-login" href="./dashboard.html" role="menuitem">Connexion</a>
+<a class="mobile-nav-action nav-signup" href="./inscription.html" role="menuitem">Je m’inscris</a>
+</div>
+</div>
+</nav>
+</div>
+<!-- ===== Hero ===== -->
+<header class="hero hero-v8 hero-v13" role="banner">
+<div class="wrap">
+<p class="hero-eyebrow">PSSR · Bruxelles-Capitale</p>
+<h1 aria-label="Bouge ton corps, avance dans ta vie !" aria-live="polite" data-typed="1">
+<span>Bouge ton corps,</span>
+<span class="hero-highlight">avance dans ta vie !</span>
+</h1>
+<p class="hero-intro">
         Un accompagnement humain, progressif et bienveillant pour retrouver
         <strong>confiance</strong>, <strong>santé</strong> et <strong>équilibre</strong> grâce au sport.
       </p>
-      <div class="hero-actions hero-actions-v13" aria-label="Actions principales">
-        <a class="btn btn-primary-v13" href="./inscription.html">Je rejoins le mouvement</a>
-        <a class="btn btn-secondary-v13" href="./reservation.html">Réserver un cours collectif</a>
-        <a class="btn btn-secondary-v13" href="#contact">Demander un rendez-vous</a>
-        <a class="btn btn-download-v13" href="./wp-content/uploads/2026/06/IMG-20260524-WA0017.jpg" target="_blank" rel="noopener" download>Flyer</a>
-      </div>
-      <div class="hero-stats-v13" aria-label="Chiffres clés PSSR">
-        <div class="hero-stat"><strong>6</strong><span>étapes du parcours</span></div>
-        <div class="hero-stat"><strong>7</strong><span>créneaux hebdo</span></div>
-        <div class="hero-stat"><strong>165€</strong><span>année académique</span></div>
-        <div class="hero-stat"><strong>100%</strong><span>accompagnement humain</span></div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ===== Bandeau d’appel ===== -->
-  <div class="section-wrap appel-banner appel-banner-v8 appel-banner-v11" role="region" aria-label="Appel à l'action principal">
-    <div class="label"><span class="dot" aria-hidden="true"></span>Inscription simple et rapide : choisissez une activité, puis envoyez votre demande.</div>
-    <div>
-      <a class="btn-appel-ghost" href="#contact">Poser une question</a>
-    </div>
-  </div>
-
-  <!-- ===== Présentation ===== -->
-  <section id="presentation" aria-labelledby="presentation-title">
-    <div class="section-wrap section-compact">
-      <h2 id="presentation-title" class="sec-title">Un parcours clair pour se remettre en mouvement</h2>
-      <div class="intro-grid" aria-label="Présentation du parcours">
-        <article class="intro-card"><span class="mini-badge">Quoi</span><h3>Activités encadrées</h3><p>Des séances sportives accessibles, adaptées aux âges et aux besoins.</p></article>
-        <article class="intro-card"><span class="mini-badge">Pour qui</span><h3>Jeunes, adultes, partenaires</h3><p>Un cadre associatif pour reprendre confiance et construire une régularité.</p></article>
-        <article class="intro-card"><span class="mini-badge">Comment</span><h3>Inscription en ligne</h3><p>Choisissez une activité, envoyez la demande, l’équipe confirme les modalités.</p></article>
-        <article class="intro-card"><span class="mini-badge">Objectif</span><h3>Progresser durablement</h3><p>Avancer étape par étape vers plus d’autonomie, de santé et d’engagement.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Activités & tarifs ===== -->
-  <section id="inscriptions" aria-labelledby="ins-title">
-    <div class="section-wrap section-compact">
-      <h2 id="ins-title" class="sec-title">Calendrier des activités</h2>
-<div class="activity-calendar-compact v8-calendar" aria-label="Calendrier des activités">
-        <article class="activity-day-card">
-          <h3>Mardi</h3>
-          <ul class="activity-lines">
-            <li class="activity-line">
-              <span class="activity-name">Cardio Fit Ados</span>
-              <span class="activity-meta"><span class="badge-soft">18h00 - 19h00</span><span class="badge-soft">13-17 ans</span></span>
-              <a class="btn btn-compact" href="./reservation.html?module=Cardio%20Fit%20Ados">S’inscrire</a>
-            </li>
-            <li class="activity-line">
-              <span class="activity-name">Initiation Boxe / Kick-Boxing</span>
-              <span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">13+ ans</span></span>
-              <a class="btn btn-compact" href="./reservation.html?module=Initiation%20Boxe%20/%20Kick-Boxing">S’inscrire</a>
-            </li>
-          </ul>
-        </article>
-
-        <article class="activity-day-card">
-          <h3>Vendredi</h3>
-          <ul class="activity-lines">
-            <li class="activity-line">
-              <span class="activity-name">Kids Move</span>
-              <span class="activity-meta"><span class="badge-soft">16h00 - 17h00</span><span class="badge-soft">6-12 ans</span></span>
-              <a class="btn btn-compact" href="./reservation.html?module=Kids%20Move">S’inscrire</a>
-            </li>
-            <li class="activity-line">
-              <span class="activity-name">Training Jeunes</span>
-              <span class="activity-meta"><span class="badge-soft">17h00 - 18h00</span><span class="badge-soft">13-17 ans</span></span>
-              <a class="btn btn-compact" href="./reservation.html?module=Training%20Jeunes">S’inscrire</a>
-            </li>
-            <li class="activity-line">
-              <span class="activity-name">Fitness Loisirs Mixte</span>
-              <span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">18+ ans</span></span>
-              <a class="btn btn-compact" href="./reservation.html?module=Fitness%20Loisirs%20Mixte">S’inscrire</a>
-            </li>
-            <li class="activity-line">
-              <span class="activity-name">Boxing Loisir</span>
-              <span class="activity-meta"><span class="badge-soft">20h00 - 21h00</span><span class="badge-soft">18+ ans</span></span>
-              <a class="btn btn-compact" href="./reservation.html?module=Boxing%20Loisir">S’inscrire</a>
-            </li>
-          </ul>
-        </article>
-
-        <article class="activity-day-card">
-          <h3>Samedi</h3>
-          <ul class="activity-lines">
-            <li class="activity-line">
-              <span class="activity-name">Mobility &amp; Recovery</span>
-              <span class="activity-meta"><span class="badge-soft">08h00 - 10h00</span><span class="badge-soft">40+ ans</span></span>
-              <a class="btn btn-compact" href="./reservation.html?module=Mobility%20%26%20Recovery">S’inscrire</a>
-            </li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="activity-details" aria-label="Informations pratiques complémentaires">
-        <article class="activity-detail"><h3>Lieu</h3><p>Gare de l’Ouest — Centre Sportif Pythagoras · urban.brussels — Molenbeek.</p></article>
-        <article class="activity-detail"><h3>Période</h3><p>De septembre à juin.</p></article>
-        <article class="activity-detail"><h3>Accompagnement</h3><p>Les modules complémentaires peuvent être demandés plus bas sur la page.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PSSR ===== -->
-  <section id="parcours" aria-labelledby="pssr-title">
-    <div class="section-wrap" id="pssr-cycle-iso">
-      <h2 id="pssr-title" class="pssr-title">PSSR — Parcours Socio-Sportif Renforcé</h2>
-      <p class="sec-sub">Un accompagnement progressif pour remettre le mouvement au cœur du quotidien.</p>
-
-      <div class="pssr-toolbar" role="toolbar" aria-label="Filtrer par phase (Kolb)">
-        <button class="pssr-pill" data-phase="CE" aria-pressed="false">🧪 CE — Expérience concrète</button>
-        <button class="pssr-pill" data-phase="RO" aria-pressed="false">🔎 RO — Observation réflexive</button>
-        <button class="pssr-pill" data-phase="AC" aria-pressed="false">🧠 AC — Conceptualisation abstraite</button>
-        <button class="pssr-pill" data-phase="AE" aria-pressed="false">🚀 AE — Expérimentation active</button>
-        <button class="pssr-pill" data-phase="reset" aria-pressed="false">Réinitialiser</button>
-      </div>
-
-      <div class="pssr-ring" id="ring" aria-label="Parcours circulaire"></div>
-      <div class="pssr-legend" id="legend" aria-label="Étapes du parcours"></div>
-      <div class="pssr-panels" id="panels"></div>
-
-      <div class="pssr-actions" id="actions">
-        <button class="pssr-ghost" id="showAllBtn" type="button">Tout afficher</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Les ateliers ===== -->
-  <section id="ateliers" aria-labelledby="ateliers-title" class="ateliers-v10 ateliers-v12 ateliers-v13">
-    <div class="section-wrap">
-      <h2 id="ateliers-title" class="sec-title">Les ateliers</h2>
-      <p class="sec-sub atelier-quote">Apprendre donne du sens, pratiquer construit l’expérience, partager renforce le progrès.</p>
-
-      <div class="atelier-cards-v10 atelier-cards-v12 atelier-grid-v13" aria-label="Ateliers PSSR">
-        <article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
-          <div class="ico" aria-hidden="true">📘</div>
-          <h3>Apprenez</h3>
-          <p class="txt"><strong>Objectif :</strong> expliquer, comprendre, sensibiliser.</p>
-          <ul>
-            <li>Prévention santé</li>
-            <li>Gestion du rythme personnel</li>
-            <li>Nutrition et bien-être</li>
-            <li>Sensibilisation au mouvement</li>
-            <li>Conseils pour progresser durablement</li>
-          </ul>
-        </article>
-
-        <article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
-          <div class="ico" aria-hidden="true">🏃</div>
-          <h3>Pratiquez</h3>
-          <p class="txt"><strong>Objectif :</strong> bouger, s’exercer, reprendre une activité progressivement.</p>
-          <ul>
-            <li>Remise en forme progressive</li>
-            <li>Cardio, mobilité et renforcement</li>
-            <li>Initiation boxe / kick-boxing</li>
-            <li>Activités adaptées aux jeunes et aux adultes</li>
-            <li>Récupération et mobilité</li>
-          </ul>
-        </article>
-
-        <article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
-          <div class="ico" aria-hidden="true">🤝</div>
-          <h3>Partagez</h3>
-          <p class="txt"><strong>Objectif :</strong> créer du lien, renforcer la confiance et avancer avec les autres.</p>
-          <ul>
-            <li>Accueil et orientation</li>
-            <li>Suivi individuel ou collectif</li>
-            <li>Objectifs adaptés à chacun·e</li>
-            <li>Collaboration avec les référent·es sociaux</li>
-            <li>Valorisation des progrès</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- ===== Accompagnement socio-professionnel ===== -->
-  <section id="socio-pro" aria-labelledby="socio-title">
-    <div class="section-wrap">
-      <h2 id="socio-title" class="sec-title">Accompagnement socio-professionnel</h2>
-      <p class="sec-sub">Choisissez un ou plusieurs modules selon vos besoins. L’équipe PSSR vous confirme ensuite l’organisation adaptée.</p>
-
-      <div class="module-grid module-grid-expandable" id="module-grid" aria-label="Modules socio-professionnels PSSR">
-        <details class="module-group" open>
-          <summary>Coaching &amp; orientation</summary>
-          <div class="module-options">
-            <label class="module-card module-choice-v10" data-icon="🎯"><input type="checkbox" name="module" value="Coaching individuel"><span>Coaching individuel</span></label>
-            <label class="module-card module-choice-v10" data-icon="⚡"><input type="checkbox" name="module" value="Coaching motivationnel"><span>Coaching motivationnel</span></label>
-            <label class="module-card module-choice-v10" data-icon="🧭"><input type="checkbox" name="module" value="Orientation professionnelle"><span>Orientation professionnelle</span></label>
-            <label class="module-card module-choice-v10" data-icon="🎓"><input type="checkbox" name="module" value="Orientation vers la formation"><span>Orientation vers la formation</span></label>
-          </div>
-        </details>
-        <details class="module-group">
-          <summary>Emploi &amp; formation</summary>
-          <div class="module-options">
-            <label class="module-card module-choice-v10" data-icon="💼"><input type="checkbox" name="module" value="Employabilité"><span>Employabilité</span></label>
-            <label class="module-card module-choice-v10" data-icon="📄"><input type="checkbox" name="module" value="Création et mise à jour du CV"><span>Création et mise à jour du CV</span></label>
-            <label class="module-card module-choice-v10" data-icon="🔎"><input type="checkbox" name="module" value="Recherche d’emploi"><span>Recherche d’emploi</span></label>
-            <label class="module-card module-choice-v10" data-icon="🗣️"><input type="checkbox" name="module" value="Simulations d’entretien"><span>Simulations d’entretien</span></label>
-          </div>
-        </details>
-        <details class="module-group">
-          <summary>Bien-être &amp; démarches</summary>
-          <div class="module-options">
-            <label class="module-card module-choice-v10" data-icon="🌱"><input type="checkbox" name="module" value="Développement personnel"><span>Développement personnel</span></label>
-            <label class="module-card module-choice-v10" data-icon="🧘"><input type="checkbox" name="module" value="Gestion du stress"><span>Gestion du stress</span></label>
-            <label class="module-card module-choice-v10" data-icon="🍎"><input type="checkbox" name="module" value="Nutrition et bien-être"><span>Nutrition et bien-être</span></label>
-            <label class="module-card module-choice-v10" data-icon="🗂️"><input type="checkbox" name="module" value="Accompagnement administratif"><span>Accompagnement administratif</span></label>
-          </div>
-        </details>
-      </div>
-
-      <div class="selection-box selection-box-v10">
-        <p class="selection-summary" id="selected-modules-text" hidden aria-live="polite"></p>
-        <div class="module-actions">
-          <button class="btn" type="button" id="reserve-selected-modules">Réserver les modules sélectionnés</button>
-          <button class="btn secondary" type="button" id="register-selected-modules">Créer un espace membre avec ces modules</button>
-        </div>
-        <p class="resources-note" style="margin-top:14px;">Besoin d’adresses utiles pour l’emploi, la formation ou l’insertion ? <a href="./ressources-emploi-insertion.html"><strong>Consulter les ressources emploi & insertion</strong></a>.</p>
-      </div>
-    </div>
-  </section>
+<div aria-label="Actions principales" class="hero-actions hero-actions-v13">
+<a class="btn btn-primary-v13" href="./inscription.html">Je rejoins le mouvement</a>
+<a class="btn btn-secondary-v13" href="./reservation.html">Réserver un cours collectif</a>
+<a class="btn btn-secondary-v13" href="#contact">Demander un rendez-vous</a>
+<a class="btn btn-download-v13" download="" href="./wp-content/uploads/2026/06/IMG-20260524-WA0017.jpg" rel="noopener" target="_blank">Flyer</a>
+</div>
+<div aria-label="Chiffres clés PSSR" class="hero-stats-v13">
+<div class="hero-stat"><strong>6</strong><span>étapes du parcours</span></div>
+<div class="hero-stat"><strong>7</strong><span>créneaux hebdo</span></div>
+<div class="hero-stat"><strong>165€</strong><span>année académique</span></div>
+<div class="hero-stat"><strong>100%</strong><span>accompagnement humain</span></div>
+</div>
+</div>
+</header>
+<!-- ===== Bandeau d’appel ===== -->
+<div aria-label="Appel à l'action principal" class="section-wrap appel-banner appel-banner-v8 appel-banner-v11" role="region">
+<div class="label"><span aria-hidden="true" class="dot"></span>Inscription simple et rapide : choisissez une activité, puis envoyez votre demande.</div>
+<div>
+<a class="btn-appel-ghost" href="#contact">Poser une question</a>
+</div>
+</div>
+<!-- ===== Présentation ===== -->
+<section aria-labelledby="presentation-title" id="presentation">
+<div class="section-wrap section-compact">
+<h2 class="sec-title" id="presentation-title">Un parcours clair pour se remettre en mouvement</h2>
+<div aria-label="Présentation du parcours" class="intro-grid">
+<article class="intro-card"><span class="mini-badge">Quoi</span><h3>Activités encadrées</h3><p>Des séances sportives accessibles, adaptées aux âges et aux besoins.</p></article>
+<article class="intro-card"><span class="mini-badge">Pour qui</span><h3>Jeunes, adultes, partenaires</h3><p>Un cadre associatif pour reprendre confiance et construire une régularité.</p></article>
+<article class="intro-card"><span class="mini-badge">Comment</span><h3>Inscription en ligne</h3><p>Choisissez une activité, envoyez la demande, l’équipe confirme les modalités.</p></article>
+<article class="intro-card"><span class="mini-badge">Objectif</span><h3>Progresser durablement</h3><p>Avancer étape par étape vers plus d’autonomie, de santé et d’engagement.</p></article>
+</div>
+</div>
+</section>
+<!-- ===== Activités & tarifs ===== -->
+<section aria-labelledby="ins-title" id="inscriptions">
+<div class="section-wrap section-compact">
+<h2 class="sec-title" id="ins-title">Calendrier des activités</h2>
+<div aria-label="Calendrier des activités" class="activity-calendar-compact v8-calendar">
+<article class="activity-day-card">
+<h3>Mardi</h3>
+<ul class="activity-lines">
+<li class="activity-line">
+<span class="activity-name">Cardio Fit Ados</span>
+<span class="activity-meta"><span class="badge-soft">18h00 - 19h00</span><span class="badge-soft">13-17 ans</span></span>
+<a class="btn btn-compact" href="./reservation.html?module=Cardio%20Fit%20Ados">S’inscrire</a>
+</li>
+<li class="activity-line">
+<span class="activity-name">Initiation Boxe / Kick-Boxing</span>
+<span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">13+ ans</span></span>
+<a class="btn btn-compact" href="./reservation.html?module=Initiation%20Boxe%20/%20Kick-Boxing">S’inscrire</a>
+</li>
+</ul>
+</article>
+<article class="activity-day-card">
+<h3>Vendredi</h3>
+<ul class="activity-lines">
+<li class="activity-line">
+<span class="activity-name">Kids Move</span>
+<span class="activity-meta"><span class="badge-soft">16h00 - 17h00</span><span class="badge-soft">6-12 ans</span></span>
+<a class="btn btn-compact" href="./reservation.html?module=Kids%20Move">S’inscrire</a>
+</li>
+<li class="activity-line">
+<span class="activity-name">Training Jeunes</span>
+<span class="activity-meta"><span class="badge-soft">17h00 - 18h00</span><span class="badge-soft">13-17 ans</span></span>
+<a class="btn btn-compact" href="./reservation.html?module=Training%20Jeunes">S’inscrire</a>
+</li>
+<li class="activity-line">
+<span class="activity-name">Fitness Loisirs Mixte</span>
+<span class="activity-meta"><span class="badge-soft">19h00 - 20h00</span><span class="badge-soft">18+ ans</span></span>
+<a class="btn btn-compact" href="./reservation.html?module=Fitness%20Loisirs%20Mixte">S’inscrire</a>
+</li>
+<li class="activity-line">
+<span class="activity-name">Boxing Loisir</span>
+<span class="activity-meta"><span class="badge-soft">20h00 - 21h00</span><span class="badge-soft">18+ ans</span></span>
+<a class="btn btn-compact" href="./reservation.html?module=Boxing%20Loisir">S’inscrire</a>
+</li>
+</ul>
+</article>
+<article class="activity-day-card">
+<h3>Samedi</h3>
+<ul class="activity-lines">
+<li class="activity-line">
+<span class="activity-name">Mobility &amp; Recovery</span>
+<span class="activity-meta"><span class="badge-soft">08h00 - 10h00</span><span class="badge-soft">40+ ans</span></span>
+<a class="btn btn-compact" href="./reservation.html?module=Mobility%20%26%20Recovery">S’inscrire</a>
+</li>
+</ul>
+</article>
+</div>
+<div aria-label="Informations pratiques complémentaires" class="activity-details">
+<article class="activity-detail"><h3>Lieu</h3><p>Gare de l’Ouest — Centre Sportif Pythagoras · urban.brussels — Molenbeek.</p></article>
+<article class="activity-detail"><h3>Période</h3><p>De septembre à juin.</p></article>
+<article class="activity-detail"><h3>Accompagnement</h3><p>Les modules complémentaires peuvent être demandés plus bas sur la page.</p></article>
+</div>
+</div>
+</section>
+<!-- ===== PSSR ===== -->
+<section aria-labelledby="pssr-title" id="parcours">
+<div class="section-wrap" id="pssr-cycle-iso">
+<h2 class="pssr-title" id="pssr-title">PSSR — Parcours Socio-Sportif Renforcé</h2>
+<p class="sec-sub">Un accompagnement progressif pour remettre le mouvement au cœur du quotidien.</p>
+<div aria-label="Filtrer par phase (Kolb)" class="pssr-toolbar" role="toolbar">
+<button aria-pressed="false" class="pssr-pill" data-phase="CE">🧪 CE — Expérience concrète</button>
+<button aria-pressed="false" class="pssr-pill" data-phase="RO">🔎 RO — Observation réflexive</button>
+<button aria-pressed="false" class="pssr-pill" data-phase="AC">🧠 AC — Conceptualisation abstraite</button>
+<button aria-pressed="false" class="pssr-pill" data-phase="AE">🚀 AE — Expérimentation active</button>
+<button aria-pressed="false" class="pssr-pill" data-phase="reset">Réinitialiser</button>
+</div>
+<div aria-label="Parcours circulaire" class="pssr-ring" id="ring"></div>
+<div aria-label="Étapes du parcours" class="pssr-legend" id="legend"></div>
+<div class="pssr-panels" id="panels"></div>
+<div class="pssr-actions" id="actions">
+<button class="pssr-ghost" id="showAllBtn" type="button">Tout afficher</button>
+</div>
+</div>
+</section>
+<!-- ===== Les ateliers ===== -->
+<section aria-labelledby="ateliers-title" class="ateliers-v10 ateliers-v12 ateliers-v13" id="ateliers">
+<div class="section-wrap">
+<h2 class="sec-title" id="ateliers-title">Les ateliers</h2>
+<p class="sec-sub atelier-quote">Apprendre donne du sens, pratiquer construit l’expérience, partager renforce le progrès.</p>
+<div aria-label="Ateliers PSSR" class="atelier-cards-v10 atelier-cards-v12 atelier-grid-v13">
+<article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
+<div aria-hidden="true" class="ico">📘</div>
+<h3>Apprenez</h3>
+<p class="txt"><strong>Objectif :</strong> expliquer, comprendre, sensibiliser.</p>
+<ul>
+<li>Prévention santé</li>
+<li>Gestion du rythme personnel</li>
+<li>Nutrition et bien-être</li>
+<li>Sensibilisation au mouvement</li>
+<li>Conseils pour progresser durablement</li>
+</ul>
+</article>
+<article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
+<div aria-hidden="true" class="ico">🏃</div>
+<h3>Pratiquez</h3>
+<p class="txt"><strong>Objectif :</strong> bouger, s’exercer, reprendre une activité progressivement.</p>
+<ul>
+<li>Remise en forme progressive</li>
+<li>Cardio, mobilité et renforcement</li>
+<li>Initiation boxe / kick-boxing</li>
+<li>Activités adaptées aux jeunes et aux adultes</li>
+<li>Récupération et mobilité</li>
+</ul>
+</article>
+<article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
+<div aria-hidden="true" class="ico">🤝</div>
+<h3>Partagez</h3>
+<p class="txt"><strong>Objectif :</strong> créer du lien, renforcer la confiance et avancer avec les autres.</p>
+<ul>
+<li>Accueil et orientation</li>
+<li>Suivi individuel ou collectif</li>
+<li>Objectifs adaptés à chacun·e</li>
+<li>Collaboration avec les référent·es sociaux</li>
+<li>Valorisation des progrès</li>
+</ul>
+</article>
+</div>
+</div>
+</section>
+<!-- ===== Accompagnement socio-professionnel ===== -->
+<section aria-labelledby="socio-title" id="socio-pro">
+<div class="section-wrap">
+<h2 class="sec-title" id="socio-title">Accompagnement socio-professionnel</h2>
+<p class="sec-sub">Choisissez un ou plusieurs modules selon vos besoins. L’équipe PSSR vous confirme ensuite l’organisation adaptée.</p>
+<div aria-label="Modules socio-professionnels PSSR" class="module-grid module-grid-expandable" id="module-grid">
+<details class="module-group" open="">
+<summary>Coaching &amp; orientation</summary>
+<div class="module-options">
+<label class="module-card module-choice-v10" data-icon="🎯"><input name="module" type="checkbox" value="Coaching individuel"/><span>Coaching individuel</span></label>
+<label class="module-card module-choice-v10" data-icon="⚡"><input name="module" type="checkbox" value="Coaching motivationnel"/><span>Coaching motivationnel</span></label>
+<label class="module-card module-choice-v10" data-icon="🧭"><input name="module" type="checkbox" value="Orientation professionnelle"/><span>Orientation professionnelle</span></label>
+<label class="module-card module-choice-v10" data-icon="🎓"><input name="module" type="checkbox" value="Orientation vers la formation"/><span>Orientation vers la formation</span></label>
+</div>
+</details>
+<details class="module-group">
+<summary>Emploi &amp; formation</summary>
+<div class="module-options">
+<label class="module-card module-choice-v10" data-icon="💼"><input name="module" type="checkbox" value="Employabilité"/><span>Employabilité</span></label>
+<label class="module-card module-choice-v10" data-icon="📄"><input name="module" type="checkbox" value="Création et mise à jour du CV"/><span>Création et mise à jour du CV</span></label>
+<label class="module-card module-choice-v10" data-icon="🔎"><input name="module" type="checkbox" value="Recherche d’emploi"/><span>Recherche d’emploi</span></label>
+<label class="module-card module-choice-v10" data-icon="🗣️"><input name="module" type="checkbox" value="Simulations d’entretien"/><span>Simulations d’entretien</span></label>
+</div>
+</details>
+<details class="module-group">
+<summary>Bien-être &amp; démarches</summary>
+<div class="module-options">
+<label class="module-card module-choice-v10" data-icon="🌱"><input name="module" type="checkbox" value="Développement personnel"/><span>Développement personnel</span></label>
+<label class="module-card module-choice-v10" data-icon="🧘"><input name="module" type="checkbox" value="Gestion du stress"/><span>Gestion du stress</span></label>
+<label class="module-card module-choice-v10" data-icon="🍎"><input name="module" type="checkbox" value="Nutrition et bien-être"/><span>Nutrition et bien-être</span></label>
+<label class="module-card module-choice-v10" data-icon="🗂️"><input name="module" type="checkbox" value="Accompagnement administratif"/><span>Accompagnement administratif</span></label>
+</div>
+</details>
+</div>
+<div class="selection-box selection-box-v10">
+<p aria-live="polite" class="selection-summary" hidden="" id="selected-modules-text"></p>
+<div class="module-actions">
+<button class="btn" id="reserve-selected-modules" type="button">Réserver les modules sélectionnés</button>
+<button class="btn secondary" id="register-selected-modules" type="button">Créer un espace membre avec ces modules</button>
+</div>
+<p class="resources-note" style="margin-top:14px;">Besoin d’adresses utiles pour l’emploi, la formation ou l’insertion ? <a href="./ressources-emploi-insertion.html"><strong>Consulter les ressources emploi &amp; insertion</strong></a>.</p>
+</div>
+</div>
+</section>
 <!-- ===== Téléchargements ===== -->
-  <section id="documents" aria-labelledby="docs-title">
-    <div class="section-wrap">
-      <h2 id="docs-title" class="sec-title">Téléchargements</h2>
-      <p class="sec-sub">Documents utiles à consulter ou télécharger.</p>
-
-      <div class="grid">
-        <div class="card download-card">
-          <h3>📄 Flyer PSSR</h3>
-          <p class="txt">Présentation du Parcours Socio-Sportif Renforcé.</p>
-
-          <img
-            src="./wp-content/uploads/2026/06/file_000000000c647246a3559d84ca3a432d.png"
-            alt="Flyer PSSR"
-          >
-
-          <a
-            class="btn"
-            href="./wp-content/uploads/2026/06/IMG-20260524-WA0017.jpg"
-            target="_blank"
-            rel="noopener"
-            download
-          >Télécharger le flyer PSSR</a>
-        </div>
-
-        <div class="card download-card">
-          <h3>🏃 Animations sportives</h3>
-          <p class="txt">Document d’information sur les animations sportives.</p>
-
-          <img
-            src="./wp-content/uploads/2026/06/IMG-20260524-WA0016.jpg"
-            alt="Animations sportives"
-          >
-
-          <a
-            class="btn"
-            href="./wp-content/uploads/2026/06/IMG-20260524-WA0016.jpg"
-            target="_blank"
-            rel="noopener"
-            download
-          >Télécharger les animations sportives</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<section aria-labelledby="docs-title" id="documents">
+<div class="section-wrap">
+<h2 class="sec-title" id="docs-title">Téléchargements</h2>
+<p class="sec-sub">Documents utiles à consulter ou télécharger.</p>
+<div class="grid">
+<div class="card download-card">
+<h3>📄 Flyer PSSR</h3>
+<p class="txt">Présentation du Parcours Socio-Sportif Renforcé.</p>
+<img alt="Flyer PSSR" src="./wp-content/uploads/2026/06/file_000000000c647246a3559d84ca3a432d.png"/>
+<a class="btn" download="" href="./wp-content/uploads/2026/06/IMG-20260524-WA0017.jpg" rel="noopener" target="_blank">Télécharger le flyer PSSR</a>
+</div>
+<div class="card download-card">
+<h3>🏃 Animations sportives</h3>
+<p class="txt">Document d’information sur les animations sportives.</p>
+<img alt="Animations sportives" src="./wp-content/uploads/2026/06/IMG-20260524-WA0016.jpg"/>
+<a class="btn" download="" href="./wp-content/uploads/2026/06/IMG-20260524-WA0016.jpg" rel="noopener" target="_blank">Télécharger les animations sportives</a>
+</div>
+</div>
+</div>
+</section>
 <!-- ===== Contact ===== -->
-  <section id="contact" aria-labelledby="ct-title">
-    <div class="section-wrap" style="max-width:1280px;margin:0 auto;padding:48px 20px 56px;background:#fff;border-radius:24px;box-shadow:0 8px 32px #e1bee7;">
+<section aria-labelledby="ct-title" id="contact">
+<div class="section-wrap" style="max-width:1280px;margin:0 auto;padding:48px 20px 56px;background:#fff;border-radius:24px;box-shadow:0 8px 32px #e1bee7;">
+<h2 class="sec-title" id="ct-title">Contact</h2>
+<p class="sec-sub">Une question, une inscription ou un projet ? Contactez-nous.</p>
+<form action="#" autocomplete="on" class="form" data-firebase-collection="messages" id="contact-form" method="post" novalidate="" style="margin-top:18px;max-width:100%;">
+<input name="type" type="hidden" value="contact">
+<input aria-hidden="true" autocomplete="off" name="website" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" tabindex="-1" type="text" value=""/>
+<h3>Formulaire de contact</h3>
+<div class="row">
+<div class="card field">
+<div class="ico">👤</div>
+<div class="field-body">
+<p class="ttl">Prénom &amp; Nom</p>
+<input id="c-nom" name="nom" placeholder="Ex. Sofya Vander" required="" type="text">
+</input></div>
+</div>
+<div class="card field">
+<div class="ico">✉️</div>
+<div class="field-body">
+<p class="ttl">Email</p>
+<input id="c-mail" name="email" placeholder="exemple@domaine.be" required="" type="email">
+</input></div>
+</div>
+<div class="card field">
+<div class="ico">📞</div>
+<div class="field-body">
+<p class="ttl">Tél</p>
+<input id="c-tel" inputmode="tel" maxlength="20" name="tel" placeholder="0492 691 070" type="tel">
+</input></div>
+</div>
+<div class="card field" style="grid-template-columns:auto 1fr;">
+<div class="ico">📝</div>
+<div class="field-body">
+<p class="ttl">Message</p>
+<textarea id="c-msg" name="message" placeholder="Écris ton message ici…" required="" rows="3"></textarea>
+</div>
+</div>
+<label class="card field consent" style="grid-template-columns:auto 1fr;">
+<input name="rgpdConsent" required="" type="checkbox"/>
+<span>J’accepte que mes données soient utilisées pour traiter ma demande. <a href="./confidentialite-rgpd.html" rel="noopener" target="_blank">Politique de confidentialité</a>.</span>
+</label>
+<div class="card action">
+<button aria-label="Envoyer" class="btn" type="submit">Envoyer</button>
+</div>
+</div>
+</input></form>
+<div aria-live="polite" class="ok" id="contact-msg" role="status" style="display:none;">Merci ! Message bien envoyé.</div>
+<div class="card" style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:center;text-align:center;box-shadow:none;background:#f8f2ff;border-radius:16px;margin-top:18px;">
+<div style="flex:1 1 220px;min-width:180px;display:flex;align-items:center;justify-content:center;gap:8px;">
+<span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">✉️</span>
+<a href="mailto:equilibrevital.bruxelles@gmail.com" style="font-weight:700;color:#5b3ea8;">equilibrevital.bruxelles@gmail.com</a>
+</div>
+<div style="flex:1 1 180px;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;">
+<span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">📞</span>
+<a href="tel:+32492691070" style="font-weight:700;color:#5b3ea8;">0492/691.070</a>
+</div>
+</div>
+</div>
+</section>
 
-      <h2 id="ct-title" class="sec-title">Contact</h2>
-      <p class="sec-sub">Une question, une inscription ou un projet ? Contactez-nous.</p>
-
-      <form class="form" id="contact-form" method="post" action="#" data-firebase-collection="messages" autocomplete="on" style="margin-top:18px;max-width:100%;" novalidate>
-        <input type="hidden" name="type" value="contact" />
-        <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" aria-hidden="true">
-
-        <h3>Formulaire de contact</h3>
-        <div class="row">
-          <div class="card field">
-            <div class="ico">👤</div>
-            <div class="field-body">
-              <p class="ttl">Prénom & Nom</p>
-              <input id="c-nom" type="text" name="nom" placeholder="Ex. Sofya Vander" required />
-            </div>
-          </div>
-
-          <div class="card field">
-            <div class="ico">✉️</div>
-            <div class="field-body">
-              <p class="ttl">Email</p>
-              <input id="c-mail" type="email" name="email" placeholder="exemple@domaine.be" required />
-            </div>
-          </div>
-
-          <div class="card field">
-            <div class="ico">📞</div>
-            <div class="field-body">
-              <p class="ttl">Tél</p>
-              <input id="c-tel" type="tel" inputmode="tel" name="tel" placeholder="0492 691 070" maxlength="20" />
-            </div>
-          </div>
-
-          <div class="card field" style="grid-template-columns:auto 1fr;">
-            <div class="ico">📝</div>
-            <div class="field-body">
-              <p class="ttl">Message</p>
-              <textarea id="c-msg" name="message" placeholder="Écris ton message ici…" rows="3" required></textarea>
-            </div>
-          </div>
-
-          <label class="card field consent" style="grid-template-columns:auto 1fr;">
-            <input type="checkbox" name="rgpdConsent" required>
-            <span>J’accepte que mes données soient utilisées pour traiter ma demande. <a href="./confidentialite-rgpd.html" target="_blank" rel="noopener">Politique de confidentialité</a>.</span>
-          </label>
-
-          <div class="card action">
-            <button type="submit" class="btn" aria-label="Envoyer">Envoyer</button>
-          </div>
-        </div>
-      </form>
-
-      <div class="ok" id="contact-msg" role="status" aria-live="polite" style="display:none;">Merci ! Message bien envoyé.</div>
-
-      <div class="card" style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:center;text-align:center;box-shadow:none;background:#f8f2ff;border-radius:16px;margin-top:18px;">
-        <div style="flex:1 1 220px;min-width:180px;display:flex;align-items:center;justify-content:center;gap:8px;">
-          <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">✉️</span>
-          <a href="mailto:equilibrevital.bruxelles@gmail.com" style="font-weight:700;color:#5b3ea8;">equilibrevital.bruxelles@gmail.com</a>
-        </div>
-        <div style="flex:1 1 180px;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;">
-          <span aria-hidden="true" style="font-weight:700;color:#5b3ea8;">📞</span>
-          <a href="tel:+32492691070" style="font-weight:700;color:#5b3ea8;">0492/691.070</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="site-footer pssr-footer-pro footer-v9" role="contentinfo">
-  <div class="footer-v9-top">
-    <section class="footer-brand-block">
-      <h2>Équilibre Vital asbl</h2>
-      <p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
-    </section>
-    <section>
-      <h2>Participer</h2>
-      <nav class="footer-links" aria-label="Liens de participation">
-        <a href="./index.html">Accueil</a>
-        <a href="./index.html#inscriptions">Activités &amp; tarifs</a>
-        <a href="./reservation.html">S’inscrire</a>
-        <a href="./dashboard.html">Tableau de bord</a>
-        <a href="./member/dashboard.html">Espace membre</a>
-      </nav>
-    </section>
-    <section>
-      <h2>Ressources</h2>
-      <nav class="footer-links" aria-label="Liens secondaires">
-        <a href="./index.html#ateliers">Ateliers</a>
-        <a href="./ecoles-atl.html">Écoles &amp; ATL</a>
-        <a href="./ressources-emploi-insertion.html">Ressources emploi &amp; insertion</a>
-        <a href="./calendrier.html">Calendrier</a>
-        <a href="./index.html#documents">Documents</a>
-        <a href="./faq.html">FAQ</a>
-        <a href="./index.html#contact">Contact</a>
-      </nav>
-    </section>
-    <section>
-      <h2>Contact</h2>
-      <p><a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
-      <p><a href="tel:+32492691070">0492/691.070</a></p>
-      <p>BCE : 1019487618</p>
-    </section>
-    <section>
-      <h2>Légal &amp; paiement</h2>
-      <p>IBAN : BE17 5230 8164 9221</p>
-      <p>BIC : TRIOBEBB</p>
-      <nav class="footer-links legal" aria-label="Liens légaux">
-        <a href="./mentions-legales.html">Mentions légales</a>
-        <a href="./confidentialite-rgpd.html">RGPD</a>
-        <a href="./confidentialite-rgpd.html">Politique de confidentialité</a>
-      </nav>
-    </section>
-  </div>
-  <div class="footer-bottom">EV© 2026 — Tous droits réservés.</div>
-</footer>
-
-  <div id="cta-float">
-    <a href="#inscriptions" class="btn-appel">Réserver</a>
-  </div>
-
-<script>
+<div id="cta-float">
+<a class="btn-appel" href="#inscriptions">Réserver</a>
+</div>
+<footer class="site-footer footer-v15" role="contentinfo">
+<div class="footer-grid-v15">
+<section class="footer-col-v15 footer-brand-block">
+<h2>Équilibre Vital asbl</h2>
+<p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
+<p>Bouger, reprendre confiance et avancer à son rythme.</p>
+</section>
+<section class="footer-col-v15">
+<h2>Participer</h2>
+<nav aria-label="Participer" class="footer-links-v15">
+<a href="./index.html">Accueil</a>
+<a href="./index.html#inscriptions">Activités &amp; tarifs</a>
+<a href="./inscription.html">S’inscrire</a>
+<a href="./calendrier.html">Calendrier</a>
+<a href="./index.html#ateliers">Ateliers</a>
+<a href="./index.html#contact">Contact</a>
+</nav>
+</section>
+<section class="footer-col-v15">
+<h2>Espaces &amp; ressources</h2>
+<nav aria-label="Espaces et ressources" class="footer-links-v15">
+<a href="./dashboard.html">Tableau de bord</a>
+<a href="./member/dashboard.html">Espace membre</a>
+<a href="./ecoles-atl.html">Écoles &amp; ATL</a>
+<a href="./ressources-emploi-insertion.html">Ressources emploi &amp; insertion</a>
+<a href="./index.html#documents">Documents</a>
+<a href="./faq.html">FAQ</a>
+</nav>
+</section>
+<section class="footer-col-v15">
+<h2>Contact &amp; informations</h2>
+<div class="footer-kv-v15">
+<p>Email : <a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
+<p>Téléphone : <a href="tel:+32492691070">0492/691.070</a></p>
+<p>BCE : 1019487618</p>
+</div>
+<div class="footer-payment-v15">
+<h3>Informations de paiement</h3>
+<p>IBAN : BE17 5230 8164 9221</p>
+<p>BIC : TRIOBEBB</p>
+</div>
+</section>
+</div>
+<div class="footer-bottom-v15">
+<div class="footer-bottom-inner-v15">
+<span>EV© 2026 — Tous droits réservés.</span>
+<nav aria-label="Liens légaux" class="footer-legal-v15">
+<a href="./mentions-legales.html">Mentions légales</a>
+<a href="./confidentialite-rgpd.html">RGPD</a>
+<a href="./confidentialite-rgpd.html">Politique de confidentialité</a>
+</nav>
+</div>
+</div>
+</footer><script>
 /* NAV : show/hide + lien actif + burger */
 (function(){
   const nav=document.querySelector('#nav');
@@ -800,7 +746,6 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   sections.forEach(s=>s && io.observe(s));
 })();
 </script>
-
 <script>
 /* Parcours — données + interactions */
 window.addEventListener('DOMContentLoaded',function(){
@@ -1047,7 +992,6 @@ window.addEventListener('DOMContentLoaded',function(){
   addEventListener('resize', placeNodes, {passive:true});
 });
 </script>
-
 <script>
 /* CTA flottant */
 (function(){
@@ -1062,7 +1006,6 @@ window.addEventListener('DOMContentLoaded',function(){
   addEventListener('load', toggle);
 })();
 </script>
-
 <script>
 /* H1 "PSSR" : apparition lettre par lettre */
 (function(){
@@ -1084,7 +1027,6 @@ window.addEventListener('DOMContentLoaded',function(){
   });
 })();
 </script>
-
 <script>
 /* Effet de reveal */
 (function(){
@@ -1110,9 +1052,6 @@ window.addEventListener('DOMContentLoaded',function(){
   targets.forEach(el => io.observe(el));
 })();
 </script>
-
-
-
 <script>
 /* V5 — sélection de modules vers réservation / inscription. Ne modifie pas le cycle PSSR. */
 (function(){
@@ -1140,8 +1079,7 @@ window.addEventListener('DOMContentLoaded',function(){
   sync();
 })();
 </script>
-
-<script type="module" src="./assets/js/firebase-contact.js"></script>
-<script src="./assets/js/media-fallback.js" defer></script>
-</body>
+<script src="./assets/js/firebase-contact.js" type="module"></script>
+<script defer="" src="./assets/js/media-fallback.js"></script>
+<script defer="True" src="./assets/js/v15-navigation-i18n.js"></script></body>
 </html>
