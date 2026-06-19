@@ -1,0 +1,442 @@
+/* V20 — Palette claire blanc / rose / lilas
+   Objectif : harmoniser uniquement les couleurs du site Équilibre Vital / PSSR.
+   Ne modifie ni le contenu, ni la structure, ni la logique Firebase.
+   Le schéma interactif PSSR validé (#parcours / #pssr-cycle-iso) est volontairement exclu.
+*/
+:root{
+  --brand-bg:#FFF7FB;
+  --brand-section:#F5ECFF;
+  --brand-surface:#FFFFFF;
+  --brand-surface-hover:#FFEAF5;
+
+  --brand-text:#24112F;
+  --brand-body:#5B416D;
+  --brand-muted:#7B668C;
+
+  --brand-primary:#E83E8C;
+  --brand-primary-text:#FFFFFF;
+
+  --brand-secondary:#8B5CF6;
+  --brand-soft:#F7A8D8;
+
+  --brand-border:#D8C4F2;
+  --brand-danger:#D94A64;
+  --brand-success:#2E9E6F;
+
+  /* Compatibilité avec les couches précédentes */
+  --ev18-bg:var(--brand-bg);
+  --ev18-bg-2:var(--brand-section);
+  --ev18-bg-3:var(--brand-surface);
+  --ev18-section:rgba(245,236,255,.94);
+  --ev18-section-strong:rgba(255,255,255,.96);
+  --ev18-card:rgba(255,255,255,.94);
+  --ev18-card-hover:#FFEAF5;
+  --ev18-field:#FFFFFF;
+  --ev18-text:var(--brand-text);
+  --ev18-text-soft:var(--brand-body);
+  --ev18-muted:var(--brand-body);
+  --ev18-muted-2:var(--brand-muted);
+  --ev18-primary:var(--brand-primary);
+  --ev18-primary-strong:var(--brand-primary);
+  --ev18-primary-text:var(--brand-primary-text);
+  --ev18-secondary:var(--brand-soft);
+  --ev18-lilac:var(--brand-secondary);
+  --ev18-link:var(--brand-secondary);
+  --ev18-line:rgba(216,196,242,.92);
+  --ev18-line-strong:#D8C4F2;
+  --ev18-focus:rgba(232,62,140,.20);
+  --ev18-danger:var(--brand-danger);
+  --ev18-ok:var(--brand-success);
+  --ev18-gradient:linear-gradient(135deg,#FFF7FB 0%,#F5ECFF 50%,#FFEAF5 100%);
+  --ev18-cta:linear-gradient(135deg,#E83E8C 0%,#F15AA0 100%);
+  --ev18-glass:linear-gradient(180deg,rgba(255,255,255,.96),rgba(245,236,255,.90));
+}
+
+/* Fond global clair, doux et lisible */
+body.pssr-page,
+body.admin-page,
+body.reset-page-v10,
+body{
+  color:var(--brand-text) !important;
+  background:
+    radial-gradient(900px 520px at 8% -6%, rgba(232,62,140,.13), transparent 62%),
+    radial-gradient(760px 420px at 96% 4%, rgba(139,92,246,.13), transparent 64%),
+    radial-gradient(700px 440px at 60% 92%, rgba(247,168,216,.18), transparent 66%),
+    linear-gradient(135deg,#FFF7FB 0%,#F5ECFF 52%,#FFEAF5 100%) !important;
+  background-attachment:fixed;
+}
+body.pssr-page::before,
+body.admin-page::before,
+body.reset-page-v10::before{
+  background:linear-gradient(rgba(255,247,251,.62),rgba(245,236,255,.68)) !important;
+}
+
+/* Textes : palette claire, aucun gris sombre peu lisible */
+body.pssr-page :where(header, main > section:not(#parcours), footer) :where(h1,h2,h3,h4),
+body.admin-page :where(h1,h2,h3,h4),
+body.reset-page-v10 :where(h1,h2,h3,h4){
+  color:var(--brand-text) !important;
+  text-shadow:none !important;
+}
+body.pssr-page :where(header, main > section:not(#parcours), footer) :where(p,li,small,.txt,.sec-sub,.muted,.eyebrow,.section-kicker),
+body.admin-page :where(p,li,small,.muted,.hint),
+body.reset-page-v10 :where(p,small,.muted,.hint){
+  color:var(--brand-body) !important;
+  line-height:1.68;
+}
+body.pssr-page :where(header, main > section:not(#parcours), footer) :where(.meta,.caption,.small,.help,.footer-bottom-v15),
+body.admin-page :where(.meta,.caption,.small,.help),
+body.reset-page-v10 :where(.meta,.caption,.small,.help){
+  color:var(--brand-muted) !important;
+}
+body.pssr-page :where(header, main > section:not(#parcours), footer) strong,
+body.admin-page strong,
+body.reset-page-v10 strong{
+  color:var(--brand-text) !important;
+}
+body.pssr-page :where(header, main > section:not(#parcours), footer) a,
+body.admin-page a,
+body.reset-page-v10 a{
+  color:var(--brand-secondary) !important;
+  text-decoration-color:rgba(139,92,246,.42) !important;
+}
+body.pssr-page :where(header, main > section:not(#parcours), footer) a:hover,
+body.pssr-page :where(header, main > section:not(#parcours), footer) a:focus-visible,
+body.admin-page a:hover,
+body.admin-page a:focus-visible,
+body.reset-page-v10 a:hover,
+body.reset-page-v10 a:focus-visible{
+  color:var(--brand-primary) !important;
+  text-decoration-color:var(--brand-primary) !important;
+}
+
+/* Header, menu mobile, menu burger */
+#nav,
+.pssr-header,
+.site-header{
+  background:rgba(255,255,255,.88) !important;
+  border-bottom:1px solid rgba(216,196,242,.95) !important;
+  box-shadow:0 18px 42px rgba(36,17,47,.10) !important;
+  backdrop-filter:blur(18px) saturate(135%) !important;
+  -webkit-backdrop-filter:blur(18px) saturate(135%) !important;
+}
+#nav .brand,
+#nav .brand span,
+.pssr-header .brand,
+.pssr-header .brand strong,
+.site-header .brand{
+  color:var(--brand-text) !important;
+}
+#nav .menu a,
+.main-nav-short a,
+.main-nav-short button.link-button,
+.pssr-header nav a,
+.pssr-header nav button,
+.site-header nav a,
+.site-header nav button{
+  color:var(--brand-body) !important;
+  background:transparent !important;
+  border:1px solid transparent !important;
+}
+#nav .menu a:hover,
+#nav .menu a:focus-visible,
+.main-nav-short a:hover,
+.main-nav-short a:focus-visible,
+.main-nav-short button.link-button:hover,
+.pssr-header nav a:hover,
+.pssr-header nav button:hover,
+.site-header nav a:hover,
+.site-header nav button:hover{
+  color:var(--brand-primary) !important;
+  background:var(--brand-surface-hover) !important;
+  border-color:var(--brand-border) !important;
+}
+.menu-burger-v15,
+.burger,
+.lang-toggle-v15{
+  color:var(--brand-text) !important;
+  background:var(--brand-surface) !important;
+  border:1px solid var(--brand-border) !important;
+  box-shadow:0 10px 24px rgba(36,17,47,.10) !important;
+}
+.lang-toggle-v15:hover,
+.menu-burger-v15:hover,
+.burger:hover{
+  color:var(--brand-primary) !important;
+  border-color:var(--brand-primary) !important;
+  background:var(--brand-surface-hover) !important;
+}
+
+/* Dégradés doux et lisibles — hors schéma PSSR */
+body.pssr-page main > section:not(#parcours),
+body.pssr-page .hero,
+body.pssr-page .dashboard-hero-v16,
+body.pssr-page .reset-hero-v10{
+  background:
+    linear-gradient(rgba(255,247,251,.74),rgba(255,247,251,.76)),
+    linear-gradient(135deg,#FFF7FB 0%,#F5ECFF 50%,#FFEAF5 100%) !important;
+}
+body.pssr-page .hero .wrap,
+body.pssr-page .hero-card,
+body.pssr-page .intro-card,
+body.pssr-page .dashboard-choice-v16,
+body.pssr-page .dashboard-choice-v12,
+body.reset-page-v10 .reset-card-v10{
+  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(245,236,255,.88)) !important;
+  border:1px solid var(--brand-border) !important;
+  box-shadow:0 24px 70px rgba(36,17,47,.12) !important;
+  color:var(--brand-text) !important;
+}
+body.pssr-page .hero-highlight,
+body.pssr-page .accent,
+body.pssr-page mark{
+  color:var(--brand-primary) !important;
+  background:rgba(232,62,140,.10) !important;
+  border-color:rgba(232,62,140,.30) !important;
+  -webkit-text-fill-color:initial !important;
+}
+body.pssr-page .hero-intro,
+body.pssr-page .intro{
+  color:var(--brand-body) !important;
+}
+body.pssr-page .hero-intro strong,
+body.pssr-page .intro strong{
+  color:var(--brand-primary) !important;
+  background:rgba(232,62,140,.10) !important;
+  border:1px solid rgba(232,62,140,.25) !important;
+}
+
+/* Cartes, blocs, statistiques et activités — hors schéma PSSR */
+body.pssr-page main > section:not(#parcours) :where(.section-wrap,.wrap,.card,article,.stat,.activity-day,.activity-row,.atelier-card,.resource-card,.reference-item,.references-container,.dashboard-choice-v16,.dashboard-choice-v12,.panel),
+body.admin-page :where(.panel,.record,.metric,.card,.admin-card),
+body.reset-page-v10 :where(.panel,.card,.reset-card-v10){
+  background:var(--brand-surface) !important;
+  border:1px solid var(--brand-border) !important;
+  color:var(--brand-text) !important;
+  box-shadow:0 16px 44px rgba(36,17,47,.10) !important;
+}
+body.pssr-page main > section:not(#parcours) :where(.card,article,.stat,.activity-row,.atelier-card,.resource-card,.reference-item,.dashboard-choice-v16,.dashboard-choice-v12):hover,
+body.admin-page :where(.record,.metric,.card,.admin-card):hover{
+  background:var(--brand-surface-hover) !important;
+  border-color:rgba(232,62,140,.62) !important;
+  box-shadow:0 20px 54px rgba(232,62,140,.12) !important;
+}
+body.pssr-page main > section:not(#parcours) :where(.card,article,.stat,.activity-row,.atelier-card,.resource-card,.reference-item) :where(h2,h3,h4,strong),
+body.admin-page :where(.record,.metric,.card,.admin-card) :where(h2,h3,h4,strong){
+  color:var(--brand-text) !important;
+}
+body.pssr-page main > section:not(#parcours) :where(.card,article,.stat,.activity-row,.atelier-card,.resource-card,.reference-item) :where(p,li,span,small),
+body.admin-page :where(.record,.metric,.card,.admin-card) :where(p,li,span,small,dd){
+  color:var(--brand-body) !important;
+}
+
+/* Badges, prix, statuts et pictogrammes */
+body.pssr-page main > section:not(#parcours) :where(.badge,.pill,.status-pill,.activity-age,.activity-time,.tag),
+body.admin-page :where(.badge,.pill,.status-pill,.tag),
+body.reset-page-v10 :where(.badge,.pill,.status-pill,.tag){
+  color:var(--brand-text) !important;
+  background:rgba(247,168,216,.28) !important;
+  border:1px solid rgba(216,196,242,.95) !important;
+}
+body.pssr-page main > section:not(#parcours) :where(.ico,.icon,.emoji-badge,.stat-icon,.card-icon),
+body.admin-page :where(.ico,.icon,.emoji-badge,.stat-icon,.card-icon),
+body.reset-page-v10 :where(.ico,.icon,.emoji-badge,.stat-icon,.card-icon){
+  color:var(--brand-primary) !important;
+  background:rgba(245,236,255,.84) !important;
+  border:1px solid var(--brand-border) !important;
+  box-shadow:0 10px 24px rgba(139,92,246,.12) !important;
+}
+body.pssr-page main > section:not(#parcours) .price,
+body.pssr-page main > section:not(#parcours) .highlight-price{
+  color:var(--brand-secondary) !important;
+}
+
+/* Boutons : rose principal, blanc/lilas secondaire */
+body.pssr-page :where(.btn,.btn-appel,button[type="submit"],.nav-signup,.primary),
+body.admin-page :where(.btn,button[type="submit"],.primary),
+body.reset-page-v10 :where(.btn,button[type="submit"],.primary){
+  color:var(--brand-primary-text) !important;
+  background:linear-gradient(135deg,#E83E8C 0%,#F15AA0 100%) !important;
+  border:1px solid rgba(232,62,140,.78) !important;
+  box-shadow:0 14px 30px rgba(232,62,140,.23) !important;
+}
+body.pssr-page :where(.btn,.btn-appel,button[type="submit"],.nav-signup,.primary):hover,
+body.admin-page :where(.btn,button[type="submit"],.primary):hover,
+body.reset-page-v10 :where(.btn,button[type="submit"],.primary):hover{
+  filter:brightness(1.03) saturate(1.04) !important;
+  box-shadow:0 18px 42px rgba(232,62,140,.30) !important;
+}
+body.pssr-page :where(.btn.secondary,.btn-appel-ghost,.ghost,a.btn:not(.primary):not(.nav-signup),.cta-link),
+body.admin-page :where(.btn.secondary,.ghost,.link-button),
+body.reset-page-v10 :where(.btn.secondary,.ghost,.link-button){
+  color:var(--brand-text) !important;
+  background:var(--brand-surface) !important;
+  border:1px solid var(--brand-border) !important;
+  box-shadow:none !important;
+}
+body.pssr-page :where(.btn.secondary,.btn-appel-ghost,.ghost,a.btn:not(.primary):not(.nav-signup),.cta-link):hover,
+body.admin-page :where(.btn.secondary,.ghost,.link-button):hover,
+body.reset-page-v10 :where(.btn.secondary,.ghost,.link-button):hover{
+  color:var(--brand-primary) !important;
+  background:var(--brand-surface-hover) !important;
+  border-color:var(--brand-primary) !important;
+}
+body.pssr-page :where(.link-button,.text-link),
+body.admin-page :where(.link-button,.text-link),
+body.reset-page-v10 :where(.link-button,.text-link){
+  color:var(--brand-secondary) !important;
+  background:transparent !important;
+  border-color:transparent !important;
+  box-shadow:none !important;
+}
+
+/* Formulaires */
+body.pssr-page :where(label,.field-v14 label,.form-grid label),
+body.admin-page label,
+body.reset-page-v10 label{
+  color:var(--brand-body) !important;
+  font-weight:800;
+}
+body.pssr-page :where(input,select,textarea),
+body.admin-page :where(input,select,textarea),
+body.reset-page-v10 :where(input,select,textarea){
+  color:var(--brand-text) !important;
+  background:var(--brand-surface) !important;
+  border:1px solid var(--brand-border) !important;
+  box-shadow:inset 0 1px 0 rgba(36,17,47,.04) !important;
+}
+body.pssr-page :where(input,textarea)::placeholder,
+body.admin-page :where(input,textarea)::placeholder,
+body.reset-page-v10 :where(input,textarea)::placeholder{
+  color:var(--brand-muted) !important;
+  opacity:.90 !important;
+}
+body.pssr-page :where(input,select,textarea):focus,
+body.admin-page :where(input,select,textarea):focus,
+body.reset-page-v10 :where(input,select,textarea):focus{
+  outline:none !important;
+  border-color:var(--brand-primary) !important;
+  box-shadow:0 0 0 4px rgba(232,62,140,.18), inset 0 1px 0 rgba(36,17,47,.04) !important;
+}
+body.pssr-page :where(.req,.required),
+body.admin-page :where(.req,.required),
+body.reset-page-v10 :where(.req,.required){
+  color:var(--brand-primary) !important;
+}
+body.pssr-page :where(.error,.alert-error),
+body.admin-page :where(.error,.alert-error),
+body.reset-page-v10 :where(.error,.alert-error){
+  color:var(--brand-danger) !important;
+  border-color:rgba(217,74,100,.58) !important;
+}
+body.pssr-page :where(.success,.alert-success),
+body.admin-page :where(.success,.alert-success),
+body.reset-page-v10 :where(.success,.alert-success){
+  color:var(--brand-success) !important;
+}
+
+/* Tableaux et back-office */
+body.admin-page :where(table,.admin-table,.data-table),
+body.pssr-page main > section:not(#parcours) table{
+  background:var(--brand-surface) !important;
+  border:1px solid var(--brand-border) !important;
+  color:var(--brand-text) !important;
+}
+body.admin-page th,
+body.pssr-page main > section:not(#parcours) th{
+  color:var(--brand-text) !important;
+  background:var(--brand-section) !important;
+  border-color:var(--brand-border) !important;
+}
+body.admin-page td,
+body.pssr-page main > section:not(#parcours) td{
+  color:var(--brand-body) !important;
+  border-color:rgba(216,196,242,.72) !important;
+}
+body.admin-page tr:hover td,
+body.pssr-page main > section:not(#parcours) tr:hover td{
+  background:#FFEAF5 !important;
+}
+
+/* Footer clair rose/lilas, lisible et harmonisé */
+.site-footer.footer-v15,
+.site-footer{
+  background:linear-gradient(135deg,#F5ECFF 0%,#FFEAF5 52%,#FFFFFF 100%) !important;
+  border-top:1px solid var(--brand-border) !important;
+  color:var(--brand-body) !important;
+  box-shadow:0 -18px 48px rgba(36,17,47,.08) !important;
+}
+.footer-col-v15 h2,
+.footer-col-v15 h3,
+.site-footer h2,
+.site-footer h3{
+  color:var(--brand-text) !important;
+}
+.footer-links-v15 a,
+.footer-kv-v15 a,
+.footer-legal-v15 a,
+.site-footer a{
+  color:var(--brand-body) !important;
+}
+.footer-links-v15 a:hover,
+.footer-kv-v15 a:hover,
+.footer-legal-v15 a:hover,
+.site-footer a:hover{
+  color:var(--brand-primary) !important;
+}
+.footer-payment-v15{
+  color:var(--brand-muted) !important;
+  background:rgba(255,255,255,.72) !important;
+  border:1px solid var(--brand-border) !important;
+}
+.footer-bottom-v15{
+  color:var(--brand-muted) !important;
+  border-top:1px solid rgba(216,196,242,.72) !important;
+}
+
+/* Le schéma interactif PSSR validé reste hors cible volontairement */
+#parcours,
+#parcours *,
+#pssr-cycle-iso,
+#pssr-cycle-iso *{
+  /* aucune règle de couleur V20 appliquée ici */
+}
+
+@media (max-width:900px){
+  #nav .menu,
+  .main-nav-short,
+  .pssr-header nav,
+  .site-header nav{
+    background:rgba(255,255,255,.98) !important;
+    border:1px solid var(--brand-border) !important;
+    box-shadow:0 26px 70px rgba(36,17,47,.16) !important;
+  }
+  #nav .menu a,
+  .main-nav-short a,
+  .main-nav-short button.link-button{
+    color:var(--brand-body) !important;
+    min-height:50px !important;
+  }
+  #nav .menu .nav-signup,
+  .main-nav-short .nav-signup{
+    color:var(--brand-primary-text) !important;
+    background:linear-gradient(135deg,#E83E8C,#F15AA0) !important;
+  }
+}
+@media (max-width:640px){
+  body.pssr-page,
+  body.admin-page,
+  body.reset-page-v10{
+    font-size:16px;
+  }
+  body.pssr-page :where(main > section:not(#parcours),footer) :where(p,li,small),
+  body.admin-page :where(p,li,small),
+  body.reset-page-v10 :where(p,small){
+    color:var(--brand-body) !important;
+  }
+  body.pssr-page :where(.btn,button[type="submit"]),
+  body.admin-page :where(.btn,button[type="submit"]),
+  body.reset-page-v10 :where(.btn,button[type="submit"]){
+    min-height:46px;
+  }
+}
