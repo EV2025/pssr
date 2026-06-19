@@ -10,24 +10,23 @@ form.addEventListener('submit', async (e)=>{
   if (!form.checkValidity()) { form.reportValidity(); return show('Veuillez compléter les champs obligatoires.'); }
   const fd = new FormData(form);
   const password = String(fd.get('password')||'');
-  if (password !== String(fd.get('password2')||'')) return show('Les mots de passe ne correspondent pas.');
+  const firstName = clean(fd.get('firstName'),80);
+  const lastName = clean(fd.get('lastName'),80);
   const data = {
-    displayName: clean(fd.get('displayName'),120),
+    firstName,
+    lastName,
+    displayName: clean(`${firstName} ${lastName}`.trim(),120),
     email: clean(fd.get('email'),180).toLowerCase(),
     phone: clean(fd.get('phone'),60),
-    ageRange: clean(fd.get('ageRange'),60),
-    situation: clean(fd.get('situation'),180) || 'Première demande',
-    activityLevel: clean(fd.get('activityLevel'),80),
-    needs: clean(fd.get('needs'),1500) || clean(fd.get('message'),1500),
+    birthDate: clean(fd.get('birthDate'),30),
+    address: clean(fd.get('address'),240),
     modules: clean(fd.get('modules'),1000),
-    message: clean(fd.get('message'),1500),
-    goals: clean(fd.get('goals'),1500),
     role: 'member',
     memberCode: makeCode('MEMBRE'),
     journeyLevel: levelFromAttendance(0),
     attendanceCount: 0
   };
-  if (!data.displayName || !/^\S+@\S+\.\S+$/.test(data.email)) return show('Nom ou email invalide.');
+  if (!data.firstName || !data.lastName || !/^\S+@\S+\.\S+$/.test(data.email) || password.length < 6) return show('Veuillez vérifier le prénom, le nom, l’email et le mot de passe.');
   const btn = form.querySelector('button'); btn.disabled = true;
   try{
     const fb = await getFirebase();

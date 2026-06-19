@@ -1,0 +1,248 @@
+/* V14 — Formulaire inscription étape 1 + menu mobile
+   Modifications ciblées : aucune logique JavaScript du site n'est modifiée. */
+
+:root{
+  --pssr-v14-bg:#120b26;
+  --pssr-v14-card:#1b1236;
+  --pssr-v14-field:#211642;
+  --pssr-v14-line:rgba(207,169,255,.28);
+  --pssr-v14-line-focus:#cfa9ff;
+  --pssr-v14-text:#ffffff;
+  --pssr-v14-muted:#d9d0ee;
+  --pssr-v14-primary:#cfa9ff;
+  --pssr-v14-primary-strong:#8f62ff;
+  --pssr-v14-glow:0 0 0 4px rgba(207,169,255,.16), 0 10px 28px rgba(91,62,168,.24);
+}
+
+/* ===== Inscription — Étape 1 ===== */
+.inscription-v14{
+  max-width:980px;
+  margin-inline:auto;
+  border:1px solid var(--pssr-v14-line);
+  background:
+    radial-gradient(700px 260px at 12% 0%, rgba(207,169,255,.18), transparent 62%),
+    radial-gradient(640px 280px at 92% 15%, rgba(185,199,255,.13), transparent 60%),
+    linear-gradient(135deg, #160d2d 0%, #211642 100%);
+  color:var(--pssr-v14-text);
+  box-shadow:0 22px 70px rgba(18,11,38,.28);
+}
+.inscription-v14 .eyebrow,
+.inscription-v14 .intro{
+  color:var(--pssr-v14-muted);
+}
+.inscription-v14 h1,
+.inscription-v14 h2{
+  color:var(--pssr-v14-text);
+}
+.inscription-v14 .intro{
+  max-width:720px;
+  margin-bottom:24px;
+}
+.form-v14{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px 20px;
+  align-items:start;
+}
+.form-v14 .full{
+  grid-column:1 / -1;
+}
+.form-step-title{
+  padding:18px 18px 16px;
+  border:1px solid var(--pssr-v14-line);
+  border-radius:18px;
+  background:rgba(255,255,255,.055);
+  margin-bottom:2px;
+}
+.form-step-title .step-kicker{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  margin-bottom:8px;
+  padding:5px 10px;
+  border-radius:999px;
+  color:#140b27;
+  background:linear-gradient(135deg, #e8dcff, #cfa9ff);
+  font-weight:900;
+  font-size:.78rem;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+}
+.form-step-title h2{
+  margin:0 0 6px;
+  font-size:clamp(1.35rem, 1.05rem + 1.2vw, 1.95rem);
+  line-height:1.1;
+}
+.form-step-title p{
+  margin:0;
+  color:var(--pssr-v14-muted);
+  line-height:1.55;
+}
+.field-v14{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  color:var(--pssr-v14-text);
+  font-weight:800;
+  letter-spacing:.01em;
+}
+.field-v14 .req,
+.form-v14 .req{
+  color:#ffcf70;
+  font-weight:900;
+  margin-left:2px;
+}
+.field-v14 input,
+.field-v14 select,
+.field-v14 textarea{
+  width:100%;
+  min-height:48px;
+  border-radius:14px;
+  border:1px solid var(--pssr-v14-line);
+  background:var(--pssr-v14-field);
+  color:var(--pssr-v14-text);
+  padding:12px 14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+  transition:border-color .18s ease, box-shadow .18s ease, background .18s ease, transform .18s ease;
+}
+.field-v14 input::placeholder,
+.field-v14 textarea::placeholder{
+  color:rgba(255,255,255,.54);
+}
+.field-v14 input:focus,
+.field-v14 select:focus,
+.field-v14 textarea:focus{
+  outline:none;
+  border-color:var(--pssr-v14-line-focus);
+  box-shadow:var(--pssr-v14-glow);
+  background:#26194b;
+}
+.field-v14 input:hover,
+.field-v14 textarea:hover{
+  border-color:rgba(207,169,255,.46);
+}
+.consent-v14{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px solid var(--pssr-v14-line);
+  background:rgba(255,255,255,.05);
+  color:var(--pssr-v14-muted);
+}
+.consent-v14 input{
+  margin-top:4px;
+  accent-color:var(--pssr-v14-primary-strong);
+}
+.consent-v14 a{
+  color:#f0e8ff;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.btn-v14-submit{
+  justify-self:start;
+  min-height:42px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#8f62ff,#cfa9ff) !important;
+  color:#160d2d !important;
+  font-weight:900;
+  box-shadow:0 12px 26px rgba(143,98,255,.22) !important;
+}
+.btn-v14-submit:hover{
+  transform:translateY(-1px);
+  box-shadow:0 16px 34px rgba(143,98,255,.3) !important;
+}
+#register-msg{
+  grid-column:1 / -1;
+  padding:12px 14px;
+  border-radius:14px;
+  background:rgba(255,255,255,.08);
+}
+
+/* ===== Menu mobile existant — amélioration sans changement de structure ===== */
+.mobile-nav-action{display:none;}
+@media (max-width:980px){
+  #nav .menu.open{
+    display:flex !important;
+    gap:8px !important;
+    width:min(94vw, 420px) !important;
+    left:50% !important;
+    right:auto !important;
+    top:72px !important;
+    transform:translateX(-50%) !important;
+    padding:14px !important;
+    border:1px solid rgba(138,84,204,.22) !important;
+    border-radius:22px !important;
+    background:rgba(255,255,255,.96) !important;
+    box-shadow:0 22px 60px rgba(39,24,78,.2) !important;
+    backdrop-filter:blur(12px) saturate(140%) !important;
+  }
+  #nav.show .menu.open{display:flex !important;}
+  #nav .menu a{
+    width:100% !important;
+    min-height:46px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:11px 14px !important;
+    border-radius:14px !important;
+    border-bottom:0 !important;
+    color:#5b4a7a !important;
+    font-size:1rem !important;
+    font-weight:800 !important;
+    line-height:1.2 !important;
+    transition:background .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease !important;
+  }
+  #nav .menu a::after{display:none !important;}
+  #nav .menu a:hover,
+  #nav .menu a:focus-visible,
+  #nav .menu a:active{
+    color:#4b2f88 !important;
+    background:#f3edff !important;
+  }
+  #nav .menu .cta-link{
+    background:transparent !important;
+    color:#5b4a7a !important;
+    box-shadow:none !important;
+  }
+  #nav .menu .mobile-nav-action{
+    display:flex !important;
+    margin-top:4px !important;
+  }
+  #nav .menu .nav-login{
+    color:#4b2f88 !important;
+    background:#fff !important;
+    border:1px solid rgba(138,84,204,.28) !important;
+  }
+  #nav .menu .nav-signup{
+    color:#fff !important;
+    background:linear-gradient(135deg,#6e45e2,#cfa9ff) !important;
+    box-shadow:0 10px 24px rgba(91,62,168,.24) !important;
+  }
+  #nav .menu .nav-signup:hover,
+  #nav .menu .nav-signup:focus-visible{
+    color:#fff !important;
+    background:linear-gradient(135deg,#5b3ea8,#bb83ff) !important;
+    transform:translateY(-1px) !important;
+  }
+}
+
+@media (max-width:760px){
+  .form-v14{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+  .inscription-v14{
+    border-radius:22px;
+    margin-inline:0;
+  }
+  .form-step-title{
+    padding:16px;
+  }
+  .btn-v14-submit{
+    width:100%;
+    justify-self:stretch;
+  }
+}
