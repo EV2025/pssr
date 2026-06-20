@@ -326,8 +326,8 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 <link href="./assets/css/v11-ressources-emploi.css" rel="stylesheet"/>
 <link href="./assets/css/v13-accueil-ateliers.css" rel="stylesheet"/>
 <link href="./assets/css/v15-harmonisation.css" rel="stylesheet"/>
-<link href="./assets/css/v16-degrades-harmonisation.css" rel="stylesheet"/><link href="./assets/css/v18-couleurs-harmonie.css" rel="stylesheet"/><link href="./assets/css/v19-palette-contraste.css" rel="stylesheet"/><link href="./assets/css/v20-palette-claire.css" rel="stylesheet"/></head>
-<body id="accueil" class="pssr-page">
+<link href="./assets/css/v16-degrades-harmonisation.css" rel="stylesheet"/><link href="./assets/css/v18-couleurs-harmonie.css" rel="stylesheet"/><link href="./assets/css/v19-palette-contraste.css" rel="stylesheet"/><link href="./assets/css/v20-palette-claire.css" rel="stylesheet"/><link href="./assets/css/v21-publics-dispositifs.css" rel="stylesheet"/></head>
+<body class="pssr-page" id="accueil">
 <!-- ===== Nav ===== -->
 <div aria-hidden="false" id="nav-wrap">
 <div aria-hidden="true" class="trigger"></div>
@@ -342,9 +342,9 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 <button aria-label="Changer de langue" class="lang-toggle-v15" type="button">NL</button><button aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu" class="burger">☰</button>
 <div class="menu" id="menu" role="menubar">
 <a href="#accueil" role="menuitem">Accueil</a>
-<a href="#parcours" role="menuitem">PSSR</a>
+<a href="#parcours" role="menuitem">Parcours PSSR</a><a href="#dispositifs" role="menuitem">Dispositifs</a>
 <a href="#inscriptions" role="menuitem">Activités &amp; tarifs</a>
-<a href="./dashboard.html" role="menuitem">Tableau de bord</a>
+<a href="./ressources-emploi-insertion.html" role="menuitem">Ressources</a>
 <a class="cta-link" href="./reservation.html" role="menuitem">Réserver</a>
 <a class="mobile-nav-action nav-login" href="./dashboard.html" role="menuitem">Connexion</a>
 <a class="mobile-nav-action nav-signup" href="./inscription.html" role="menuitem">Je m’inscris</a>
@@ -353,23 +353,12 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 </nav>
 </div>
 <!-- ===== Hero ===== -->
-<header class="hero hero-v8 hero-v13" role="banner">
+<header class="hero hero-v8 hero-v13 hero-v21" role="banner">
 <div class="wrap">
-<p class="hero-eyebrow">PSSR · Bruxelles-Capitale</p>
-<h1 aria-label="Bouge ton corps, avance dans ta vie !" aria-live="polite" data-typed="1">
-<span>Bouge ton corps,</span>
-<span class="hero-highlight">avance dans ta vie !</span>
-</h1>
-<p class="hero-intro">
-        Un accompagnement humain, progressif et bienveillant pour retrouver
-        <strong>confiance</strong>, <strong>santé</strong> et <strong>équilibre</strong> grâce au sport.
-      </p>
-<div aria-label="Actions principales" class="hero-actions hero-actions-v13">
-<a class="btn btn-primary-v13" href="./inscription.html">Je rejoins le mouvement</a>
-<a class="btn btn-secondary-v13" href="./reservation.html">Réserver un cours collectif</a>
-<a class="btn btn-secondary-v13" href="#contact">Demander un rendez-vous</a>
-<a class="btn btn-download-v13" download="" href="./wp-content/uploads/2026/06/IMG-20260524-WA0017.jpg" rel="noopener" target="_blank">Flyer</a>
-</div>
+<p class="hero-eyebrow">Équilibre Vital · PSSR · Bruxelles-Capitale</p>
+<h1 aria-label="Retrouver le mouvement, à votre rythme !" aria-live="polite" data-typed="1">Retrouver le mouvement, <span class="hero-highlight">à votre rythme !</span></h1>
+<p class="hero-intro">Un accompagnement socio-sportif progressif pour les <strong>enfants</strong>, les <strong>jeunes</strong> et les <strong>adultes</strong>, avec des dispositifs adaptés à chaque âge, chaque besoin et chaque parcours.</p>
+<div aria-label="Actions principales" class="hero-actions hero-actions-v13"><a class="btn btn-primary-v13 btn-main-v21" href="#inscriptions">Je choisis mon activité</a><a class="btn btn-secondary-v13" href="#parcours">Découvrir le parcours PSSR</a><a class="btn btn-secondary-v13" href="./ecoles-atl.html">Je suis partenaire / institution</a><a class="btn btn-download-v13 btn-soft-v21" download="" href="./wp-content/uploads/2026/06/IMG-20260524-WA0017.jpg" rel="noopener" target="_blank">Flyer</a></div>
 <div aria-label="Chiffres clés PSSR" class="hero-stats-v13">
 <div class="hero-stat"><strong>6</strong><span>étapes du parcours</span></div>
 <div class="hero-stat"><strong>7</strong><span>créneaux hebdo</span></div>
@@ -386,17 +375,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 </div>
 </div>
 <!-- ===== Présentation ===== -->
-<section aria-labelledby="presentation-title" id="presentation">
-<div class="section-wrap section-compact">
-<h2 class="sec-title" id="presentation-title">Un parcours clair pour se remettre en mouvement</h2>
-<div aria-label="Présentation du parcours" class="intro-grid">
-<article class="intro-card"><span class="mini-badge">Quoi</span><h3>Activités encadrées</h3><p>Des séances sportives accessibles, adaptées aux âges et aux besoins.</p></article>
-<article class="intro-card"><span class="mini-badge">Pour qui</span><h3>Jeunes, adultes, partenaires</h3><p>Un cadre associatif pour reprendre confiance et construire une régularité.</p></article>
-<article class="intro-card"><span class="mini-badge">Comment</span><h3>Inscription en ligne</h3><p>Choisissez une activité, envoyez la demande, l’équipe confirme les modalités.</p></article>
-<article class="intro-card"><span class="mini-badge">Objectif</span><h3>Progresser durablement</h3><p>Avancer étape par étape vers plus d’autonomie, de santé et d’engagement.</p></article>
-</div>
-</div>
-</section>
+<section aria-labelledby="entrees-title" id="entrees"><div class="section-wrap section-compact v21-section"><h2 class="sec-title" id="entrees-title">Choisissez votre entrée</h2><p class="sec-sub">Un cadre associatif adapté à chaque public pour reprendre confiance, développer une régularité et avancer vers plus d’autonomie.</p><div aria-label="Publics accompagnés par PSSR" class="entry-grid-v21"><article class="entry-card-v21"><span class="entry-age-v21">6 à 12 ans</span><h3>Enfants</h3><p>Découvrir le mouvement, développer la confiance, apprendre à bouger dans un cadre bienveillant.</p><p class="entry-device-v21">Dispositifs associés : Kids Move, ateliers découverte, sensibilisation au mouvement.</p><span class="entry-axis-v21">Jeunesse · santé · prévention</span><a class="btn btn-mini-v21" href="./reservation.html?module=Kids%20Move">Choisir cette entrée</a></article><article class="entry-card-v21"><span class="entry-age-v21">13 à 17 ans</span><h3>Jeunes</h3><p>Canaliser l’énergie, renforcer l’estime de soi, créer une régularité et construire des repères positifs.</p><p class="entry-device-v21">Dispositifs associés : Cardio Fit Ados, Training Jeunes, Initiation Boxe, Parcours PSSR jeune.</p><span class="entry-axis-v21">Jeunesse · éducation · inclusion · prévention</span><a class="btn btn-mini-v21" href="./reservation.html?module=Cardio%20Fit%20Ados">Choisir cette entrée</a></article><article class="entry-card-v21"><span class="entry-age-v21">18 ans et plus</span><h3>Adultes</h3><p>Reprendre une activité physique, retrouver un équilibre, améliorer la santé et avancer à son rythme.</p><p class="entry-device-v21">Dispositifs associés : Fitness Loisirs, Boxing Loisir, accompagnement individuel, Parcours PSSR adulte.</p><span class="entry-axis-v21">Santé · cohésion sociale · autonomie</span><a class="btn btn-mini-v21" href="./reservation.html?module=Fitness%20Loisirs%20Mixte">Choisir cette entrée</a></article><article class="entry-card-v21"><span class="entry-age-v21">40+</span><h3>Adultes</h3><p>Travailler la mobilité, la récupération, la prévention santé et le maintien d’une pratique durable.</p><p class="entry-device-v21">Dispositifs associés : Mobility &amp; Recovery, activité physique adaptée, suivi progressif.</p><span class="entry-axis-v21">Prévention santé · autonomie · bien-être</span><a class="btn btn-mini-v21" href="./reservation.html?module=Mobility%20%26%20Recovery">Choisir cette entrée</a></article><article class="entry-card-v21"><span class="entry-age-v21">Écoles · ATL · associations · services</span><h3>Partenaires &amp; institutions</h3><p>Construire des actions socio-sportives adaptées avec les écoles, ATL, services jeunesse, services sociaux, CPAS, communes et acteurs de l’insertion.</p><p class="entry-device-v21">Dispositifs associés : Actions partenaires, modules sur mesure, projets locaux.</p><span class="entry-axis-v21">Inclusion · insertion · cohésion sociale · partenariat local</span><a class="btn btn-mini-v21" href="./ecoles-atl.html">Choisir cette entrée</a></article></div></div></section><section aria-labelledby="dispositifs-title" id="dispositifs"><div class="section-wrap section-compact v21-section"><h2 class="sec-title" id="dispositifs-title">Nos dispositifs</h2><p class="sec-sub">Le PSSR réunit plusieurs portes d’entrée : activités, parcours, ateliers, accompagnement et actions partenaires.</p><div class="device-grid-v21"><article class="device-card-v21"><h3>Activités collectives</h3><p>Cours réguliers adaptés à l’âge, au niveau et au rythme de chacun.</p><a class="link-action-v21" href="#inscriptions">Voir les activités</a></article><article class="device-card-v21"><h3>Parcours PSSR</h3><p>Accompagnement socio-sportif renforcé en 6 étapes, adapté aux besoins du public.</p><a class="link-action-v21" href="#parcours">Comprendre le parcours</a></article><article class="device-card-v21"><h3>Ateliers socio-éducatifs</h3><p>Apprendre, pratiquer, partager : santé, rythme, nutrition, confiance et lien social.</p><a class="link-action-v21" href="./dispositifs.html#ateliers">Voir les ateliers</a></article><article class="device-card-v21"><h3>Accompagnement socio-professionnel</h3><p>Coaching, orientation, CV, emploi, formation et démarches administratives.</p><a class="link-action-v21" href="./dispositifs.html#accompagnement">Voir l’accompagnement</a></article><article class="device-card-v21"><h3>Actions partenaires</h3><p>Modules adaptés pour écoles, associations, ATL, services sociaux, institutions et acteurs locaux.</p><a class="link-action-v21" href="./ecoles-atl.html">Construire un partenariat</a></article></div></div></section>
 <!-- ===== Activités & tarifs ===== -->
 <section aria-labelledby="ins-title" id="inscriptions">
 <div class="section-wrap section-compact">
@@ -461,7 +440,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 </div>
 </section>
 <!-- ===== PSSR ===== -->
-<section aria-labelledby="pssr-title" id="parcours">
+<section aria-labelledby="methode-title" id="methode-pssr"><div class="section-wrap section-compact method-wrap-v21"><h2 class="sec-title" id="methode-title">Le PSSR comme méthode transversale</h2><p class="sec-sub">Le PSSR n’est pas seulement une activité sportive. C’est un parcours socio-sportif progressif qui accompagne la personne dans le temps, à partir de ses besoins, de son âge, de son rythme et de ses objectifs.</p><div class="method-grid-v21"><div class="method-chip-v21">Les activités sont les portes d’entrée.</div><div class="method-chip-v21">Les ateliers donnent du sens.</div><div class="method-chip-v21">L’accompagnement renforce le parcours.</div><div class="method-chip-v21">Le PSSR structure l’évolution de la personne.</div></div></div></section><section aria-labelledby="pssr-title" id="parcours">
 <div class="section-wrap" id="pssr-cycle-iso">
 <h2 class="pssr-title" id="pssr-title">PSSR — Parcours Socio-Sportif Renforcé</h2>
 <p class="sec-sub">Un accompagnement progressif pour remettre le mouvement au cœur du quotidien.</p>
@@ -479,96 +458,11 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 <button class="pssr-ghost" id="showAllBtn" type="button">Tout afficher</button>
 </div>
 </div>
-</section>
+</section><section aria-labelledby="axes-title" id="axes"><div class="section-wrap section-compact v21-section"><h2 class="sec-title" id="axes-title">Axes prioritaires</h2><p class="sec-sub">Des axes lisibles pour les familles, les adultes et les institutions partenaires.</p><div class="axes-grid-v21"><article class="axis-card-v21"><h3>Santé &amp; prévention</h3><p>Remise en mouvement, activité physique, mobilité, bien-être et prévention santé.</p></article><article class="axis-card-v21"><h3>Jeunesse &amp; éducation</h3><p>Cadre éducatif, confiance, régularité, repères positifs et développement personnel.</p></article><article class="axis-card-v21"><h3>Inclusion &amp; cohésion sociale</h3><p>Accessibilité, lien social, mixité, participation et accompagnement humain.</p></article><article class="axis-card-v21"><h3>Insertion socio-professionnelle</h3><p>Coaching, orientation, formation, employabilité et recherche d’emploi.</p></article><article class="axis-card-v21"><h3>Accessibilité &amp; égalité des chances</h3><p>Tarif solidaire, adaptation aux besoins et accompagnement progressif.</p></article><article class="axis-card-v21"><h3>Partenariats locaux</h3><p>Collaboration avec écoles, ATL, associations, communes, CPAS, services sociaux et référents.</p></article></div></div></section><section aria-labelledby="approfondir-title" id="approfondir"><div class="section-wrap section-compact v21-section"><h2 class="sec-title" id="approfondir-title">Ateliers &amp; accompagnement</h2><p class="sec-sub">Pour garder l’accueil agréable sur mobile, les détails des ateliers et de l’accompagnement socio-professionnel sont regroupés dans une page dédiée.</p><div class="deep-grid-v21"><article class="deep-card-v21"><h3>Les ateliers</h3><p>Apprendre, pratiquer, partager : trois approches pour donner du sens au mouvement.</p><a class="btn btn-mini-v21" href="./dispositifs.html#ateliers">Découvrir les ateliers</a></article><article class="deep-card-v21"><h3>Accompagnement socio-professionnel</h3><p>Choisissez un ou plusieurs modules selon vos besoins. L’équipe PSSR vous confirme ensuite l’organisation adaptée.</p><a class="btn btn-mini-v21" href="./dispositifs.html#accompagnement">Voir les modules</a></article></div></div></section>
 <!-- ===== Les ateliers ===== -->
-<section aria-labelledby="ateliers-title" class="ateliers-v10 ateliers-v12 ateliers-v13" id="ateliers">
-<div class="section-wrap">
-<h2 class="sec-title" id="ateliers-title">Les ateliers</h2>
-<p class="sec-sub atelier-quote">Apprendre donne du sens, pratiquer construit l’expérience, partager renforce le progrès.</p>
-<div aria-label="Ateliers PSSR" class="atelier-cards-v10 atelier-cards-v12 atelier-grid-v13">
-<article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
-<div aria-hidden="true" class="ico">📘</div>
-<h3>Apprenez</h3>
-<p class="txt"><strong>Objectif :</strong> expliquer, comprendre, sensibiliser.</p>
-<ul>
-<li>Prévention santé</li>
-<li>Gestion du rythme personnel</li>
-<li>Nutrition et bien-être</li>
-<li>Sensibilisation au mouvement</li>
-<li>Conseils pour progresser durablement</li>
-</ul>
-</article>
-<article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
-<div aria-hidden="true" class="ico">🏃</div>
-<h3>Pratiquez</h3>
-<p class="txt"><strong>Objectif :</strong> bouger, s’exercer, reprendre une activité progressivement.</p>
-<ul>
-<li>Remise en forme progressive</li>
-<li>Cardio, mobilité et renforcement</li>
-<li>Initiation boxe / kick-boxing</li>
-<li>Activités adaptées aux jeunes et aux adultes</li>
-<li>Récupération et mobilité</li>
-</ul>
-</article>
-<article class="card info-card atelier-card-v10 atelier-card-v12 atelier-item-v13">
-<div aria-hidden="true" class="ico">🤝</div>
-<h3>Partagez</h3>
-<p class="txt"><strong>Objectif :</strong> créer du lien, renforcer la confiance et avancer avec les autres.</p>
-<ul>
-<li>Accueil et orientation</li>
-<li>Suivi individuel ou collectif</li>
-<li>Objectifs adaptés à chacun·e</li>
-<li>Collaboration avec les référent·es sociaux</li>
-<li>Valorisation des progrès</li>
-</ul>
-</article>
-</div>
-</div>
-</section>
+
 <!-- ===== Accompagnement socio-professionnel ===== -->
-<section aria-labelledby="socio-title" id="socio-pro">
-<div class="section-wrap">
-<h2 class="sec-title" id="socio-title">Accompagnement socio-professionnel</h2>
-<p class="sec-sub">Choisissez un ou plusieurs modules selon vos besoins. L’équipe PSSR vous confirme ensuite l’organisation adaptée.</p>
-<div aria-label="Modules socio-professionnels PSSR" class="module-grid module-grid-expandable" id="module-grid">
-<details class="module-group" open="">
-<summary>Coaching &amp; orientation</summary>
-<div class="module-options">
-<label class="module-card module-choice-v10" data-icon="🎯"><input name="module" type="checkbox" value="Coaching individuel"/><span>Coaching individuel</span></label>
-<label class="module-card module-choice-v10" data-icon="⚡"><input name="module" type="checkbox" value="Coaching motivationnel"/><span>Coaching motivationnel</span></label>
-<label class="module-card module-choice-v10" data-icon="🧭"><input name="module" type="checkbox" value="Orientation professionnelle"/><span>Orientation professionnelle</span></label>
-<label class="module-card module-choice-v10" data-icon="🎓"><input name="module" type="checkbox" value="Orientation vers la formation"/><span>Orientation vers la formation</span></label>
-</div>
-</details>
-<details class="module-group">
-<summary>Emploi &amp; formation</summary>
-<div class="module-options">
-<label class="module-card module-choice-v10" data-icon="💼"><input name="module" type="checkbox" value="Employabilité"/><span>Employabilité</span></label>
-<label class="module-card module-choice-v10" data-icon="📄"><input name="module" type="checkbox" value="Création et mise à jour du CV"/><span>Création et mise à jour du CV</span></label>
-<label class="module-card module-choice-v10" data-icon="🔎"><input name="module" type="checkbox" value="Recherche d’emploi"/><span>Recherche d’emploi</span></label>
-<label class="module-card module-choice-v10" data-icon="🗣️"><input name="module" type="checkbox" value="Simulations d’entretien"/><span>Simulations d’entretien</span></label>
-</div>
-</details>
-<details class="module-group">
-<summary>Bien-être &amp; démarches</summary>
-<div class="module-options">
-<label class="module-card module-choice-v10" data-icon="🌱"><input name="module" type="checkbox" value="Développement personnel"/><span>Développement personnel</span></label>
-<label class="module-card module-choice-v10" data-icon="🧘"><input name="module" type="checkbox" value="Gestion du stress"/><span>Gestion du stress</span></label>
-<label class="module-card module-choice-v10" data-icon="🍎"><input name="module" type="checkbox" value="Nutrition et bien-être"/><span>Nutrition et bien-être</span></label>
-<label class="module-card module-choice-v10" data-icon="🗂️"><input name="module" type="checkbox" value="Accompagnement administratif"/><span>Accompagnement administratif</span></label>
-</div>
-</details>
-</div>
-<div class="selection-box selection-box-v10">
-<p aria-live="polite" class="selection-summary" hidden="" id="selected-modules-text"></p>
-<div class="module-actions">
-<button class="btn" id="reserve-selected-modules" type="button">Réserver les modules sélectionnés</button>
-<button class="btn secondary" id="register-selected-modules" type="button">Créer un espace membre avec ces modules</button>
-</div>
-<p class="resources-note" style="margin-top:14px;">Besoin d’adresses utiles pour l’emploi, la formation ou l’insertion ? <a href="./ressources-emploi-insertion.html"><strong>Consulter les ressources emploi &amp; insertion</strong></a>.</p>
-</div>
-</div>
-</section>
+
 <!-- ===== Téléchargements ===== -->
 <section aria-labelledby="docs-title" id="documents">
 <div class="section-wrap">
@@ -596,30 +490,30 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 <h2 class="sec-title" id="ct-title">Contact</h2>
 <p class="sec-sub">Une question, une inscription ou un projet ? Contactez-nous.</p>
 <form action="#" autocomplete="on" class="form" data-firebase-collection="messages" id="contact-form" method="post" novalidate="" style="margin-top:18px;max-width:100%;">
-<input name="type" type="hidden" value="contact">
-<input aria-hidden="true" autocomplete="off" name="website" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" tabindex="-1" type="text" value=""/>
+<input name="type" type="hidden" value="contact"/>
+<input aria-hidden="true" autocomplete="off" name="website" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" tabindex="-1" type="text" value="">
 <h3>Formulaire de contact</h3>
 <div class="row">
 <div class="card field">
 <div class="ico">👤</div>
 <div class="field-body">
 <p class="ttl">Prénom &amp; Nom</p>
-<input id="c-nom" name="nom" placeholder="Ex. Sofya Vander" required="" type="text">
-</input></div>
+<input id="c-nom" name="nom" placeholder="Ex. Sofya Vander" required="" type="text"/>
+</div>
 </div>
 <div class="card field">
 <div class="ico">✉️</div>
 <div class="field-body">
 <p class="ttl">Email</p>
-<input id="c-mail" name="email" placeholder="exemple@domaine.be" required="" type="email">
-</input></div>
+<input id="c-mail" name="email" placeholder="exemple@domaine.be" required="" type="email"/>
+</div>
 </div>
 <div class="card field">
 <div class="ico">📞</div>
 <div class="field-body">
 <p class="ttl">Tél</p>
-<input id="c-tel" inputmode="tel" maxlength="20" name="tel" placeholder="0492 691 070" type="tel">
-</input></div>
+<input id="c-tel" inputmode="tel" maxlength="20" name="tel" placeholder="0492 691 070" type="tel"/>
+</div>
 </div>
 <div class="card field" style="grid-template-columns:auto 1fr;">
 <div class="ico">📝</div>
@@ -650,7 +544,6 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 </div>
 </div>
 </section>
-
 <div id="cta-float">
 <a class="btn-appel" href="#inscriptions">Réserver</a>
 </div>
@@ -668,7 +561,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 <a href="./index.html#inscriptions">Activités &amp; tarifs</a>
 <a href="./inscription.html">S’inscrire</a>
 <a href="./calendrier.html">Calendrier</a>
-<a href="./index.html#ateliers">Ateliers</a>
+<a href="./dispositifs.html#ateliers">Ateliers</a>
 <a href="./index.html#contact">Contact</a>
 </nav>
 </section>
