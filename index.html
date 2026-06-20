@@ -7,9 +7,9 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;family=Manrope:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
-<link href="./assets/css/v8-coherence.css" rel="stylesheet"/>
-<link href="./assets/css/v9-organisation-pro.css" rel="stylesheet"/>
-<link href="./assets/css/v14-inscription-menu.css" rel="stylesheet"/>
+
+
+
 <meta content="PSSR — Parcours socio-sportif renforcé, ateliers, réservations, accompagnement et contact à Bruxelles." name="description"/>
 <link href="https://ev2025.github.io/pssr/" rel="canonical"/>
 <meta content="PSSR — Parcours Socio-Sportif Renforcé" property="og:title"/>
@@ -323,10 +323,10 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   "description":"Parcours Socio-Sportif Renforcé : activités sportives, accompagnement socio-sportif et ateliers socio-professionnels."
 }
 </script>
-<link href="./assets/css/v11-ressources-emploi.css" rel="stylesheet"/>
-<link href="./assets/css/v13-accueil-ateliers.css" rel="stylesheet"/>
-<link href="./assets/css/v15-harmonisation.css" rel="stylesheet"/>
-<link href="./assets/css/v16-degrades-harmonisation.css" rel="stylesheet"/><link href="./assets/css/v18-couleurs-harmonie.css" rel="stylesheet"/><link href="./assets/css/v19-palette-contraste.css" rel="stylesheet"/><link href="./assets/css/v20-palette-claire.css" rel="stylesheet"/><link href="./assets/css/v21-publics-dispositifs.css" rel="stylesheet"/><link href="./assets/css/v22-conception-visuelle.css" rel="stylesheet"/><link href="./assets/css/v23-design-system.css" rel="stylesheet"/></head>
+
+
+
+<link href="./assets/css/stable-v24.css" rel="stylesheet"/></head>
 <body class="pssr-page" id="accueil">
 <!-- ===== Nav ===== -->
 <div aria-hidden="false" id="nav-wrap">
@@ -460,9 +460,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 </div>
 </section><section aria-labelledby="axes-title" id="axes"><div class="section-wrap section-compact v21-section"><h2 class="sec-title" id="axes-title">Axes prioritaires</h2><p class="sec-sub">Des axes lisibles pour les familles, les adultes et les institutions partenaires.</p><div class="axes-grid-v21"><article class="axis-card-v21"><h3>Santé &amp; prévention</h3><p>Remise en mouvement, activité physique, mobilité, bien-être et prévention santé.</p></article><article class="axis-card-v21"><h3>Jeunesse &amp; éducation</h3><p>Cadre éducatif, confiance, régularité, repères positifs et développement personnel.</p></article><article class="axis-card-v21"><h3>Inclusion &amp; cohésion sociale</h3><p>Accessibilité, lien social, mixité, participation et accompagnement humain.</p></article><article class="axis-card-v21"><h3>Insertion socio-professionnelle</h3><p>Coaching, orientation, formation, employabilité et recherche d’emploi.</p></article><article class="axis-card-v21"><h3>Accessibilité &amp; égalité des chances</h3><p>Tarif solidaire, adaptation aux besoins et accompagnement progressif.</p></article><article class="axis-card-v21"><h3>Partenariats locaux</h3><p>Collaboration avec écoles, ATL, associations, communes, CPAS, services sociaux et référents.</p></article></div></div></section><section aria-labelledby="approfondir-title" id="approfondir"><div class="section-wrap section-compact v21-section"><h2 class="sec-title" id="approfondir-title">Ateliers &amp; accompagnement</h2><p class="sec-sub">Pour garder l’accueil agréable sur mobile, les détails des ateliers et de l’accompagnement socio-professionnel sont regroupés dans une page dédiée.</p><div class="deep-grid-v21"><article class="deep-card-v21"><h3>Les ateliers</h3><p>Apprendre, pratiquer, partager : trois approches pour donner du sens au mouvement.</p><a class="btn btn-mini-v21" href="./dispositifs.html#ateliers">Découvrir les ateliers</a></article><article class="deep-card-v21"><h3>Accompagnement socio-professionnel</h3><p>Choisissez un ou plusieurs modules selon vos besoins. L’équipe PSSR vous confirme ensuite l’organisation adaptée.</p><a class="btn btn-mini-v21" href="./dispositifs.html#accompagnement">Voir les modules</a></article></div></div></section>
 <!-- ===== Les ateliers ===== -->
-
 <!-- ===== Accompagnement socio-professionnel ===== -->
-
 <!-- ===== Téléchargements ===== -->
 <section aria-labelledby="docs-title" id="documents">
 <div class="section-wrap">
@@ -491,15 +489,15 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 <p class="sec-sub">Une question, une inscription ou un projet ? Contactez-nous.</p>
 <form action="#" autocomplete="on" class="form" data-firebase-collection="messages" id="contact-form" method="post" novalidate="" style="margin-top:18px;max-width:100%;">
 <input name="type" type="hidden" value="contact"/>
-<input aria-hidden="true" autocomplete="off" name="website" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" tabindex="-1" type="text" value="">
+<input aria-hidden="true" autocomplete="off" name="website" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;" tabindex="-1" type="text" value=""/>
 <h3>Formulaire de contact</h3>
 <div class="row">
 <div class="card field">
 <div class="ico">👤</div>
 <div class="field-body">
 <p class="ttl">Prénom &amp; Nom</p>
-<input id="c-nom" name="nom" placeholder="Ex. Sofya Vander" required="" type="text"/>
-</div>
+<input id="c-nom" name="nom" placeholder="Ex. Sofya Vander" required="" type="text">
+</input></div>
 </div>
 <div class="card field">
 <div class="ico">✉️</div>
@@ -530,7 +528,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 <button aria-label="Envoyer" class="btn" type="submit">Envoyer</button>
 </div>
 </div>
-</input></form>
+</form>
 <div aria-live="polite" class="ok" id="contact-msg" role="status" style="display:none;">Merci ! Message bien envoyé.</div>
 <div class="card" style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:center;text-align:center;box-shadow:none;background:#f8f2ff;border-radius:16px;margin-top:18px;">
 <div style="flex:1 1 220px;min-width:180px;display:flex;align-items:center;justify-content:center;gap:8px;">
