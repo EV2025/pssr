@@ -1,0 +1,37 @@
+presentation:
+  title: Équilibre Vital asbl
+  text: Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.
+  baseline: Bouger, reprendre confiance et avancer à son rythme.
+participer:
+  - title: Accueil
+    url: /index.html
+  - title: Activités & tarifs
+    url: /index.html#inscriptions
+  - title: S’inscrire
+    url: /inscription.html
+  - title: Calendrier
+    url: /calendrier.html
+  - title: Ateliers
+    url: /dispositifs.html#ateliers
+  - title: Contact
+    url: /index.html#contact
+ressources:
+  - title: Tableau de bord
+    url: /dashboard.html
+  - title: Espace membre
+    url: /member/dashboard.html
+  - title: Écoles & ATL
+    url: /ecoles-atl.html
+  - title: Ressources emploi & insertion
+    url: /ressources-emploi-insertion.html
+  - title: Documents
+    url: /documents.html
+  - title: FAQ
+    url: /faq.html
+legal:
+  - title: Mentions légales
+    url: /mentions-legales.html
+  - title: RGPD
+    url: /confidentialite-rgpd.html
+  - title: Politique de confidentialité
+    url: /confidentialite-rgpd.html

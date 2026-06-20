@@ -3,3 +3,9 @@
 Thumbs.db
 node_modules/
 .env
+
+# Jekyll local build
+_site/
+.jekyll-cache/
+.sass-cache/
+.jekyll-metadata
