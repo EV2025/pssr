@@ -9,16 +9,6 @@ export const actionItems = [
   { label: 'Je m’inscris', href: '/inscription', variant: 'primary' },
 ];
 
-export const keywordLinks = [
-  { label: 'Activités', href: '/activites' },
-  { label: 'Dispositifs', href: '/dispositifs' },
-  { label: 'PSSR', href: '/pssr' },
-  { label: 'Ressources', href: '/ressources' },
-  { label: 'Documents', href: '/documents' },
-  { label: 'FAQ', href: '/faq' },
-  { label: 'Écoles & ATL', href: '/ecoles-atl' },
-];
-
 export const footerColumns = [
   {
     title: 'Menu principal',
@@ -27,8 +17,6 @@ export const footerColumns = [
       { label: 'Activités', href: '/activites' },
       { label: 'Dispositifs', href: '/dispositifs' },
       { label: 'PSSR', href: '/pssr' },
-      { label: 'Connexion', href: '/connexion' },
-      { label: 'Je m’inscris', href: '/inscription' },
     ],
   },
   {
@@ -46,10 +34,11 @@ export const footerColumns = [
   {
     title: 'Parcours & thèmes',
     links: [
-      { label: 'Ateliers', href: '/dispositifs' },
+      { label: 'Ateliers', href: '/dispositifs#ateliers' },
       { label: 'Axes prioritaires', href: '/presentation-pssr' },
       { label: 'Partenaires', href: '/ecoles-atl' },
       { label: 'Sources formation & emploi', href: '/sources-formation-emploi' },
+      { label: 'Mot de passe oublié', href: '/mot-de-passe-oublie' },
     ],
   },
 ];

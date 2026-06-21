@@ -1,16 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="{{ site.lang | default: 'fr' }}">
 <head>
-<link href="../assets/css/v35-v33-sections-liens-titres.css" rel="stylesheet"/></head><body class="ev35-page">{% include seo-basic.html %}
+  {% include seo-basic.html %}
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="{{ '/assets/css/stable-v24.css' | relative_url }}" rel="stylesheet"/>
 <link href="{{ '/assets/css/v26-jekyll-ux.css' | relative_url }}" rel="stylesheet"/>
 <link href="{{ '/assets/css/v27-minimaliste.css' | relative_url }}" rel="stylesheet"/>
 <link href="{{ '/assets/css/v28-apple-minimal.css' | relative_url }}" rel="stylesheet"/>
 <link href="./assets/css/v29-circle-language.css" rel="stylesheet"/>
-<link href="../assets/css/v30-circle-global.css" rel="stylesheet"/>
+<link href="../assets/css/v30-circle-global.css" rel="stylesheet"/></head>
+<body class="v30-circle-global">
 <main id="contenu">
     {{ content }}
   </main>
-
-<script defer="True" src="../assets/js/v35-v33-sections-liens-titres.js"></script></body></html>
+<script defer="" src="{{ '/assets/js/v26-ux.js' | relative_url }}"></script>
+<script defer="" src="{{ '/assets/js/v27-minimaliste.js' | relative_url }}"></script>
+</body>
+</html>

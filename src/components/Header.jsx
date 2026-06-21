@@ -11,14 +11,14 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-brand-border bg-brand-bg/90 backdrop-blur">
       <Container className="flex min-h-[70px] items-center justify-between gap-6">
-        <Link to="/" className="font-bold tracking-tight text-brand-text">Équilibre Vital</Link>
+        <Link to="/" className="font-bold text-brand-text" aria-label="Retour à l’accueil Équilibre Vital">Équilibre Vital</Link>
         <Navbar items={navItems} />
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden lg:flex items-center gap-3">
           {actionItems.map((item) => <Button key={item.href} to={item.href} variant={item.variant}>{item.label}</Button>)}
         </div>
         <button
           type="button"
-          className="min-h-[44px] min-w-[44px] rounded-full border border-brand-border bg-white lg:hidden"
+          className="lg:hidden min-h-[44px] min-w-[44px] rounded-full border border-brand-border bg-white"
           aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           aria-expanded={isOpen}
           aria-controls="mobile-menu"

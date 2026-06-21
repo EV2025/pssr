@@ -1,0 +1,34 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+/* Pleine largeur pour les blocs Code, même avec le thème FSE */
+.wp-site-blocks .wp-block-code,
+.wp-site-blocks .wp-block-code pre,
+.wp-site-blocks pre {
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    box-sizing: border-box;
+    overflow-x: auto;
+    padding: 1rem;
+    background: #f7f7f7;
+    border-radius: 6px;
+}
+
+/* Sélecteurs de secours si Gutenberg rend le bloc différemment */
+.is-layout-constrained .wp-block-code,
+.is-layout-constrained pre {
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+}
+
+/* Mobile : éviter les débordements */
+@media (max-width: 768px) {
+    .wp-site-blocks .wp-block-code,
+    .wp-site-blocks pre {
+        font-size: 14px;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+}
+
+</style>
+<!-- end Simple Custom CSS and JS -->
