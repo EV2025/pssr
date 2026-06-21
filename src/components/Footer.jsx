@@ -10,28 +10,16 @@ export default function Footer() {
           <section>
             <h2 className="font-bold tracking-tight text-brand-text">Navigation</h2>
             <nav className="mt-4 grid gap-2" aria-label="Navigation du pied de page">
-              {footerNavigation.map((link) => (
-                <a key={link.href} href={link.href} className="min-h-[34px] text-sm font-medium text-brand-body hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
-                  {link.label}
-                </a>
-              ))}
+              {footerNavigation.map((link) => <a key={link.href} href={link.href} className="min-h-[34px] text-sm font-medium text-brand-body hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">{link.label}</a>)}
             </nav>
           </section>
-
           <section>
             <h2 className="font-bold tracking-tight text-brand-text">Partenaires & institutions</h2>
             <nav className="mt-4 grid gap-2" aria-label="Liens partenaires et institutions">
-              {footerPartners.map((link) => (
-                <a key={link.href} href={link.href} className="min-h-[34px] text-sm font-medium text-brand-body hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
-                  {link.label}
-                </a>
-              ))}
+              {footerPartners.map((link) => <a key={link.href} href={link.href} className="min-h-[34px] text-sm font-medium text-brand-body hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">{link.label}</a>)}
             </nav>
-            <a href="/pssr/partenaires-institutions.html" className="mt-5 inline-flex min-h-[42px] items-center rounded-full border border-brand-primary/40 bg-white/70 px-4 text-sm font-bold text-brand-primary hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
-              Accès partenaires & institutions
-            </a>
+            <a href="/pssr/partenaires-institutions.html" className="mt-5 inline-flex min-h-[42px] items-center rounded-full border border-brand-primary/40 bg-white/70 px-4 text-sm font-bold text-brand-primary hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">Accès partenaires & institutions</a>
           </section>
-
           <section>
             <h2 className="font-bold tracking-tight text-brand-text">Contact & informations</h2>
             <div className="mt-4 grid gap-2 text-sm text-brand-body">
