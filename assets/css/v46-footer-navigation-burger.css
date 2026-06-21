@@ -44,3 +44,6 @@ html body .ev39-footer .ev39-footer__legal a.ev46-footer-dashboard:focus-visible
 html body .ev39-footer .ev39-footer__links {
   gap: 9px !important;
 }
+
+/* V47 safety footer partner cta: le lien partenaires est redevenu un lien standard. */
+html body .ev39-footer .ev39-footer__partner-cta{display:none!important;}

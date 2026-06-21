@@ -13,10 +13,9 @@ export const footerNavigation = [
   { label: 'Accueil', href: '/pssr/' },
   { label: 'Espace coach', href: '/pssr/coach/' },
   { label: 'Documents', href: '/pssr/documents.html' },
-  { label: 'Action externe', href: '/pssr/partenaires-institutions.html' },
 ];
 
 export const footerPartners = [
-  { label: 'ATL', href: '/pssr/ecoles-atl.html' },
   { label: 'Ressources emploi & insertion', href: '/pssr/ressources-emploi-insertion.html' },
+  { label: 'Partenaires & institutions', href: '/pssr/partenaires-institutions.html' },
 ];
