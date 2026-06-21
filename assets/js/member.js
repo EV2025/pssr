@@ -153,17 +153,20 @@ async function sendGdprRequest(e){
   e.preventDefault();
   try{
     const fd = new FormData(gdprForm);
+    const consentCode = makeCode('PSSR-DOC');
     await fb.addDoc(fb.collection(fb.db,'consents'), {
       uid: currentUser.uid,
+      consentCode,
+      trackingCode: consentCode,
       email: profile.email || currentUser.email || '',
       displayName: profile.displayName || '',
       type: 'gdpr_deletion_request',
       reason: String(fd.get('reason')||'').slice(0,1500),
-      status: 'nouveau',
+      status: 'reçu',
       createdAt: fb.serverTimestamp()
     });
     gdprForm.reset();
-    showGdpr('Votre demande a bien été transmise à l’équipe PSSR.', true);
+    showGdpr(`Votre demande a bien été transmise à l’équipe PSSR. Numéro de suivi : ${consentCode}.`, true);
   }catch(err){ showGdpr('Impossible d’envoyer la demande : '+(err.message||'erreur Firebase')); }
 }
 init().catch(err=>{ console.error(err); showLogin('Erreur Firebase : '+err.message); });

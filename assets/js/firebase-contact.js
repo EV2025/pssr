@@ -21,13 +21,17 @@ function cleanString(value, max = 1000){
   return String(value || '').trim().slice(0, max);
 }
 
-function makeReservationCode(){
+function esc(value){
+  return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
+}
+
+function makeTrackingCode(type = 'GEN'){
   const now = new Date();
   const y = now.getFullYear();
   const m = String(now.getMonth() + 1).padStart(2, '0');
   const d = String(now.getDate()).padStart(2, '0');
-  const random = Math.random().toString(36).slice(2, 6).toUpperCase();
-  return `PSSR-${y}${m}${d}-${random}`;
+  const random = Math.random().toString(36).replace(/[^a-z0-9]/gi, '').slice(2, 6).toUpperCase().padEnd(4, 'X');
+  return `PSSR-${type}-${y}${m}${d}-${random}`;
 }
 
 function dataFromForm(form){
@@ -49,8 +53,12 @@ function dataFromForm(form){
   };
 }
 
+function findMessageElement(form){
+  return form.querySelector('.msg') || document.getElementById(form.id === 'reservation-form' ? 'reservation-msg' : 'contact-msg');
+}
+
 function showMessage(form, message, ok = true){
-  const msg = form.querySelector('.msg') || document.getElementById(form.id === 'reservation-form' ? 'reservation-msg' : 'contact-msg');
+  const msg = findMessageElement(form);
   if (msg){
     msg.hidden = false;
     msg.style.display = 'block';
@@ -60,6 +68,42 @@ function showMessage(form, message, ok = true){
   } else {
     alert(message);
   }
+}
+
+function showReceipt(form, payload, kind){
+  const msg = findMessageElement(form);
+  const code = payload.reservationCode || payload.messageCode || payload.trackingCode || '—';
+  const isReservation = kind === 'reservations';
+  const title = isReservation ? 'Réservation reçue' : 'Demande reçue';
+  const label = isReservation ? 'Numéro de réservation' : 'Numéro de suivi';
+  const next = isReservation
+    ? 'L’équipe PSSR vérifiera les disponibilités et vous recontactera pour confirmer les modalités.'
+    : 'L’équipe PSSR reviendra vers vous dès que possible.';
+  const msgText = isReservation
+    ? `Votre demande de réservation a bien été enregistrée. Votre numéro de réservation est ${code}.`
+    : `Votre demande a bien été enregistrée. Votre numéro de suivi est ${code}.`;
+
+  if (!msg){
+    alert(`${msgText}\nConservez ce numéro.`);
+    return;
+  }
+
+  msg.hidden = false;
+  msg.style.display = 'block';
+  msg.style.color = '#244b31';
+  msg.innerHTML = `
+    <article class="receipt-card-v58" role="status" aria-live="polite">
+      <p class="receipt-eyebrow-v58">Accusé de réception</p>
+      <h2>${esc(title)}</h2>
+      <p>${esc(msgText)}</p>
+      <div class="receipt-code-v58"><span>${esc(label)}</span><strong>${esc(code)}</strong></div>
+      <dl class="receipt-details-v58">
+        <div><dt>Statut</dt><dd>Reçu — en attente de traitement</dd></div>
+        <div><dt>Date</dt><dd>${esc(new Date().toLocaleString('fr-BE'))}</dd></div>
+      </dl>
+      <p class="receipt-note-v58">Conservez ce numéro pour toute question. ${esc(next)}</p>
+    </article>`;
+  msg.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 function validate(form, data){
@@ -76,40 +120,26 @@ function validate(form, data){
 }
 
 function mailtoFallback(data){
-  const subject = encodeURIComponent('Message depuis le site PSSR');
+  const code = data.reservationCode || data.messageCode || data.trackingCode || '';
+  const subject = encodeURIComponent(code ? `Demande PSSR — ${code}` : 'Message depuis le site PSSR');
   const body = encodeURIComponent(Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n'));
   location.href = `mailto:${siteConfig.contactEmail}?subject=${subject}&body=${body}`;
 }
 
-function reservationKey(payload){
-  return ['pssrReservation', payload.email || '', payload.creneau || '', payload.modules || ''].join('|').toLowerCase();
+function submissionKey(payload){
+  return ['pssrSubmission', payload.email || '', payload.creneau || '', payload.modules || '', payload.message || ''].join('|').toLowerCase();
 }
 
 function wasRecentlySubmitted(payload){
   try{
-    const key = reservationKey(payload);
+    const key = submissionKey(payload);
     const last = Number(localStorage.getItem(key) || 0);
     return last && (Date.now() - last) < 3 * 60 * 1000;
   }catch(_){ return false; }
 }
 
 function rememberSubmission(payload){
-  try{ localStorage.setItem(reservationKey(payload), String(Date.now())); }catch(_){ }
-}
-
-async function writeEmailLog(payload, type){
-  if (!db || !addDoc || !collection) return;
-  try{
-    await addDoc(collection(db, 'emailLogs'), {
-      type,
-      status: 'to_send',
-      email: payload.email || '',
-      reservationCode: payload.reservationCode || '',
-      createdAt: serverTimestamp ? serverTimestamp() : new Date().toISOString()
-    });
-  }catch(err){
-    console.warn('Email log non créé:', err);
-  }
+  try{ localStorage.setItem(submissionKey(payload), String(Date.now())); }catch(_){ }
 }
 
 async function attachForms(){
@@ -132,21 +162,25 @@ async function attachForms(){
 
       const collectionName = form.dataset.firebaseCollection || 'messages';
       const isReservation = collectionName === 'reservations';
-      const reservationCode = isReservation ? makeReservationCode() : '';
+
+      if (wasRecentlySubmitted(payload)) {
+        showMessage(form, 'Une demande identique vient déjà d’être envoyée. Attendez quelques minutes ou contactez l’équipe PSSR si nécessaire.', false);
+        return;
+      }
+
       if (isReservation) {
-        payload.reservationCode = reservationCode;
-        payload.status = payload.status || 'en attente';
+        payload.reservationCode = makeTrackingCode('RES');
+        payload.trackingCode = payload.reservationCode;
+        payload.status = 'reçu';
         payload.paymentStatus = payload.paymentStatus || 'à confirmer';
         payload.priceAmount = payload.priceAmount || '165';
         payload.priceCurrency = payload.priceCurrency || 'EUR';
         payload.priceLabel = payload.priceLabel || 'Tarif solidaire — 165€ / année académique';
         if (!payload.modules && payload.creneau) payload.modules = payload.creneau;
-        if (wasRecentlySubmitted(payload)) {
-          showMessage(form, 'Une demande identique vient déjà d’être envoyée. Attendez quelques minutes ou contactez l’équipe PSSR si nécessaire.', false);
-          return;
-        }
       } else {
-        payload.status = payload.status || 'nouveau';
+        payload.messageCode = makeTrackingCode('MSG');
+        payload.trackingCode = payload.messageCode;
+        payload.status = 'reçu';
       }
 
       const submitBtn = form.querySelector('button[type="submit"]');
@@ -159,14 +193,9 @@ async function attachForms(){
           return;
         }
         await addDoc(collection(db, collectionName), payload);
-        if (isReservation) rememberSubmission(payload);
-        await writeEmailLog(payload, isReservation ? 'reservation-receipt' : 'contact-receipt');
+        rememberSubmission(payload);
         form.reset();
-        if (isReservation) {
-          showMessage(form, `Merci, votre demande de réservation a bien été enregistrée. Votre référence est : ${reservationCode}. L’équipe PSSR vous recontactera pour confirmer les disponibilités et les modalités.`);
-        } else {
-          showMessage(form, 'Merci, votre message a bien été enregistré. Nous reviendrons vers vous dès que possible.');
-        }
+        showReceipt(form, payload, collectionName);
       }catch(err){
         console.error(err);
         showMessage(form, 'Impossible d’enregistrer dans Firebase. Vérifiez la configuration et les règles Firestore.', false);

@@ -85,7 +85,10 @@ const fieldLabels = {
   title: 'Titre',
   content: 'Contenu',
   published: 'Publié',
-  reservationCode: 'Référence de réservation',
+  reservationCode: 'Numéro de réservation',
+  messageCode: 'Numéro de suivi',
+  trackingCode: 'Référence de suivi',
+  consentCode: 'Référence document',
   memberCode: 'Code membre',
   uid: 'ID utilisateur',
   role: 'Rôle',
@@ -118,6 +121,8 @@ const valueLabels = {
   reservation: 'Réservation',
   nouveau: 'Nouveau',
   nouvelle: 'Nouvelle',
+  reçu: 'Reçu',
+  'dossier reçu': 'Dossier reçu',
   traité: 'Traité',
   traitee: 'Traitée',
   confirmée: 'Confirmée',
@@ -264,16 +269,16 @@ async function loadCollection(){
 function renderSummary(){
   if (!rows.length) { summaryEl.innerHTML = ''; return; }
   const total = rows.length;
-  const nouveau = rows.filter(r => String(r.status || '').toLowerCase().includes('nou')).length;
+  const nouveau = rows.filter(r => /nou|reçu|recu/i.test(String(r.status || '').toLowerCase())).length;
   const traite = rows.filter(r => /trait|confirm|pay/i.test(String(r.status || r.paymentStatus || ''))).length;
-  summaryEl.innerHTML = `<div class="admin-summary"><div class="metric"><strong>${total}</strong><span>Total</span></div><div class="metric"><strong>${nouveau}</strong><span>Nouveaux</span></div><div class="metric"><strong>${traite}</strong><span>Traités / confirmés</span></div></div>`;
+  summaryEl.innerHTML = `<div class="admin-summary"><div class="metric"><strong>${total}</strong><span>Total</span></div><div class="metric"><strong>${nouveau}</strong><span>Nouveaux / reçus</span></div><div class="metric"><strong>${traite}</strong><span>Traités / confirmés</span></div></div>`;
 }
 
 function actionsFor(r){
   if (!['messages','reservations','payments','notifications','services','slots'].includes(currentCollection)) return '';
   const b = [];
   if (currentCollection === 'messages') {
-    b.push(['traité','Marquer traité'], ['nouveau','Remettre nouveau']);
+    b.push(['traité','Marquer traité'], ['reçu','Remettre reçu']);
   }
   if (currentCollection === 'reservations') {
     b.push(['confirmée','Confirmer'], ['liste attente','Liste d’attente'], ['annulée','Annuler']);
@@ -351,7 +356,7 @@ function renderAdminTable(tableRows){
     ? ['ID réservation','Nom','E-mail','Téléphone','Session','Statut','Création','Gestion']
     : ['ID client','Nom','E-mail','Téléphone','Session','Statut','Création','Gestion'];
   const body = tableRows.map(r => {
-    const idLabel = r.reservationCode || r.memberCode || r.id;
+    const idLabel = r.reservationCode || r.messageCode || r.memberCode || r.trackingCode || r.id;
     const name = r.nom || r.fullName || r.displayName || '—';
     const email = r.email || '—';
     const phone = r.tel || r.phone || '—';
@@ -374,7 +379,7 @@ function renderAdminTable(tableRows){
 
 function renderManagementPanel(r, isReservation){
   const steps = ['CAND','ARF','BSS','PDS','APA','CPE','SRS'];
-  const statuses = ['inscrit','en cours','terminé','abandonné','en attente','confirmée','annulée'];
+  const statuses = ['reçu','inscrit','en cours','terminé','abandonné','en attente','confirmée','annulée'];
   return `<details class="management-panel"><summary>Gérer</summary>
     <div class="status-actions mini-actions">
       ${statuses.map(st => `<button data-action="status" data-id="${esc(r.id)}" data-value="${esc(st)}">${esc(labelForValue(st))}</button>`).join('')}
@@ -418,7 +423,7 @@ async function handleRecordAction(e){
       status: 'to_send',
       email: row.email || '',
       reservationId: id,
-      reservationCode: row.reservationCode || '',
+      reservationCode: row.reservationCode || row.messageCode || row.trackingCode || '',
       message,
       createdAt: modules.serverTimestamp()
     });

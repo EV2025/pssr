@@ -7,7 +7,7 @@
 - Les passeports PSSR sont modifiables uniquement par coach/admin.
 - Les membres peuvent seulement modifier leurs informations personnelles simples : téléphone, adresse, contact d’urgence et préférences.
 - Les caches/exports WordPress inutiles sont retirés du dépôt.
-- Les feuilles CSS historiques sont consolidées dans `assets/css/main-v56.css` et les pages ne chargent plus qu’un CSS principal.
+- Les feuilles CSS historiques sont consolidées dans `assets/css/common-v58.min.css` et les pages ne chargent plus qu’un CSS principal.
 
 ## SEO
 
@@ -47,4 +47,4 @@
 5. Se connecter coach/admin et valider une présence.
 6. Vérifier que le passeport se met à jour depuis l’espace coach.
 7. Vérifier que `calendrier.html` redirige vers `activites.html`.
-8. Vérifier que toutes les pages chargent bien `assets/css/main-v56.css`.
+8. Vérifier que toutes les pages chargent bien `assets/css/common-v58.min.css`.

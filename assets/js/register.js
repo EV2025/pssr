@@ -22,11 +22,14 @@ form.addEventListener('submit', async (e)=>{
     address: clean(fd.get('address'),240),
     modules: clean(fd.get('modules'),1000),
     role: 'member',
-    memberCode: makeCode('MEMBRE'),
+    memberCode: makeCode('PSSR-MBR'),
+    trackingCode: '',
+    status: 'dossier reçu',
     journeyLevel: levelFromAttendance(0),
     attendanceCount: 0
   };
   if (!data.firstName || !data.lastName || !/^\S+@\S+\.\S+$/.test(data.email) || password.length < 6) return show('Veuillez vérifier le prénom, le nom, l’email et le mot de passe.');
+  data.trackingCode = data.memberCode;
   const btn = form.querySelector('button'); btn.disabled = true;
   try{
     const fb = await getFirebase();
@@ -39,7 +42,7 @@ form.addEventListener('submit', async (e)=>{
       updatedAt: fb.serverTimestamp()
     });
     // V56 : le passeport PSSR est créé ou mis à jour uniquement par l’équipe coach/admin.
-    show(`Compte créé. Votre code membre est ${data.memberCode}. Redirection vers l’espace membre…`, true);
+    show(`Dossier membre créé. Votre numéro de dossier est ${data.memberCode}. Conservez ce numéro. Redirection vers l’espace membre…`, true);
     setTimeout(()=> location.href='./member/dashboard.html', 1200);
   }catch(err){
     console.error(err);

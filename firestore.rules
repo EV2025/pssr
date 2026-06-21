@@ -36,6 +36,16 @@ service cloud.firestore {
       return value is string && value.size() <= max;
     }
 
+    function validTrackingCode(value, prefix) {
+      return value is string
+        && (
+          (prefix == 'RES' && value.matches('^PSSR-RES-[0-9]{8}-[A-Z0-9]{4}$'))
+          || (prefix == 'MSG' && value.matches('^PSSR-MSG-[0-9]{8}-[A-Z0-9]{4}$'))
+          || (prefix == 'MBR' && value.matches('^PSSR-MBR-[0-9]{8}-[A-Z0-9]{4}$'))
+          || (prefix == 'DOC' && value.matches('^PSSR-DOC-[0-9]{8}-[A-Z0-9]{4}$'))
+        );
+    }
+
     function optionalString(field, max) {
       return !(field in request.resource.data)
         || validString(request.resource.data[field], max);
@@ -78,11 +88,14 @@ service cloud.firestore {
           'pouvoirOrganisateur', 'publicsSpecifiques', 'remarques',
           'serviceAccueilMatin', 'serviceAccueilSoir', 'serviceAutre',
           'serviceDevoirs', 'serviceMercredi', 'serviceMidi',
-          'rgpdConsent', 'createdAt', 'source', 'pageTitle', 'userAgent', 'status'
+          'rgpdConsent', 'createdAt', 'source', 'pageTitle', 'userAgent', 'status',
+          'messageCode', 'trackingCode'
         ])
         && validPublicBase()
         && validString(request.resource.data.message, 3000)
-        && (!('status' in request.resource.data) || request.resource.data.status == 'nouveau')
+        && validTrackingCode(request.resource.data.messageCode, 'MSG')
+        && request.resource.data.trackingCode == request.resource.data.messageCode
+        && (!('status' in request.resource.data) || request.resource.data.status in ['reçu', 'nouveau'])
         && optionalString('tel', 60)
         && optionalString('telephone', 60)
         && optionalString('type', 80)
@@ -95,14 +108,14 @@ service cloud.firestore {
     function validReservationCreate() {
       return request.resource.data.keys().hasOnly([
           'nom', 'email', 'tel', 'message', 'objectif', 'creneau', 'modules',
-          'reservationCode', 'status', 'paymentStatus', 'priceAmount',
+          'reservationCode', 'trackingCode', 'status', 'paymentStatus', 'priceAmount',
           'priceCurrency', 'priceLabel', 'rgpdConsent', 'createdAt', 'source',
           'pageTitle', 'userAgent', 'uid'
         ])
         && validPublicBase()
-        && request.resource.data.reservationCode is string
-        && request.resource.data.reservationCode.matches('^PSSR-[0-9]{8}-[A-Z0-9]{4}$')
-        && request.resource.data.status in ['en attente', 'nouveau']
+        && validTrackingCode(request.resource.data.reservationCode, 'RES')
+        && request.resource.data.trackingCode == request.resource.data.reservationCode
+        && request.resource.data.status in ['reçu', 'en attente', 'nouveau']
         && optionalString('tel', 60)
         && optionalString('message', 3000)
         && optionalString('objectif', 1000)
@@ -119,7 +132,7 @@ service cloud.firestore {
       return isOwner(userId)
         && request.resource.data.keys().hasOnly([
           'uid', 'firstName', 'lastName', 'displayName', 'email', 'phone',
-          'birthDate', 'address', 'modules', 'role', 'memberCode',
+          'birthDate', 'address', 'modules', 'role', 'memberCode', 'trackingCode', 'status',
           'journeyLevel', 'attendanceCount', 'createdAt', 'updatedAt'
         ])
         && request.resource.data.keys().hasAll([
@@ -133,7 +146,9 @@ service cloud.firestore {
         && validString(request.resource.data.lastName, 80)
         && validString(request.resource.data.displayName, 120)
         && validEmail(request.resource.data.email)
-        && request.resource.data.memberCode.matches('^MEMBRE-[0-9]{8}-[A-Z0-9]{4}$')
+        && validTrackingCode(request.resource.data.memberCode, 'MBR')
+        && request.resource.data.trackingCode == request.resource.data.memberCode
+        && (!('status' in request.resource.data) || request.resource.data.status == 'dossier reçu')
         && request.resource.data.journeyLevel == 'ARF'
         && request.resource.data.attendanceCount == 0
         && request.resource.data.createdAt is timestamp
@@ -259,11 +274,14 @@ service cloud.firestore {
       allow create: if signedIn()
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.keys().hasOnly([
-          'uid', 'email', 'displayName', 'type', 'reason', 'status', 'createdAt'
+          'uid', 'email', 'displayName', 'type', 'reason', 'status', 'createdAt',
+          'consentCode', 'trackingCode'
         ])
         && validEmail(request.resource.data.email)
         && request.resource.data.type in ['gdpr_deletion_request', 'gdpr_access_request', 'gdpr_rectification_request']
-        && request.resource.data.status == 'nouveau'
+        && request.resource.data.status in ['reçu', 'nouveau']
+        && validTrackingCode(request.resource.data.consentCode, 'DOC')
+        && request.resource.data.trackingCode == request.resource.data.consentCode
         && request.resource.data.createdAt is timestamp
         && optionalString('displayName', 120)
         && optionalString('reason', 1500);
