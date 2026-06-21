@@ -12,6 +12,7 @@
 <link href="./assets/css/v48-global-button-cleanup-admin.css" rel="stylesheet"/>
 <link href="assets/css/v49-member-auth-inscription-contrast.css" rel="stylesheet"/>
 <link href="assets/css/v50-member-final-boutons.css" rel="stylesheet"/>
+<link href="./assets/css/v51-inscription-champs-optionnels.css" rel="stylesheet"/>
 </head>
 <body class="pssr-page v30-circle-global ev39-page">
 <main class="pssr-main" id="main">
@@ -37,14 +38,14 @@
 <label class="field-v14">Mot de passe <span aria-hidden="true" class="req">*</span>
 <input autocomplete="new-password" minlength="6" name="password" placeholder="Minimum 6 caractères" required="" type="password"/>
 </label>
-<div class="ev39-form-section full" data-form-section="Coordonnées complémentaires"><span class="step-kicker">Étape 2</span><h2>Coordonnées complémentaires</h2><p>Ajoutez les coordonnées utiles pour que l’équipe puisse vous accompagner correctement.</p></div><label class="field-v14">Téléphone <span aria-hidden="true" class="req">*</span>
-<input autocomplete="tel" name="phone" placeholder="Votre numéro de téléphone" required="" type="tel"/>
+<div class="ev39-form-section full" data-form-section="Coordonnées complémentaires"><span class="step-kicker">Étape 2</span><h2>Coordonnées complémentaires</h2><p>Ajoutez les coordonnées utiles pour limiter la paperasse et nous concentrer sur l’essentiel.</p></div><label class="field-v14">Téléphone
+<input autocomplete="tel" name="phone" placeholder="Votre numéro de téléphone" type="tel"/>
 </label>
-<label class="field-v14">Date de naissance <span aria-hidden="true" class="req">*</span>
-<input autocomplete="bday" name="birthDate" required="" type="date"/>
+<label class="field-v14">Date de naissance
+<input autocomplete="bday" name="birthDate" type="date"/>
 </label>
-<label class="field-v14 full">Adresse <span aria-hidden="true" class="req">*</span>
-<input autocomplete="street-address" name="address" placeholder="Votre adresse complète" required=""/>
+<label class="field-v14 full">Adresse
+<input autocomplete="street-address" name="address" placeholder="Votre adresse complète"/>
 </label>
 <input name="modules" type="hidden" value=""/>
 <div class="ev39-form-section full" data-form-section="Consentement"><span class="step-kicker">Étape 3</span><h2>Consentement</h2><p>Votre accord permet de traiter votre demande dans un cadre clair et conforme au RGPD.</p></div><label class="full consent consent-v14"><input name="rgpdConsent" required="" type="checkbox"/> <span>J’accepte les conditions et la <a href="./confidentialite-rgpd.html" rel="noopener" target="_blank">politique de confidentialité</a>.</span></label>

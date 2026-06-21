@@ -1,0 +1,40 @@
+/* V51 — inscription simplifiée
+   - Téléphone, date de naissance et adresse deviennent facultatifs visuellement et techniquement.
+   - Renforce la lisibilité blanche du bouton “Je m’inscris” sans toucher au super cercle PSSR. */
+
+/* Sécurité visuelle : aucune étoile résiduelle sur les coordonnées optionnelles. */
+.inscription-v14 label:has(input[name="phone"]) .req,
+.inscription-v14 label:has(input[name="birthDate"]) .req,
+.inscription-v14 label:has(input[name="address"]) .req {
+  display: none !important;
+}
+
+/* Ces champs restent confortables mais ne sont plus signalés comme obligatoires. */
+.inscription-v14 input[name="phone"],
+.inscription-v14 input[name="birthDate"],
+.inscription-v14 input[name="address"] {
+  box-shadow: none;
+}
+
+/* Renfort final : texte blanc sur tous les liens/boutons “Je m’inscris”. */
+html body a[href$="inscription.html"],
+html body a[href*="/inscription.html"],
+html body .ev39-btn--primary[href*="inscription"],
+html body .ev39-mobile-signup[href*="inscription"],
+html body .ev36-btn--primary[href*="inscription"],
+html body .ev36-mobile-signup[href*="inscription"],
+html body .nav-signup[href*="inscription"],
+html body .btn-primary-v27[href*="inscription"],
+html body a.btn[href*="inscription"] {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+html body a[href$="inscription.html"] *,
+html body a[href*="/inscription.html"] *,
+html body a[class*="signup"] *,
+html body a[class*="primary"][href*="inscription"] * {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
