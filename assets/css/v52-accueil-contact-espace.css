@@ -1,0 +1,176 @@
+/* V52 — accueil contact + finitions espace membre
+   - remplace le simple lien “Nous contacter” par un formulaire professionnel sur l’accueil.
+   - supprime la phrase “Votre espace membre PSSR.” de la page membre via HTML ; sécurité CSS ci-dessous.
+   - conserve le super cercle PSSR intact. */
+
+.home-contact-v52 {
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+.home-contact-v52 .section-wrap {
+  max-width: min(920px, calc(100% - 32px));
+}
+
+.home-contact-v52 .home-intro-note-v30 {
+  max-width: 680px;
+  margin-bottom: clamp(1.5rem, 3vw, 2.2rem) !important;
+}
+
+.home-contact-form-v52 {
+  width: min(820px, 100%);
+  margin: 0 auto;
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(201, 174, 234, 0.45);
+  box-shadow: 0 22px 70px rgba(36, 17, 47, 0.08);
+  text-align: left;
+}
+
+.home-contact-grid-v52 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.home-contact-grid-v52 label {
+  display: grid;
+  gap: 0.45rem;
+  color: #2c1638;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.home-contact-grid-v52 label span {
+  color: #745f82;
+  font-weight: 650;
+  font-size: 0.86rem;
+}
+
+.home-contact-grid-v52 .full {
+  grid-column: 1 / -1;
+}
+
+.home-contact-grid-v52 input,
+.home-contact-grid-v52 select,
+.home-contact-grid-v52 textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(88, 54, 113, 0.22);
+  border-radius: 18px;
+  background: #fff;
+  color: #24112f;
+  padding: 0.9rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  outline: none;
+  box-shadow: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.home-contact-grid-v52 textarea {
+  resize: vertical;
+  min-height: 132px;
+}
+
+.home-contact-grid-v52 input::placeholder,
+.home-contact-grid-v52 textarea::placeholder {
+  color: rgba(65, 43, 78, 0.58);
+}
+
+.home-contact-grid-v52 input:focus,
+.home-contact-grid-v52 select:focus,
+.home-contact-grid-v52 textarea:focus {
+  border-color: rgba(124, 92, 255, 0.45);
+  box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.10);
+  background: #fff;
+}
+
+.home-contact-consent-v52 {
+  display: flex !important;
+  grid-template-columns: none !important;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.65rem !important;
+  margin-top: 0.15rem;
+  font-weight: 650 !important;
+  color: #4a3758 !important;
+}
+
+.home-contact-consent-v52 input {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  margin-top: 0.05rem;
+  accent-color: #b71968;
+}
+
+.home-contact-actions-v52 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem 1rem;
+  margin-top: 1.25rem;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.home-contact-actions-v52 .btn,
+.home-contact-actions-v52 .btn-primary-v27 {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  min-width: 190px;
+}
+
+.home-contact-mail-v52 {
+  color: #6f3fc3;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.home-contact-mail-v52:hover {
+  color: #9f165b;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.home-contact-confirm-v52 {
+  margin: 1rem auto 0 !important;
+  max-width: 620px;
+  padding: 0.85rem 1rem;
+  border-radius: 18px;
+  background: rgba(245, 235, 255, 0.88);
+  color: #3a2350 !important;
+  font-weight: 750;
+  text-align: center !important;
+}
+
+/* Sécurité : la phrase supprimée en HTML ne doit pas revenir visuellement si un cache injecte l’ancienne version. */
+.ev39-role-member .ev39-role-note {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  .home-contact-form-v52 {
+    padding: 1rem;
+    border-radius: 24px;
+  }
+
+  .home-contact-grid-v52 {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .home-contact-actions-v52 {
+    display: grid;
+    justify-items: stretch;
+  }
+
+  .home-contact-actions-v52 .btn,
+  .home-contact-mail-v52 {
+    width: 100%;
+    text-align: center;
+  }
+}

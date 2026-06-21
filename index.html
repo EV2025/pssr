@@ -16,6 +16,7 @@
 <link href="assets/css/v49-member-auth-inscription-contrast.css" rel="stylesheet"/>
 <link href="assets/css/v50-member-final-boutons.css" rel="stylesheet"/>
 <link href="./assets/css/v51-inscription-champs-optionnels.css" rel="stylesheet"/>
+<link href="./assets/css/v52-accueil-contact-espace.css" rel="stylesheet"/>
 </head>
 <body class="pssr-page v27-minimal v30-circle-global home-v30-compact ev39-page" id="accueil">
 <main id="main">
@@ -23,7 +24,7 @@
 <div class="section-wrap">
 <p class="eyebrow-v30">Équilibre Vital · PSSR · Bruxelles-Capitale</p>
 <h1>Retrouver le mouvement, à votre rythme.</h1>
-<p class="lead-v30">Une plateforme socio-sportive pour choisir une activité, rejoindre un parcours humain et avancer avec un cadre clair, progressif et bienveillant.</p>
+<p class="lead-v30">Une plateforme socio-sportive pour choisir une activité, rejoindre un parcours et avancer avec un cadre progressif à taille-humaine.</p>
 <div class="home-actions-v30">
 <a class="btn btn-primary-v27" href="./inscription.html">Je m’inscris</a>
 <a class="btn btn-secondary-v27" href="./reservation.html">Réserver une activité</a>
@@ -47,6 +48,47 @@
 <div class="section-wrap">
 <div class="home-actions-v30"><a class="btn btn-primary-v27" href="./pssr.html">Comprendre la Méthode PSSR</a></div>
 </div>
-</section><section class="home-contact-v30" id="contact"><div class="section-wrap"><h2>Une question ?</h2><p class="home-intro-note-v30">L’équipe Équilibre Vital vous accompagne dans le choix de l’activité ou du parcours le plus adapté.</p><div class="home-actions-v30"><a class="btn btn-secondary-v27" href="mailto:equilibrevital.bruxelles@gmail.com">Nous contacter</a></div></div></section></main>
-<script defer="True" src="./assets/js/v39-complet-coherence-roles.js"></script><script defer src="./assets/js/v41-footer-burger.js"></script></body>
+</section><section class="home-contact-v30 home-contact-v52" id="contact">
+<div class="section-wrap">
+<p class="eyebrow-v30">Contact</p>
+<h2>Une question ?</h2>
+<p class="home-intro-note-v30">L’équipe Équilibre Vital vous aide à choisir l’activité ou le parcours le plus adapté.</p>
+<form class="home-contact-form-v52" id="home-contact-form-v52" novalidate>
+<div class="home-contact-grid-v52">
+<label>Nom et prénom
+<input autocomplete="name" name="name" placeholder="Votre nom" required type="text"/>
+</label>
+<label>Email
+<input autocomplete="email" name="email" placeholder="votre@email.be" required type="email"/>
+</label>
+<label>Téléphone <span>facultatif</span>
+<input autocomplete="tel" name="phone" placeholder="Votre numéro" type="tel"/>
+</label>
+<label>Sujet
+<select name="subject" required>
+<option value="">Choisir un sujet</option>
+<option>Inscription ou espace membre</option>
+<option>Choix d’une activité</option>
+<option>Parcours PSSR</option>
+<option>Partenariat ou institution</option>
+<option>Autre demande</option>
+</select>
+</label>
+<label class="full">Message
+<textarea name="message" placeholder="Expliquez brièvement votre demande" required rows="5"></textarea>
+</label>
+<label class="home-contact-consent-v52 full">
+<input required type="checkbox" name="consent"/>
+<span>J’accepte que l’équipe Équilibre Vital me recontacte au sujet de ma demande.</span>
+</label>
+</div>
+<div class="home-contact-actions-v52">
+<button class="btn btn-primary-v27" type="submit">Envoyer ma question</button>
+<a class="home-contact-mail-v52" href="mailto:equilibrevital.bruxelles@gmail.com">ou écrire directement par email</a>
+</div>
+<p class="home-contact-confirm-v52" hidden id="home-contact-confirm-v52">Merci, votre message est prêt. Votre application email va s’ouvrir pour finaliser l’envoi.</p>
+</form>
+</div>
+</section></main>
+<script defer src="./assets/js/v52-home-contact.js"></script><script defer="True" src="./assets/js/v39-complet-coherence-roles.js"></script><script defer src="./assets/js/v41-footer-burger.js"></script></body>
 </html>
