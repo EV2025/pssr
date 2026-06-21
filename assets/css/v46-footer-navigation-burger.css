@@ -27,16 +27,19 @@
   }
 }
 
-/* Lien tableau de bord ajouté discrètement dans la ligne légale du footer. */
-html body .ev39-footer .ev39-footer__legal a.ev46-footer-dashboard {
+/* Lien Admin ajouté discrètement dans la ligne légale du footer. */
+html body .ev39-footer .ev39-footer__legal a.ev46-footer-dashboard,
+html body .ev39-footer .ev39-footer__legal a.ev48-footer-admin {
   opacity: 0.58 !important;
   font-size: 0.78rem !important;
   font-weight: 600 !important;
-  text-transform: lowercase !important;
+  text-transform: none !important;
 }
 
 html body .ev39-footer .ev39-footer__legal a.ev46-footer-dashboard:hover,
-html body .ev39-footer .ev39-footer__legal a.ev46-footer-dashboard:focus-visible {
+html body .ev39-footer .ev39-footer__legal a.ev46-footer-dashboard:focus-visible,
+html body .ev39-footer .ev39-footer__legal a.ev48-footer-admin:hover,
+html body .ev39-footer .ev39-footer__legal a.ev48-footer-admin:focus-visible {
   opacity: 1 !important;
 }
 
