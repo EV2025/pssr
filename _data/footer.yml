@@ -1,37 +1,29 @@
-presentation:
-  title: Équilibre Vital asbl
-  text: Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.
-  baseline: Bouger, reprendre confiance et avancer à son rythme.
-main_menu:
-  - title: Activités
-    url: /calendrier.html
-  - title: Dispositifs
-    url: /dispositifs.html
-  - title: PSSR
-    url: /pssr.html
-  - title: Connexion
-    url: /dashboard.html
-  - title: Je m’inscris
-    url: /inscription.html
-ressources:
-  - title: Accueil
-    url: /index.html
-  - title: Présentation
-    url: /presentation-pssr.html
-  - title: Réserver
-    url: /reservation.html
-  - title: Documents
-    url: /documents.html
-  - title: Ressources emploi & insertion
-    url: /ressources-emploi-insertion.html
-  - title: Écoles & ATL
-    url: /ecoles-atl.html
-  - title: FAQ
-    url: /faq.html
-legal:
-  - title: Mentions légales
-    url: /mentions-legales.html
-  - title: RGPD
-    url: /confidentialite-rgpd.html
-  - title: Politique de confidentialité
-    url: /confidentialite-rgpd.html
+columns:
+  - title: Navigation
+    links:
+      - label: Accueil
+        href: /index.html
+      - label: Activités
+        href: /calendrier.html
+      - label: Dispositifs
+        href: /dispositifs.html
+      - label: PSSR
+        href: /pssr.html
+      - label: Ateliers
+        href: /dispositifs.html
+      - label: Partenaires
+        href: /ecoles-atl.html
+  - title: Ressources
+    links:
+      - label: Présentation
+        href: /presentation-pssr.html
+      - label: Réserver
+        href: /reservation.html
+      - label: Documents
+        href: /documents.html
+      - label: FAQ
+        href: /faq.html
+      - label: Ressources emploi & insertion
+        href: /ressources-emploi-insertion.html
+      - label: Écoles & ATL
+        href: /ecoles-atl.html

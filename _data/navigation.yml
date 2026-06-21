@@ -1,13 +1,14 @@
 main:
-  - title: Activités
-    url: /calendrier.html
-  - title: Dispositifs
-    url: /dispositifs.html
-  - title: PSSR
-    url: /pssr.html
-  - title: Connexion
-    url: /dashboard.html
-    style: secondary
-  - title: Je m’inscris
-    url: /inscription.html
-    style: primary
+  - label: Activités
+    href: /calendrier.html
+  - label: Dispositifs
+    href: /dispositifs.html
+  - label: PSSR
+    href: /pssr.html
+actions:
+  - label: Connexion
+    href: /dashboard.html
+    variant: secondary
+  - label: Je m’inscris
+    href: /inscription.html
+    variant: primary
