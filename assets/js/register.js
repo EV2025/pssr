@@ -38,16 +38,7 @@ form.addEventListener('submit', async (e)=>{
       createdAt: fb.serverTimestamp(),
       updatedAt: fb.serverTimestamp()
     });
-    await fb.setDoc(fb.doc(fb.db, 'passports', cred.user.uid), {
-      uid: cred.user.uid,
-      displayName: data.displayName,
-      email: data.email,
-      memberCode: data.memberCode,
-      journeyLevel: data.journeyLevel,
-      attendanceCount: 0,
-      badges: ['Bienvenue PSSR'],
-      updatedAt: fb.serverTimestamp()
-    }, { merge:true });
+    // V56 : le passeport PSSR est créé ou mis à jour uniquement par l’équipe coach/admin.
     show(`Compte créé. Votre code membre est ${data.memberCode}. Redirection vers l’espace membre…`, true);
     setTimeout(()=> location.href='./member/dashboard.html', 1200);
   }catch(err){

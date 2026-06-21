@@ -1,6 +1,6 @@
 main:
   - label: Activités
-    href: /calendrier.html
+    href: /activites.html
   - label: Dispositifs
     href: /dispositifs.html
   - label: PSSR

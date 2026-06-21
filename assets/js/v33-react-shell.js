@@ -2,7 +2,7 @@
    Même logique que des composants React : données séparées, rendu unique, accessibilité. */
 (function(){
   const navItems = [
-    { label: 'Activités', href: 'calendrier.html' },
+    { label: 'Activités', href: 'activites.html' },
     { label: 'Dispositifs', href: 'dispositifs.html' },
     { label: 'PSSR', href: 'pssr.html' }
   ];
@@ -15,7 +15,7 @@
       title: 'Navigation',
       links: [
         { label: 'Accueil', href: 'index.html' },
-        { label: 'Activités', href: 'calendrier.html' },
+        { label: 'Activités', href: 'activites.html' },
         { label: 'Dispositifs', href: 'dispositifs.html' },
         { label: 'PSSR', href: 'pssr.html' },
         { label: 'Ateliers', href: 'dispositifs.html' },

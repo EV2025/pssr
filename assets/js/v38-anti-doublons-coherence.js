@@ -1,5 +1,5 @@
 (function(){'use strict';
-const navItems=[{label:'Activités',href:'calendrier.html'},{label:'Dispositifs',href:'dispositifs.html'},{label:'PSSR',href:'pssr.html'}];
+const navItems=[{label:'Activités',href:'activites.html'},{label:'Dispositifs',href:'dispositifs.html'},{label:'PSSR',href:'pssr.html'}];
 const actionItems=[{label:'Connexion',href:'dashboard.html',variant:'secondary'},{label:'Je m’inscris',href:'inscription.html',variant:'primary'}];
 const footerNavigation=[
   {label:'Accueil',href:'index.html'},
@@ -11,7 +11,7 @@ const footerPartners=[
   {label:'Partenaires & institutions',href:'partenaires-institutions.html'}
 ];
 const keywordMap=[
-  {test:/^(activit[eé]s?|sport|cr[eé]neaux|calendrier)$/i,href:'calendrier.html'},
+  {test:/^(activit[eé]s?|sport|cr[eé]neaux|calendrier)$/i,href:'activites.html'},
   {test:/^(dispositifs?|ateliers?)$/i,href:'dispositifs.html'},
   {test:/^(pssr|parcours|m[eé]thode pssr|parcours pssr)$/i,href:'pssr.html'},
   {test:/^(connexion|espace|tableau de bord)$/i,href:'dashboard.html'},
