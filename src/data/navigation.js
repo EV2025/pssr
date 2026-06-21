@@ -1,26 +1,25 @@
 export const navItems = [
-  { label: 'Activités', href: '/activites' },
-  { label: 'Dispositifs', href: '/dispositifs' },
-  { label: 'PSSR', href: '/pssr' },
+  { label: 'Activités', href: '/pssr/calendrier.html' },
+  { label: 'Dispositifs', href: '/pssr/dispositifs.html' },
+  { label: 'PSSR', href: '/pssr/pssr.html' },
 ];
 
 export const actionItems = [
-  { label: 'Connexion', href: '/connexion', variant: 'secondary' },
-  { label: 'Je m’inscris', href: '/inscription', variant: 'primary' },
+  { label: 'Connexion', href: '/pssr/dashboard.html', variant: 'secondary' },
+  { label: 'Je m’inscris', href: '/pssr/inscription.html', variant: 'primary' },
 ];
 
 export const footerNavigation = [
-  { label: 'Accueil', href: '/' },
-  { label: 'Activités', href: '/activites' },
-  { label: 'Dispositifs', href: '/dispositifs' },
-  { label: 'PSSR', href: '/pssr' },
-  { label: 'Ateliers', href: '/dispositifs#ateliers' },
-  { label: 'Ressources', href: '/documents' },
+  { label: 'Accueil', href: '/pssr/' },
+  { label: 'Activités', href: '/pssr/calendrier.html' },
+  { label: 'Dispositifs', href: '/pssr/dispositifs.html' },
+  { label: 'PSSR', href: '/pssr/pssr.html' },
+  { label: 'Ateliers', href: '/pssr/dispositifs.html#ateliers' },
+  { label: 'Ressources', href: '/pssr/documents.html' },
 ];
 
 export const footerPartners = [
-  { label: 'Partenaires & institutions', href: '/partenaires-institutions' },
-  { label: 'Actions partenaires', href: '/partenaires-institutions#actions-partenaires' },
-  { label: 'Écoles & ATL', href: '/ecoles-atl' },
-  { label: 'Ressources emploi & insertion', href: '/ressources-emploi' },
+  { label: 'Partenaires & institutions', href: '/pssr/partenaires-institutions.html' },
+  { label: 'Écoles & ATL', href: '/pssr/ecoles-atl.html' },
+  { label: 'Ressources emploi & insertion', href: '/pssr/ressources-emploi-insertion.html' },
 ];
