@@ -7,7 +7,7 @@ const footerNav=[
   {label:'Documents',href:'documents.html'}
 ];
 const footerPartners=[
-  {label:'Ressources emploi & insertion',href:'ressources-emploi-insertion.html'},
+  {label:'Formation & emploi',href:'ressources-emploi-insertion.html'},
   {label:'Partenaires & institutions',href:'partenaires-institutions.html'}
 ];
 const keywordMap=[
@@ -16,7 +16,7 @@ const keywordMap=[
   {test:/^(pssr|parcours|m[eé]thode pssr|parcours pssr)$/i,href:'pssr.html'},
   {test:/^(connexion|espace|tableau de bord)$/i,href:'dashboard.html'},
   {test:/^(inscription|je m’inscris|s’inscrire)$/i,href:'inscription.html'},
-  {test:/^(ressources|emploi|insertion|ressources emploi & insertion)$/i,href:'ressources-emploi-insertion.html'},
+  {test:/^(ressources|emploi|insertion|formation & emploi)$/i,href:'ressources-emploi-insertion.html'},
   {test:/^(documents?)$/i,href:'documents.html'},
   {test:/^(faq|questions)$/i,href:'faq.html'},
   {test:/^(partenaires?|institutions?|partenaires & institutions|actions partenaires|partenariats locaux|écoles & atl|ecoles & atl|atl|communes?|cpas)$/i,href:'partenaires-institutions.html'},

@@ -8,7 +8,7 @@ const footerNavigation=[
   {label:'Documents',href:'documents.html'}
 ];
 const footerPartners=[
-  {label:'Ressources emploi & insertion',href:'ressources-emploi-insertion.html'},
+  {label:'Formation & emploi',href:'ressources-emploi-insertion.html'},
   {label:'Partenaires & institutions',href:'partenaires-institutions.html'}
 ];
 const keywordMap=[
@@ -19,7 +19,7 @@ const keywordMap=[
   {test:/^(connexion|espace|tableau de bord)$/i,href:'member/dashboard.html'},
   {test:/^(inscription|je m’inscris|s’inscrire)$/i,href:'inscription.html'},
   {test:/^(ressources|documents?)$/i,href:'documents.html'},
-  {test:/^(emploi|insertion|ressources emploi & insertion)$/i,href:'ressources-emploi-insertion.html'},
+  {test:/^(emploi|insertion|formation & emploi)$/i,href:'ressources-emploi-insertion.html'},
   {test:/^(faq|questions)$/i,href:'faq.html'},
   {test:/^(partenaires?|institutions?|partenaires & institutions|actions partenaires|partenariats locaux|écoles & atl|ecoles & atl|atl|communes?|cpas)$/i,href:'partenaires-institutions.html'},
   {test:/^(contact)$/i,href:'mailto:equilibrevital.bruxelles@gmail.com'}

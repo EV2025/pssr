@@ -16,6 +16,6 @@ export const footerNavigation = [
 ];
 
 export const footerPartners = [
-  { label: 'Ressources emploi & insertion', href: '/pssr/ressources-emploi-insertion.html' },
+  { label: 'Formation & emploi', href: '/pssr/ressources-emploi-insertion.html' },
   { label: 'Partenaires & institutions', href: '/pssr/partenaires-institutions.html' },
 ];

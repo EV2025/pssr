@@ -1,0 +1,64 @@
+/* V53 — finitions interface
+   - Texte noir pour le bloc « Pas encore de compte ? Créer un espace membre ».
+   - Renfort texte blanc pour les vrais boutons « Je m’inscris ».
+   - Aucun ciblage du super cercle PSSR. */
+
+/* Texte noir dans le bloc de création de compte de l'espace membre. */
+html body.ev39-role-member #login-panel .notice,
+html body.ev39-role-member #login-panel .notice *,
+html body.ev39-role-member #login-panel .notice a,
+html body.ev39-role-member #login-panel .notice a:link,
+html body.ev39-role-member #login-panel .notice a:visited,
+html body.ev39-role-member #login-panel .notice strong {
+  color: #111111 !important;
+  -webkit-text-fill-color: #111111 !important;
+}
+
+html body.ev39-role-member #login-panel .notice {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+html body.ev39-role-member #login-panel .notice a,
+html body.ev39-role-member #login-panel .notice a:hover,
+html body.ev39-role-member #login-panel .notice a:active,
+html body.ev39-role-member #login-panel .notice a:focus {
+  border: 1px solid #ffffff !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+  color: #111111 !important;
+  -webkit-text-fill-color: #111111 !important;
+}
+
+html body.ev39-role-member #login-panel .notice a:focus-visible {
+  border-color: #ffffff !important;
+  outline: 2px solid rgba(124, 92, 255, 0.72) !important;
+  outline-offset: 3px !important;
+  box-shadow: none !important;
+}
+
+/* Boutons d'inscription : texte blanc uniquement sur les vrais boutons/CTA, pas sur le lien notice membre. */
+html body :where(
+  .ev39-btn--primary,
+  .ev39-mobile-signup,
+  .ev36-btn--primary,
+  .ev36-mobile-signup,
+  .nav-signup,
+  .mobile-nav-action.nav-signup,
+  .btn-primary-v27[href*="inscription"],
+  a.btn[href*="inscription"],
+  a[class*="btn"][href*="inscription"],
+  .home-actions-v30 a[href*="inscription"],
+  .hero-actions a[href*="inscription"],
+  .cta-row a[href*="inscription"],
+  .ev39-actions a[href*="inscription"],
+  .ev36-actions a[href*="inscription"],
+  .ev39-mobile-menu a[href*="inscription"],
+  .ev36-mobile-menu a[href*="inscription"]
+):not(:where(#pssr-cycle-iso *, .pssr-toolbar *, .pssr-ring *, .pssr-legend *, .pssr-panels *, .pssr-actions *, #login-panel .notice *)) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: none !important;
+}

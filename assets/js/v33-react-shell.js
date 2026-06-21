@@ -29,7 +29,7 @@
         { label: 'Réserver', href: 'reservation.html' },
         { label: 'Documents', href: 'documents.html' },
         { label: 'FAQ', href: 'faq.html' },
-        { label: 'Ressources emploi & insertion', href: 'ressources-emploi-insertion.html' },
+        { label: 'Formation & emploi', href: 'ressources-emploi-insertion.html' },
         { label: 'Écoles & ATL', href: 'ecoles-atl.html' }
       ]
     }
