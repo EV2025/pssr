@@ -43,12 +43,20 @@ function dataFromForm(form){
     data[key] = cleanString(value, key === 'message' || key === 'objectifs' ? 3000 : 300);
   }
 
+  // Compatibilité : certains anciens formulaires utilisaient name/phone/subject/consent.
+  // Firestore V58 attend surtout nom/telephone/type/rgpdConsent.
+  if (!data.nom && data.name) data.nom = data.name;
+  if (!data.telephone && data.phone) data.telephone = data.phone;
+  if (!data.type && data.subject) data.type = data.subject;
+
+  const hasConsent = Boolean(raw.rgpdConsent || raw.consent || raw.privacy || raw.accept);
+
   return {
     ...data,
     source: location.pathname,
     pageTitle: document.title,
     userAgent: navigator.userAgent.slice(0, 300),
-    rgpdConsent: Boolean(raw.rgpdConsent),
+    rgpdConsent: hasConsent,
     createdAt: serverTimestamp ? serverTimestamp() : new Date().toISOString()
   };
 }
@@ -198,7 +206,7 @@ async function attachForms(){
         showReceipt(form, payload, collectionName);
       }catch(err){
         console.error(err);
-        showMessage(form, 'Impossible d’enregistrer dans Firebase. Vérifiez la configuration et les règles Firestore.', false);
+        showMessage(form, 'Impossible d’enregistrer dans Firebase. Vérifiez la connexion, la configuration ou les règles Firestore.', false);
       }finally{
         if (submitBtn) submitBtn.disabled = false;
       }
