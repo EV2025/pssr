@@ -320,7 +320,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
 </script>
 <meta content="#FFF7FB" name="theme-color"/>
 <meta content="light" name="color-scheme"/>
-<style>body{margin:0;font-family:Inter,Manrope,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#fff8fc;color:#21112b}img{max-width:100%;height:auto}main{min-height:54vh}.ev36-header{position:sticky;top:0;z-index:5000}</style><link href="./assets/css/v39-complet-coherence-roles.css" rel="stylesheet"/><link href="./assets/css/v40-footer-fluide.css" rel="stylesheet"/><link href="./assets/css/v41-footer-burger.css" rel="stylesheet"/>
+<style>body{margin:0;font-family:Inter,Manrope,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#fff8fc;color:#21112b}img{max-width:100%;height:auto}main{min-height:54vh}.ev36-header{position:sticky;top:0;z-index:5000}</style><link href="./assets/css/v39-complet-coherence-roles.css" rel="stylesheet"/><link href="./assets/css/v40-footer-fluide.css" rel="stylesheet"/><link href="./assets/css/v41-footer-burger.css" rel="stylesheet"/><link href="./assets/css/v44-dispositifs-ajustements.css" rel="stylesheet"/>
 </head>
 <body class="pssr-page dispositifs-page v30-circle-global ev39-page" id="accueil">
 <main class="page-main page-dispositifs-v21" data-original-id="contenu" id="main">
@@ -427,7 +427,7 @@ input:focus,textarea:focus{outline:none;border-color:#bba7f5;box-shadow:0 0 0 2p
   const register = document.getElementById('register-selected-modules');
   if(!boxes.length || !out) return;
   function selected(){ return boxes.filter(b=>b.checked).map(b=>b.value); }
-  function sync(){ const values = selected(); out.hidden = values.length === 0; out.textContent = values.length ? 'Choix : ' + values.join(', ') : ''; }
+  function sync(){ const values = selected(); boxes.forEach(b => b.closest('.module-card')?.classList.toggle('is-selected', b.checked)); out.hidden = values.length === 0; out.textContent = values.length ? 'Choix : ' + values.join(', ') : ''; }
   function go(base){ const values = selected(); if(!values.length){ out.hidden = false; out.textContent = 'Sélectionnez au moins un module avant de continuer.'; out.scrollIntoView({behavior:'smooth',block:'nearest'}); return; } const params = new URLSearchParams(); params.set('modules', values.join(', ')); location.href = base + '?' + params.toString(); }
   boxes.forEach(b => b.addEventListener('change', sync));
   reserve?.addEventListener('click', () => go('./reservation.html'));
