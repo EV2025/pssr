@@ -18,6 +18,26 @@ const gdprForm = document.getElementById('gdpr-form');
 const gdprMsg = document.getElementById('gdpr-msg');
 let fb, currentUser, profile;
 
+function setLogoutVisibility(isAuthenticated){
+  if (!logoutBtn) return;
+  document.body.classList.toggle('ev49-member-authenticated', isAuthenticated);
+  document.body.classList.toggle('ev50-member-authenticated', isAuthenticated);
+  logoutBtn.hidden = !isAuthenticated;
+  logoutBtn.classList.toggle('is-authenticated', isAuthenticated);
+  logoutBtn.setAttribute('aria-hidden', isAuthenticated ? 'false' : 'true');
+  if (isAuthenticated) {
+    logoutBtn.style.setProperty('display', 'inline-flex', 'important');
+    logoutBtn.style.setProperty('visibility', 'visible', 'important');
+    logoutBtn.style.setProperty('opacity', '1', 'important');
+    logoutBtn.style.setProperty('pointer-events', 'auto', 'important');
+  } else {
+    logoutBtn.style.setProperty('display', 'none', 'important');
+    logoutBtn.style.setProperty('visibility', 'hidden', 'important');
+    logoutBtn.style.setProperty('opacity', '0', 'important');
+    logoutBtn.style.setProperty('pointer-events', 'none', 'important');
+  }
+}
+
 const steps = [
   {key:'CAND', title:'Candidature — dépôt & éligibilité', short:'Candidature', desc:'Présenter le dispositif, recueillir le consentement, vérifier les critères et planifier l’entrée.'},
   {key:'ARF', title:'Ateliers de Remise en Forme', short:'ARF', desc:'Sensibiliser, informer et remettre progressivement le corps en mouvement.'},
@@ -39,16 +59,17 @@ function uniq(values){ return Array.from(new Set(values.filter(Boolean))); }
 function showGdpr(text, ok=false){ gdprMsg.hidden=false; gdprMsg.textContent=text; gdprMsg.style.color=ok?'#356b42':'#9b2f2f'; }
 
 async function init(){
+  setLogoutVisibility(false);
   fb = await getFirebase();
   loginForm.addEventListener('submit', async e=>{ e.preventDefault(); const fd=new FormData(loginForm); try{ await fb.signInWithEmailAndPassword(fb.auth, fd.get('email'), fd.get('password')); }catch(err){ showLogin('Connexion refusée. Vérifiez email/mot de passe.'); }});
-  logoutBtn.addEventListener('click', ()=> fb.signOut(fb.auth));
+  if (logoutBtn) logoutBtn.addEventListener('click', ()=> { setLogoutVisibility(false); fb.signOut(fb.auth); });
   document.getElementById('print-passport').addEventListener('click', ()=> window.print());
   gdprForm.addEventListener('submit', sendGdprRequest);
   fb.onAuthStateChanged(fb.auth, async user=>{
     currentUser = user;
     const show = Boolean(user);
-    document.body.classList.toggle('ev49-member-authenticated', show);
-    loginPanel.hidden = show; dashboard.hidden = !show; participantPanel.hidden=!show; journeyPanel.hidden=!show; passportPanel.hidden=!show; reservationsPanel.hidden=!show; slotsPanel.hidden=!show; gdprPanel.hidden=!show; logoutBtn.hidden=!show;
+    setLogoutVisibility(show);
+    loginPanel.hidden = show; dashboard.hidden = !show; participantPanel.hidden=!show; journeyPanel.hidden=!show; passportPanel.hidden=!show; reservationsPanel.hidden=!show; slotsPanel.hidden=!show; gdprPanel.hidden=!show;
     if (user) await loadAll();
   });
 }
