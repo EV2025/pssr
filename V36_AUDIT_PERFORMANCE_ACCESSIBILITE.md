@@ -2,22 +2,18 @@
 
 Base : V33.
 
-Corrections appliquées :
+Actions principales :
 
-- Chargement CSS moins bloquant : style critique minimal inline + feuille V36 préchargée.
-- Un seul fichier CSS global `assets/css/v36-performance-accessibilite.css`.
-- Un seul shell de navigation/footer injecté par `assets/js/v36-performance-accessibilite.js`.
-- Scripts non critiques en `defer` quand possible.
-- Palette renforcée pour corriger les contrastes faibles : textes, liens, badges, boutons, footer et focus clavier.
-- Suppression des anciens liens d’évitement visuellement cachés qui créaient des alertes de contraste.
-- Menu burger avec `aria-expanded`, `aria-controls`, `aria-label`, fermeture après clic et touche Escape.
-- Titres centrés et hiérarchie améliorée : un `h1` par page quand possible, puis `h2`/`h3`.
-- Images non critiques en `loading=lazy`, `decoding=async`, dimensions `width`/`height`, et WebP utilisé quand disponible.
-- Footer plus contrasté et mieux structuré.
-- Mots-clés/badges autonomes reliés à leurs pages quand une page existe.
-- Vérification locale : 0 lien interne cassé détecté.
+- Unification des feuilles CSS en un seul fichier `assets/css/v36-performance-accessibilite.css`.
+- Suppression des imports Google Fonts externes pour réduire les requêtes bloquantes.
+- Suppression des anciens scripts de navigation concurrents.
+- Injection d’un seul shell `Header + menu burger + Footer` via `assets/js/v36-performance-accessibilite.js`.
+- Menu mobile avec `aria-expanded`, `aria-controls`, fermeture après clic et touche Escape.
+- Footer nettoyé, plus contrasté, sans lien légal redondant.
+- Images converties en WebP pour l’affichage quand possible.
+- Largeur/hauteur ajoutées aux images pour réduire les décalages de mise en page.
+- Titres et badges centrés.
+- Mots-clés/badges autonomes liés aux pages existantes.
+- Le super cercle PSSR n’a pas été modifié.
 
-Limites :
-
-- GitHub Pages ne permet pas de contrôler finement les en-têtes HTTP de cache. Un `firebase.json` avec règles de cache est présent pour un futur déploiement Firebase Hosting.
-- Le super cercle PSSR est exclu des corrections internes : forme, étapes, couleurs, interactions, logique et contenu conservés.
+Limite importante : GitHub Pages ne permet pas de définir manuellement les headers de cache. Un bloc `headers` est ajouté à `firebase.json` pour un futur déploiement Firebase Hosting, mais sur GitHub Pages le cache dépend de GitHub.
