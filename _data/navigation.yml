@@ -1,18 +1,12 @@
 main:
-  - title: Accueil
-    url: /index.html
-  - title: Parcours PSSR
-    url: /index.html#parcours
-  - title: Activités & tarifs
-    url: /index.html#inscriptions
-  - title: Ateliers
-    url: /dispositifs.html#ateliers
-  - title: Ressources
-    url: /ressources-emploi-insertion.html
-  - title: Contact
-    url: /index.html#contact
-  - title: Réserver
-    url: /reservation.html
+  - title: Activités
+    url: /calendrier.html
+  - title: Dispositifs
+    url: /dispositifs.html
+  - title: PSSR
+    url: /pssr.html
+  - title: Connexion
+    url: /dashboard.html
     style: secondary
   - title: Je m’inscris
     url: /inscription.html
