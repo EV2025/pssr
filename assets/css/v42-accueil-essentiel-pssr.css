@@ -1,0 +1,18 @@
+/* V42 — Accueil plus court : section PSSR remplacée par un seul CTA. */
+.v42-method-link {
+  padding-block: clamp(34px, 5vw, 72px);
+}
+.v42-method-link .section-wrap {
+  display: flex;
+  justify-content: center;
+}
+.v42-method-link .home-actions-v30 {
+  margin-top: 0;
+}
+@media (max-width: 640px) {
+  .v42-method-link .btn {
+    width: 100%;
+    max-width: 360px;
+    justify-content: center;
+  }
+}
