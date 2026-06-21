@@ -71,17 +71,15 @@
   }
   function footerHTML(){
     return `
-      <footer class="ev-footer ev-footer--clean" role="contentinfo">
+      <footer class="ev-footer" role="contentinfo">
         <div class="ev-container ev-footer__inner">
-          <div class="ev-footer__grid ev-footer__grid--clean">
+          <div class="ev-footer__grid">
             <section>
-              <h2 class="ev-footer__title">Menu principal</h2>
-              <nav class="ev-footer__links" aria-label="Menu principal">
-                ${navItems.map(item => linkHTML(item)).join('')}
-                ${actionItems.map(item => linkHTML(item)).join('')}
-              </nav>
+              <h2 class="ev-footer__title">Équilibre Vital asbl</h2>
+              <p>Plateforme socio-sportive d’accompagnement, d’inclusion et de remise en mouvement à Bruxelles-Capitale.</p>
+              <p>Bouger, reprendre confiance et avancer à son rythme.</p>
             </section>
-            ${footerColumns.filter(column => column.title === 'Ressources').map(column => `
+            ${footerColumns.map(column => `
               <section>
                 <h2 class="ev-footer__title">${column.title}</h2>
                 <nav class="ev-footer__links" aria-label="${column.title}">
@@ -94,22 +92,19 @@
               <p>Email : <a href="mailto:equilibrevital.bruxelles@gmail.com">equilibrevital.bruxelles@gmail.com</a></p>
               <p>Téléphone : <a href="tel:+32492691070">0492/691.070</a></p>
               <p>BCE : 1019487618</p>
-            </section>
-            <section>
-              <h2 class="ev-footer__title">Paiement & légal</h2>
-              <div class="ev-footer__payment ev-footer__payment--quiet">
+              <div class="ev-footer__payment">
                 <p>IBAN : BE17 5230 8164 9221</p>
                 <p>BIC : TRIOBEBB</p>
               </div>
-              <nav class="ev-footer__links ev-footer__links--legal" aria-label="Liens légaux">
-                <a href="${href('mentions-legales.html')}">Mentions légales</a>
-                <a href="${href('confidentialite-rgpd.html')}">RGPD</a>
-                <a href="${href('confidentialite-rgpd.html')}">Politique de confidentialité</a>
-              </nav>
             </section>
           </div>
-          <div class="ev-footer__bottom ev-footer__bottom--clean">
+          <div class="ev-footer__bottom">
             <span>EV© 2026 — Tous droits réservés.</span>
+            <nav class="ev-footer__legal" aria-label="Liens légaux">
+              <a href="${href('mentions-legales.html')}">Mentions légales</a>
+              <a href="${href('confidentialite-rgpd.html')}">RGPD</a>
+              <a href="${href('confidentialite-rgpd.html')}">Politique de confidentialité</a>
+            </nav>
           </div>
         </div>
       </footer>`;

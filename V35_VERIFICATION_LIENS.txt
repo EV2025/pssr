@@ -1,0 +1,2 @@
+Vérification des pages HTML publiées (hors templates Jekyll _layouts/_includes).
+Liens locaux cassés détectés : 0
