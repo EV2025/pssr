@@ -1,0 +1,115 @@
+/* V49 — corrections espace membre et contraste inscription
+   - Efface le contour parasite du lien "Mot de passe oublié ?" avec une bordure blanche.
+   - Masque Déconnexion tant que l'utilisateur n'est pas connecté.
+   - Force le texte blanc sur les boutons "Je m'inscris".
+   Ne touche pas au super cercle PSSR. */
+
+/* Espace membre : le bouton Déconnexion reste invisible hors connexion,
+   même si un ancien style de bouton tente de forcer son affichage. */
+html body.ev39-role-member:not(.ev49-member-authenticated) .ev39-logout,
+html body.ev39-role-member .ev39-logout[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html body.ev39-role-member.ev49-member-authenticated .ev39-logout:not([hidden]) {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Espace membre : suppression visuelle du rectangle parasite autour de "Mot de passe oublié ?".
+   La bordure reste blanche pour neutraliser le cadre sans changer la forme du lien. */
+html body.ev39-role-member #login-form .auth-secondary-link,
+html body.ev39-role-member #login-form .auth-secondary-link::before,
+html body.ev39-role-member #login-form .auth-secondary-link::after {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+html body.ev39-role-member #login-form .auth-secondary-link a,
+html body.ev39-role-member #login-form .auth-secondary-link a:link,
+html body.ev39-role-member #login-form .auth-secondary-link a:visited {
+  border: 1px solid #FFFFFF !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  color: #5B21B6 !important;
+  -webkit-text-fill-color: #5B21B6 !important;
+}
+
+html body.ev39-role-member #login-form .auth-secondary-link a:hover,
+html body.ev39-role-member #login-form .auth-secondary-link a:active {
+  border-color: #FFFFFF !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: #F8F2FF !important;
+  color: #3B0764 !important;
+  -webkit-text-fill-color: #3B0764 !important;
+}
+
+html body.ev39-role-member #login-form .auth-secondary-link a:focus,
+html body.ev39-role-member #login-form .auth-secondary-link a:focus-visible {
+  border-color: #FFFFFF !important;
+  outline: 2px solid rgba(124, 92, 255, 0.72) !important;
+  outline-offset: 3px !important;
+  box-shadow: none !important;
+}
+
+/* Boutons d'inscription : typographie blanche pour une meilleure lisibilité. */
+html body :where(
+  .ev36-btn--primary,
+  .ev36-mobile-signup,
+  .btn-primary-v27,
+  .btn-v14-submit,
+  a.btn[href$="inscription.html"],
+  a.btn[href*="/inscription.html"],
+  a.btn[href*="inscription.html"],
+  .home-actions-v30 a[href*="inscription.html"],
+  .hero-actions a[href*="inscription.html"],
+  .cta-row a[href*="inscription.html"]
+):not(:where(#pssr-cycle-iso *, .pssr-toolbar *, .pssr-ring *, .pssr-legend *, .pssr-panels *, .pssr-actions *)),
+html body :where(
+  .ev36-btn--primary,
+  .ev36-mobile-signup,
+  .btn-primary-v27,
+  .btn-v14-submit,
+  a.btn[href$="inscription.html"],
+  a.btn[href*="/inscription.html"],
+  a.btn[href*="inscription.html"],
+  .home-actions-v30 a[href*="inscription.html"],
+  .hero-actions a[href*="inscription.html"],
+  .cta-row a[href*="inscription.html"]
+):not(:where(#pssr-cycle-iso *, .pssr-toolbar *, .pssr-ring *, .pssr-legend *, .pssr-panels *, .pssr-actions *)):hover,
+html body :where(
+  .ev36-btn--primary,
+  .ev36-mobile-signup,
+  .btn-primary-v27,
+  .btn-v14-submit,
+  a.btn[href$="inscription.html"],
+  a.btn[href*="/inscription.html"],
+  a.btn[href*="inscription.html"],
+  .home-actions-v30 a[href*="inscription.html"],
+  .hero-actions a[href*="inscription.html"],
+  .cta-row a[href*="inscription.html"]
+):not(:where(#pssr-cycle-iso *, .pssr-toolbar *, .pssr-ring *, .pssr-legend *, .pssr-panels *, .pssr-actions *)):focus-visible {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  text-shadow: none !important;
+}
+
+html body :where(
+  .ev36-btn--primary *,
+  .ev36-mobile-signup *,
+  .btn-primary-v27 *,
+  .btn-v14-submit *,
+  a.btn[href*="inscription.html"] *
+):not(:where(#pssr-cycle-iso *, .pssr-toolbar *, .pssr-ring *, .pssr-legend *, .pssr-panels *, .pssr-actions *)) {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}

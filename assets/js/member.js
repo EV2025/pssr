@@ -47,6 +47,7 @@ async function init(){
   fb.onAuthStateChanged(fb.auth, async user=>{
     currentUser = user;
     const show = Boolean(user);
+    document.body.classList.toggle('ev49-member-authenticated', show);
     loginPanel.hidden = show; dashboard.hidden = !show; participantPanel.hidden=!show; journeyPanel.hidden=!show; passportPanel.hidden=!show; reservationsPanel.hidden=!show; slotsPanel.hidden=!show; gdprPanel.hidden=!show; logoutBtn.hidden=!show;
     if (user) await loadAll();
   });
