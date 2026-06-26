@@ -127,6 +127,58 @@ function validate(form, data){
   return '';
 }
 
+
+function ensureFeedbackElement(form){
+  let feedback = form.querySelector('.contact-live-feedback-v59');
+  if (!feedback) {
+    feedback = document.createElement('p');
+    feedback.className = 'contact-live-feedback-v59';
+    feedback.setAttribute('role', 'status');
+    feedback.setAttribute('aria-live', 'polite');
+    feedback.hidden = true;
+    const actions = form.querySelector('.home-contact-actions-v52, .form-actions, .actions, button[type="submit"]') || form.lastElementChild;
+    if (actions && actions.parentNode === form) actions.insertAdjacentElement('afterend', feedback);
+    else form.appendChild(feedback);
+  }
+  return feedback;
+}
+
+function setLiveFeedback(form, message, state = 'info'){
+  const feedback = ensureFeedbackElement(form);
+  feedback.hidden = false;
+  feedback.textContent = message;
+  feedback.dataset.state = state;
+}
+
+function initLiveFormFeedback(form){
+  if (form.dataset.liveFeedbackReady === 'true') return;
+  form.dataset.liveFeedbackReady = 'true';
+  const fields = Array.from(form.querySelectorAll('input, select, textarea')).filter(field => {
+    const type = (field.getAttribute('type') || '').toLowerCase();
+    return !['hidden', 'submit', 'button', 'reset'].includes(type) && field.name !== 'website';
+  });
+  const updateField = field => {
+    const type = (field.getAttribute('type') || '').toLowerCase();
+    const hasValue = type === 'checkbox' || type === 'radio' ? field.checked : String(field.value || '').trim().length > 0;
+    field.classList.toggle('is-filled-v59', hasValue);
+    field.classList.toggle('is-invalid-v59', Boolean(field.required && !field.checkValidity() && hasValue));
+  };
+  const updateForm = () => {
+    fields.forEach(updateField);
+    const filled = fields.filter(field => {
+      const type = (field.getAttribute('type') || '').toLowerCase();
+      return type === 'checkbox' || type === 'radio' ? field.checked : String(field.value || '').trim().length > 0;
+    }).length;
+    if (filled > 0 && !form.dataset.submittedOk) {
+      setLiveFeedback(form, 'Saisie détectée : vos informations sont prises en compte.', form.checkValidity() ? 'ok' : 'info');
+    }
+  };
+  fields.forEach(field => {
+    field.addEventListener('input', updateForm);
+    field.addEventListener('change', updateForm);
+  });
+}
+
 function mailtoFallback(data){
   const code = data.reservationCode || data.messageCode || data.trackingCode || '';
   const subject = encodeURIComponent(code ? `Demande PSSR — ${code}` : 'Message depuis le site PSSR');
@@ -151,12 +203,15 @@ function rememberSubmission(payload){
 }
 
 async function attachForms(){
+  const forms = Array.from(document.querySelectorAll('form[data-firebase-collection]'));
+  forms.forEach(initLiveFormFeedback);
+
   const enabled = await initFirebase().catch((err) => {
     console.error('Firebase init error:', err);
     return false;
   });
 
-  document.querySelectorAll('form[data-firebase-collection]').forEach(form => {
+  forms.forEach(form => {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (form.website && form.website.value) return;
@@ -175,6 +230,8 @@ async function attachForms(){
         showMessage(form, 'Une demande identique vient déjà d’être envoyée. Attendez quelques minutes ou contactez l’équipe PSSR si nécessaire.', false);
         return;
       }
+
+      setLiveFeedback(form, 'Envoi en cours… merci de patienter quelques secondes.', 'sending');
 
       if (isReservation) {
         payload.reservationCode = makeTrackingCode('RES');
@@ -202,7 +259,9 @@ async function attachForms(){
         }
         await addDoc(collection(db, collectionName), payload);
         rememberSubmission(payload);
+        form.dataset.submittedOk = 'true';
         form.reset();
+        form.querySelectorAll('.is-filled-v59,.is-invalid-v59').forEach(el => el.classList.remove('is-filled-v59','is-invalid-v59'));
         showReceipt(form, payload, collectionName);
       }catch(err){
         console.error(err);
