@@ -52,3 +52,7 @@ La page sera disponible ici :
 ```text
 https://ev2025.github.io/pssr/actualites.html
 ```
+
+## Où trouver la page sur le site
+
+La page `actualites.html` est volontairement accessible depuis le footer uniquement, afin de rester discrète dans la navigation principale.
