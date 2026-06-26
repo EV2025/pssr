@@ -1,58 +1,41 @@
-# Ajouter un article ou une vidéo sur la page Actualités
+# Ajouter des articles et vidéos dans Actualités
 
-La page à modifier est :
+La page publique est : `actualites.html`.
 
-```text
-actualites.html
-```
+## Articles déjà intégrés
 
-## Ajouter un article
+Les 7 articles fournis sont intégrés sous forme de fiches propres dans le dossier `actualites/`.
+Chaque fiche contient :
+- un résumé propre ;
+- les points à retenir ;
+- un bouton vers l’article original du forum ;
+- un bouton vers la chaîne YouTube.
 
-1. Ouvre `actualites.html`.
-2. Trouve la zone :
+> Note : le forum peut bloquer la récupération automatique complète du texte. Pour publier le texte intégral d’un article, colle le contenu dans la fiche concernée ou fournis un export PDF/HTML.
 
-```html
-<div class="news-grid-v60">
-```
+## Ajouter un nouvel article
 
-3. Copie un bloc qui commence par :
-
-```html
-<article class="news-card-v60">
-```
-
-4. Colle-le au-dessus des anciens articles pour afficher le plus récent en premier.
-5. Modifie le titre, la date, le résumé et le lien.
+1. Copie une page existante dans le dossier `actualites/`.
+2. Renomme le fichier, par exemple : `nouvel-article.html`.
+3. Modifie le titre, la date, le résumé et le lien source.
+4. Ouvre `actualites.html` et ajoute une nouvelle carte dans le bloc `news-grid-v60`.
 
 ## Ajouter une vidéo YouTube
 
-1. Va sur ta vidéo YouTube.
-2. Copie l’adresse. Exemple :
+Chaîne officielle : https://www.youtube.com/@EV.Bruxelles
 
-```text
-https://www.youtube.com/watch?v=ABC123
-```
+ID chaîne : `UCbjy5CO59GU5OzsjAszSb4Q`
 
-3. Dans `actualites.html`, remplace uniquement l’identifiant après `/embed/` :
+Pour intégrer une vidéo individuelle :
+
+1. Ouvre la vidéo YouTube.
+2. Copie l’identifiant après `watch?v=`.
+3. Ajoute un iframe de ce type :
 
 ```html
-<iframe src="https://www.youtube.com/embed/ABC123"></iframe>
+<iframe src="https://www.youtube.com/embed/ID_DE_LA_VIDEO" title="Vidéo pédagogique Équilibre Vital" loading="lazy" allowfullscreen></iframe>
 ```
 
-## Publier sur GitHub
+## Publication sur GitHub
 
-1. Va dans le dépôt GitHub `ev2025/pssr`.
-2. Clique sur `actualites.html`.
-3. Clique sur le crayon pour modifier.
-4. Colle tes changements.
-5. Clique sur `Commit changes`.
-
-La page sera disponible ici :
-
-```text
-https://ev2025.github.io/pssr/actualites.html
-```
-
-## Où trouver la page sur le site
-
-La page `actualites.html` est volontairement accessible depuis le footer uniquement, afin de rester discrète dans la navigation principale.
+Après modification, envoie les fichiers sur GitHub puis clique sur **Commit changes**.
