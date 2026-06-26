@@ -21,6 +21,11 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://ev2025.github.io/pssr/actualites.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://ev2025.github.io/pssr/dispositifs.html</loc>
     <lastmod>2026-06-21</lastmod>
     <priority>0.85</priority>
