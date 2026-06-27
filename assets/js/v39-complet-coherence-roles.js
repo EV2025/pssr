@@ -10,7 +10,8 @@ const footerNavigation=[
 ];
 const footerPartners=[
   {label:'Formation & emploi',href:'ressources-emploi-insertion.html'},
-  {label:'Partenaires & institutions',href:'partenaires-institutions.html'}
+  {label:'Partenaires & institutions',href:'partenaires-institutions.html'},
+  {label:'Remboursement mutuelle',href:'remboursement-mutuelle.html'}
 ];
 const keywordMap=[
   {test:/^(activit[eé]s?|sport|cr[eé]neaux|calendrier)$/i,href:'activites.html'},
