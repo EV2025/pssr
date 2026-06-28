@@ -34,3 +34,16 @@ Cette version ajoute une première brique de paiement sans Stripe/Mollie :
 ## Important
 
 Cette phase ne confirme pas automatiquement le paiement : la validation reste manuelle après vérification du compte bancaire.
+
+---
+
+## Phase 1B ajoutée
+
+La version Phase 1B ajoute un QR code SEPA/EPC généré localement dans le navigateur.
+
+Fichier ajouté :
+
+- `assets/js/epc-qr.js`
+- `README_PHASE1B_QR_SEPA.md`
+
+Le parcours reste sans Stripe/Mollie et sans frais de transaction. La confirmation bancaire reste manuelle dans l’admin.

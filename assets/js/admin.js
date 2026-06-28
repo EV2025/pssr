@@ -571,7 +571,7 @@ async function renderStats(){
     <div class="metric"><strong>${counts.services}</strong><span>Services</span></div>
     <div class="metric"><strong>${counts.payments}</strong><span>Paiements suivis</span></div>
     <div class="metric"><strong>${counts.emailLogs}</strong><span>Logs emails</span></div>
-  </div><p class="payment-note"><strong>Note :</strong> les paiements en ligne ne sont pas activés dans cette version GitHub Pages + Firebase. L’onglet Paiements sert au suivi manuel ou à une future intégration Stripe/bancontact via backend sécurisé.</p>`;
+  </div><p class="payment-note"><strong>Note :</strong> les paiements en ligne Stripe/Mollie ne sont pas activés. Les réservations utilisent un virement bancaire avec QR code SEPA ; l’onglet Paiements sert au suivi manuel après vérification du compte bancaire.</p>`;
   rows = [];
 }
 

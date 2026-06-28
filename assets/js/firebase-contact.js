@@ -1,4 +1,5 @@
 import { firebaseConfig, firebaseEnabled, siteConfig } from './firebase-config.js';
+import { buildEpcQrPayload, makeEpcQrSvg, epcDebugPayloadLength } from './epc-qr.js';
 
 let db = null;
 let addDoc = null;
@@ -27,6 +28,7 @@ function esc(value){
 
 const bankTransferConfig = {
   beneficiary: 'Équilibre Vital asbl',
+  beneficiaryQr: 'Equilibre Vital asbl',
   iban: 'BE17 5230 8164 9221',
   bic: 'TRIOBEBB',
   amount: '165',
@@ -34,21 +36,68 @@ const bankTransferConfig = {
   label: 'Cotisation PSSR — année académique'
 };
 
-function paymentInstructionHtml(payload){
+function bankTransferValues(payload){
   const amount = payload.priceAmount || bankTransferConfig.amount;
   const currency = payload.priceCurrency || bankTransferConfig.currency;
   const communication = payload.reservationCode || payload.trackingCode || '';
+  const ibanCompact = bankTransferConfig.iban.replace(/\s+/g, '');
+  const qrPayload = buildEpcQrPayload({
+    beneficiary: bankTransferConfig.beneficiaryQr || bankTransferConfig.beneficiary,
+    iban: bankTransferConfig.iban,
+    bic: bankTransferConfig.bic,
+    amount,
+    communication
+  });
+  return { amount, currency, communication, ibanCompact, qrPayload };
+}
+
+function paymentInstructionHtml(payload){
+  const { amount, currency, communication, ibanCompact, qrPayload } = bankTransferValues(payload);
+  let qrHtml = '';
+  let qrWarning = '';
+  try {
+    qrHtml = makeEpcQrSvg(qrPayload, { size: 238, title: `QR code SEPA pour la réservation ${communication}` });
+    const qrLength = epcDebugPayloadLength(qrPayload);
+    qrWarning = qrLength > 120 ? '<p class="receipt-note-v58">Si votre application bancaire ne lit pas le QR, utilisez les informations écrites ci-dessous.</p>' : '';
+  } catch (err) {
+    console.warn('QR SEPA indisponible:', err);
+    qrHtml = '<p class="receipt-note-v58">QR code indisponible pour cette réservation. Utilisez les informations écrites ci-dessous.</p>';
+  }
+
+  const allDetails = [
+    `Montant : ${amount} ${currency}`,
+    `Bénéficiaire : ${bankTransferConfig.beneficiary}`,
+    `IBAN : ${bankTransferConfig.iban}`,
+    `BIC : ${bankTransferConfig.bic}`,
+    `Communication : ${communication}`
+  ].join('\n');
+
   return `
-    <section class="receipt-payment-v1" aria-label="Instructions de virement bancaire">
+    <section class="receipt-payment-v1 epc-payment-v1" aria-label="Instructions de virement bancaire">
       <p class="receipt-eyebrow-v58">Paiement par virement bancaire</p>
-      <h3>Étape suivante : effectuez le virement</h3>
-      <dl class="receipt-details-v58">
-        <div><dt>Montant</dt><dd><strong>${esc(amount)} ${esc(currency)}</strong></dd></div>
-        <div><dt>Bénéficiaire</dt><dd>${esc(bankTransferConfig.beneficiary)}</dd></div>
-        <div><dt>IBAN</dt><dd><code>${esc(bankTransferConfig.iban)}</code></dd></div>
-        <div><dt>BIC</dt><dd><code>${esc(bankTransferConfig.bic)}</code></dd></div>
-        <div><dt>Communication</dt><dd><code>${esc(communication)}</code></dd></div>
-      </dl>
+      <h3>Étape suivante : scannez le QR ou effectuez le virement</h3>
+      <div class="epc-payment-grid-v1">
+        <div class="epc-qr-card-v1">
+          <p class="epc-qr-title-v1">QR code bancaire SEPA</p>
+          <div class="epc-qr-box-v1">${qrHtml}</div>
+          <p class="epc-qr-help-v1">Scannez avec votre application bancaire. Vérifiez toujours le montant et la communication avant de valider.</p>
+          ${qrWarning}
+        </div>
+        <div>
+          <dl class="receipt-details-v58 epc-details-v1">
+            <div><dt>Montant</dt><dd><strong>${esc(amount)} ${esc(currency)}</strong></dd></div>
+            <div><dt>Bénéficiaire</dt><dd>${esc(bankTransferConfig.beneficiary)}</dd></div>
+            <div><dt>IBAN</dt><dd><code>${esc(bankTransferConfig.iban)}</code></dd></div>
+            <div><dt>BIC</dt><dd><code>${esc(bankTransferConfig.bic)}</code></dd></div>
+            <div><dt>Communication</dt><dd><code>${esc(communication)}</code></dd></div>
+          </dl>
+          <div class="epc-copy-actions-v1" aria-label="Copier les informations de virement">
+            <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(ibanCompact)}">Copier l’IBAN</button>
+            <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(communication)}">Copier la communication</button>
+            <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(allDetails)}">Copier tout</button>
+          </div>
+        </div>
+      </div>
       <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication ci-dessus. L’équipe passera votre dossier en “payé” après vérification du virement sur le compte bancaire.</p>
     </section>`;
 }
@@ -302,4 +351,5 @@ async function attachForms(){
   });
 }
 
+initCopyButtons();
 attachForms();
