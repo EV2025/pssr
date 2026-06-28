@@ -228,6 +228,69 @@ function setLiveFeedback(form, message, state = 'info'){
   feedback.dataset.state = state;
 }
 
+
+function clearLiveFeedback(form){
+  const feedback = form.querySelector('.contact-live-feedback-v59');
+  if (!feedback) return;
+  feedback.hidden = true;
+  feedback.textContent = '';
+  delete feedback.dataset.state;
+}
+
+function withTimeout(promise, ms, message){
+  let timer = null;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(message || 'Délai dépassé.')), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => {
+    if (timer) clearTimeout(timer);
+  });
+}
+
+function initCopyButtons(){
+  if (document.documentElement.dataset.epcCopyReady === 'true') return;
+  document.documentElement.dataset.epcCopyReady = 'true';
+
+  document.addEventListener('click', async (event) => {
+    const button = event.target.closest('.epc-copy-btn-v1');
+    if (!button) return;
+
+    const value = button.getAttribute('data-copy-value') || '';
+    if (!value) return;
+
+    const originalText = button.textContent;
+    const markCopied = () => {
+      button.textContent = 'Copié ✓';
+      window.setTimeout(() => { button.textContent = originalText; }, 1800);
+    };
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        markCopied();
+        return;
+      }
+    } catch (_) {
+      // Fallback ci-dessous.
+    }
+
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = value;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      textarea.remove();
+      markCopied();
+    } catch (_) {
+      window.prompt('Copiez cette information :', value);
+    }
+  });
+}
+
 function initLiveFormFeedback(form){
   if (form.dataset.liveFeedbackReady === 'true') return;
   form.dataset.liveFeedbackReady = 'true';
@@ -331,19 +394,31 @@ async function attachForms(){
 
       try{
         if (!enabled || !db){
+          clearLiveFeedback(form);
           showMessage(form, 'Firebase n’est pas encore configuré. Ouverture de votre email pour envoyer la demande.', false);
           mailtoFallback(payload);
           return;
         }
-        await addDoc(collection(db, collectionName), payload);
+
+        await withTimeout(
+          addDoc(collection(db, collectionName), payload),
+          15000,
+          'Firebase met trop de temps à répondre. Vérifiez votre connexion puis réessayez.'
+        );
+
         rememberSubmission(payload);
         form.dataset.submittedOk = 'true';
         form.reset();
         form.querySelectorAll('.is-filled-v59,.is-invalid-v59').forEach(el => el.classList.remove('is-filled-v59','is-invalid-v59'));
+        clearLiveFeedback(form);
         showReceipt(form, payload, collectionName);
       }catch(err){
         console.error(err);
-        showMessage(form, 'Impossible d’enregistrer dans Firebase. Vérifiez la connexion, la configuration ou les règles Firestore.', false);
+        clearLiveFeedback(form);
+        const message = err && err.message && err.message.includes('trop de temps')
+          ? err.message
+          : 'Impossible d’enregistrer dans Firebase. Vérifiez la connexion, la configuration ou les règles Firestore.';
+        showMessage(form, message, false);
       }finally{
         if (submitBtn) submitBtn.disabled = false;
       }

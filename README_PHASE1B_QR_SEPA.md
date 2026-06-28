@@ -60,3 +60,13 @@ Le QR code contient un ordre de virement SEPA avec :
 Cette version ne vérifie pas automatiquement les virements entrants. C’est volontaire pour éviter les frais de prestataires de paiement.
 
 La confirmation reste manuelle dans l’admin.
+
+
+## Correctif 1B.1 — blocage “Envoi en cours”
+
+Cette version corrige deux points :
+
+- le message “Envoi en cours…” est maintenant effacé dès que l’accusé de réception s’affiche ;
+- une sécurité de 15 secondes a été ajoutée si Firebase ne répond pas, afin d’éviter un blocage visuel permanent.
+
+Les boutons “Copier l’IBAN”, “Copier la communication” et “Copier tout” sont également initialisés proprement.
