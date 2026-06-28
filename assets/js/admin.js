@@ -94,6 +94,23 @@ const fieldLabels = {
   role: 'Rôle',
   level: 'Niveau PSSR',
   paymentStatus: 'Statut paiement',
+
+  paymentReference: 'Référence paiement',
+  paymentMethod: 'Méthode de paiement',
+  paymentAmount: 'Montant paiement',
+  paymentAmountCents: 'Montant en cents',
+  paymentCurrency: 'Devise paiement',
+  paymentLabel: 'Libellé paiement',
+  bankBeneficiary: 'Bénéficiaire',
+  bankIban: 'IBAN',
+  bankBic: 'BIC',
+  qrFormat: 'Format QR',
+  epcPayload: 'Contenu QR SEPA/EPC',
+  communication: 'Communication',
+  beneficiary: 'Bénéficiaire',
+  iban: 'IBAN',
+  bic: 'BIC',
+  amountCents: 'Montant en cents',
   amount: 'Montant',
   method: 'Méthode',
   consentRgpd: 'Consentement RGPD',
@@ -152,7 +169,8 @@ const technicalFields = new Set([
   'importedFrom',
   'ownerUid',
   'createdBy',
-  'updatedBy'
+  'updatedBy',
+  'epcPayload'
 ]);
 
 function labelForField(key){
@@ -356,7 +374,7 @@ function renderRecordCard(r){
 function renderAdminTable(tableRows){
   const isReservations = currentCollection === 'reservations';
   const headers = isReservations
-    ? ['ID réservation','Nom','E-mail','Téléphone','Session','Statut','Paiement','Création','Gestion']
+    ? ['ID réservation','Nom','E-mail','Téléphone','Session','Montant','Référence paiement','Statut','Paiement','Création','Gestion']
     : ['ID client','Nom','E-mail','Téléphone','Session','Statut','Création','Gestion'];
   const body = tableRows.map(r => {
     const idLabel = r.reservationCode || r.messageCode || r.memberCode || r.trackingCode || r.id;
@@ -366,6 +384,10 @@ function renderAdminTable(tableRows){
     const session = r.session || r.sessionName || '—';
     const status = r.status || (isReservations ? 'en attente' : 'inscrit');
     const paymentStatus = r.paymentStatus || '—';
+    const paymentAmount = r.paymentAmount || r.amount || r.priceAmount || '';
+    const paymentCurrency = r.paymentCurrency || r.currency || r.priceCurrency || 'EUR';
+    const paymentReference = r.paymentReference || r.communication || r.reservationCode || r.trackingCode || '—';
+    const paymentAmountLabel = paymentAmount ? `${paymentAmount} ${paymentCurrency}` : '—';
     const created = fmtDate(r.createdAt) || '—';
     return `<tr>
       <td><code>${esc(idLabel)}</code></td>
@@ -373,6 +395,7 @@ function renderAdminTable(tableRows){
       <td>${email !== '—' ? `<a href="mailto:${esc(email)}">${esc(email)}</a>` : '—'}</td>
       <td>${esc(phone)}</td>
       <td>${esc(session)}</td>
+      ${isReservations ? `<td>${esc(paymentAmountLabel)}</td><td><code>${esc(paymentReference)}</code></td>` : ''}
       <td><span class="status-pill">${esc(labelForValue(status))}</span></td>
       ${isReservations ? `<td><span class="status-pill">${esc(labelForValue(paymentStatus))}</span></td>` : ''}
       <td>${esc(created)}</td>
@@ -395,6 +418,7 @@ function renderManagementPanel(r, isReservation){
       <label>Date prévue<input data-field="plannedDate" type="date" value="${esc(r.plannedDate || '')}"></label>
       <label>Date réalisée<input data-field="doneDate" type="date" value="${esc(r.doneDate || '')}"></label>
       ${isReservation ? `<label>Statut paiement<select data-field="paymentStatus">${paymentStatuses.map(st=>`<option ${String(r.paymentStatus||'en attente de virement')===st?'selected':''}>${st}</option>`).join('')}</select></label>` : ''}
+      ${isReservation ? `<div class="full payment-admin-summary-v1"><strong>Virement</strong><br>Montant : ${esc(r.paymentAmount || r.amount || r.priceAmount || '—')} ${esc(r.paymentCurrency || r.currency || r.priceCurrency || 'EUR')}<br>Référence : <code>${esc(r.paymentReference || r.communication || r.reservationCode || r.trackingCode || '—')}</code><br>IBAN : <code>${esc(r.bankIban || r.iban || '—')}</code></div>` : ''}
       <label class="full">Note interne<textarea data-field="internalNote" rows="2" placeholder="Note visible uniquement par l’équipe">${esc(r.internalNote || '')}</textarea></label>
       <label class="full">Message au participant<textarea data-field="teamMessage" rows="2" placeholder="Message à préparer pour le participant">${esc(r.teamMessage || '')}</textarea></label>
       <label>Titre document<input data-field="documentTitle" placeholder="Ex. Attestation" value="${esc(r.documentTitle || '')}"></label>
@@ -571,7 +595,7 @@ async function renderStats(){
     <div class="metric"><strong>${counts.services}</strong><span>Services</span></div>
     <div class="metric"><strong>${counts.payments}</strong><span>Paiements suivis</span></div>
     <div class="metric"><strong>${counts.emailLogs}</strong><span>Logs emails</span></div>
-  </div><p class="payment-note"><strong>Note :</strong> les paiements en ligne Stripe/Mollie ne sont pas activés. Les réservations utilisent un virement bancaire avec QR code SEPA ; l’onglet Paiements sert au suivi manuel après vérification du compte bancaire.</p>`;
+  </div><p class="payment-note"><strong>Note :</strong> les paiements en ligne ne sont pas activés dans cette version GitHub Pages + Firebase. L’onglet Paiements sert au suivi manuel ou à une future intégration Stripe/bancontact via backend sécurisé.</p>`;
   rows = [];
 }
 

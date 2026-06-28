@@ -1,5 +1,4 @@
 import { firebaseConfig, firebaseEnabled, siteConfig } from './firebase-config.js';
-import { buildEpcQrPayload, makeEpcQrSvg, epcDebugPayloadLength } from './epc-qr.js';
 
 let db = null;
 let addDoc = null;
@@ -28,80 +27,267 @@ function esc(value){
 
 const bankTransferConfig = {
   beneficiary: 'Équilibre Vital asbl',
-  beneficiaryQr: 'Equilibre Vital asbl',
   iban: 'BE17 5230 8164 9221',
   bic: 'TRIOBEBB',
-  amount: '165',
+  defaultAmount: '165',
   currency: 'EUR',
-  label: 'Cotisation PSSR — année académique'
+  label: 'Cotisation PSSR — année académique',
+  method: 'virement_sepa_epc',
+  qrFormat: 'EPC069-12 / SCT'
 };
 
-function bankTransferValues(payload){
-  const amount = payload.priceAmount || bankTransferConfig.amount;
-  const currency = payload.priceCurrency || bankTransferConfig.currency;
-  const communication = payload.reservationCode || payload.trackingCode || '';
-  const ibanCompact = bankTransferConfig.iban.replace(/\s+/g, '');
-  const qrPayload = buildEpcQrPayload({
-    beneficiary: bankTransferConfig.beneficiaryQr || bankTransferConfig.beneficiary,
-    iban: bankTransferConfig.iban,
-    bic: bankTransferConfig.bic,
-    amount,
-    communication
-  });
-  return { amount, currency, communication, ibanCompact, qrPayload };
+const QR_CODE_CDN = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js';
+let qrCodeLibraryPromise = null;
+
+function normalizeIban(value){
+  return String(value || '').replace(/\s+/g, '').toUpperCase();
+}
+
+function formatIban(value){
+  return normalizeIban(value).replace(/(.{4})/g, '$1 ').trim();
+}
+
+function normalizeBic(value){
+  return String(value || '').replace(/\s+/g, '').toUpperCase();
+}
+
+function parseAmountToCents(value){
+  const raw = String(value ?? '').trim();
+  const normalized = raw.replace(/[^0-9,.-]/g, '').replace(',', '.');
+  const amount = Number(normalized);
+  if (!Number.isFinite(amount) || amount <= 0) return 0;
+  return Math.round(amount * 100);
+}
+
+function amountFromCents(cents){
+  return (Math.max(0, Number(cents || 0)) / 100).toFixed(2);
+}
+
+function amountForDisplay(cents, currency = 'EUR'){
+  try{
+    return new Intl.NumberFormat('fr-BE', { style:'currency', currency }).format(Math.max(0, Number(cents || 0)) / 100);
+  }catch(_){
+    return `${amountFromCents(cents)} ${currency}`;
+  }
+}
+
+function amountForEpc(cents, currency = 'EUR'){
+  return `${currency}${amountFromCents(cents)}`;
+}
+
+function sanitizeEpcLine(value, max){
+  return String(value || '')
+    .replace(/[\r\n]+/g, ' ')
+    .trim()
+    .slice(0, max);
+}
+
+function getFirstPaymentValue(form, data, keys, fallback = ''){
+  for (const key of keys){
+    if (data && data[key]) return data[key];
+    if (form?.dataset && form.dataset[key]) return form.dataset[key];
+    const field = form?.elements?.[key] || form?.querySelector?.(`[name="${key}"], [data-payment-${key}]`);
+    if (field?.value) return field.value;
+    const node = form?.querySelector?.(`[data-${key}]`);
+    if (node?.dataset?.[key]) return node.dataset[key];
+  }
+  return fallback;
+}
+
+function resolvePaymentFromForm(form, payload){
+  const amountRaw = getFirstPaymentValue(form, payload, [
+    'priceAmount', 'paymentAmount', 'amount', 'totalAmount', 'orderAmount', 'invoiceAmount', 'commandeMontant', 'factureMontant'
+  ], bankTransferConfig.defaultAmount);
+  const amountCents = parseAmountToCents(amountRaw) || parseAmountToCents(bankTransferConfig.defaultAmount);
+  const currency = cleanString(getFirstPaymentValue(form, payload, [
+    'priceCurrency', 'paymentCurrency', 'currency', 'devise'
+  ], bankTransferConfig.currency), 3).toUpperCase() || 'EUR';
+  const label = cleanString(getFirstPaymentValue(form, payload, [
+    'priceLabel', 'paymentLabel', 'orderLabel', 'invoiceLabel', 'paymentDescription'
+  ], bankTransferConfig.label), 180) || bankTransferConfig.label;
+  const communication = cleanString(payload.paymentReference || payload.reservationCode || payload.trackingCode || makeTrackingCode('RES'), 140);
+
+  const payment = {
+    method: bankTransferConfig.method,
+    qrFormat: bankTransferConfig.qrFormat,
+    beneficiary: sanitizeEpcLine(bankTransferConfig.beneficiary, 70),
+    iban: normalizeIban(bankTransferConfig.iban),
+    ibanDisplay: formatIban(bankTransferConfig.iban),
+    bic: normalizeBic(bankTransferConfig.bic),
+    amountCents,
+    amount: amountFromCents(amountCents),
+    amountDisplay: amountForDisplay(amountCents, currency),
+    currency,
+    label,
+    communication,
+    paymentStatus: 'en attente de virement'
+  };
+  payment.epcPayload = buildEpcPayload(payment);
+  return payment;
+}
+
+function buildEpcPayload(payment){
+  // EPC069-12 / SCT : lignes obligatoires + virement SEPA avec communication libre.
+  const lines = [
+    'BCD',
+    '002',
+    '1',
+    'SCT',
+    sanitizeEpcLine(payment.bic, 11),
+    sanitizeEpcLine(payment.beneficiary, 70),
+    sanitizeEpcLine(payment.iban, 34),
+    amountForEpc(payment.amountCents, payment.currency),
+    '',
+    '',
+    sanitizeEpcLine(payment.communication, 140)
+  ];
+  while (lines.length && lines[lines.length - 1] === '') lines.pop();
+  return lines.join('\n');
+}
+
+function enrichPayloadWithPayment(form, payload){
+  const payment = resolvePaymentFromForm(form, payload);
+  payload.payment = payment;
+  payload.paymentStatus = payment.paymentStatus;
+  payload.paymentMethod = payment.method;
+  payload.paymentReference = payment.communication;
+  payload.paymentAmount = payment.amount;
+  payload.paymentAmountCents = payment.amountCents;
+  payload.paymentCurrency = payment.currency;
+  payload.paymentLabel = payment.label;
+  payload.bankBeneficiary = payment.beneficiary;
+  payload.bankIban = payment.iban;
+  payload.bankBic = payment.bic;
+  payload.qrFormat = payment.qrFormat;
+  payload.epcPayload = payment.epcPayload;
+  payload.priceAmount = payment.amount;
+  payload.priceCurrency = payment.currency;
+  payload.priceLabel = payment.label;
+  return payment;
+}
+
+function paymentRecordFromReservation(payload, reservationId = ''){
+  const payment = payload.payment || resolvePaymentFromForm(null, payload);
+  return {
+    reservationId,
+    reservationCode: payload.reservationCode || payload.trackingCode || '',
+    paymentReference: payment.communication,
+    nom: payload.nom || '',
+    email: payload.email || '',
+    method: payment.method,
+    qrFormat: payment.qrFormat,
+    paymentStatus: payment.paymentStatus,
+    status: payment.paymentStatus,
+    amount: payment.amount,
+    amountCents: payment.amountCents,
+    currency: payment.currency,
+    label: payment.label,
+    beneficiary: payment.beneficiary,
+    iban: payment.iban,
+    bic: payment.bic,
+    communication: payment.communication,
+    epcPayload: payment.epcPayload,
+    source: payload.source || location.pathname,
+    createdAt: serverTimestamp ? serverTimestamp() : new Date().toISOString()
+  };
 }
 
 function paymentInstructionHtml(payload){
-  const { amount, currency, communication, ibanCompact, qrPayload } = bankTransferValues(payload);
-  let qrHtml = '';
-  let qrWarning = '';
-  try {
-    qrHtml = makeEpcQrSvg(qrPayload, { size: 238, title: `QR code SEPA pour la réservation ${communication}` });
-    const qrLength = epcDebugPayloadLength(qrPayload);
-    qrWarning = qrLength > 120 ? '<p class="receipt-note-v58">Si votre application bancaire ne lit pas le QR, utilisez les informations écrites ci-dessous.</p>' : '';
-  } catch (err) {
-    console.warn('QR SEPA indisponible:', err);
-    qrHtml = '<p class="receipt-note-v58">QR code indisponible pour cette réservation. Utilisez les informations écrites ci-dessous.</p>';
-  }
-
-  const allDetails = [
-    `Montant : ${amount} ${currency}`,
-    `Bénéficiaire : ${bankTransferConfig.beneficiary}`,
-    `IBAN : ${bankTransferConfig.iban}`,
-    `BIC : ${bankTransferConfig.bic}`,
-    `Communication : ${communication}`
-  ].join('\n');
-
+  const payment = payload.payment || resolvePaymentFromForm(null, payload);
+  const epcPayloadB64 = btoa(unescape(encodeURIComponent(payment.epcPayload)));
   return `
-    <section class="receipt-payment-v1 epc-payment-v1" aria-label="Instructions de virement bancaire">
-      <p class="receipt-eyebrow-v58">Paiement par virement bancaire</p>
-      <h3>Étape suivante : scannez le QR ou effectuez le virement</h3>
-      <div class="epc-payment-grid-v1">
-        <div class="epc-qr-card-v1">
-          <p class="epc-qr-title-v1">QR code bancaire SEPA</p>
-          <div class="epc-qr-box-v1">${qrHtml}</div>
-          <p class="epc-qr-help-v1">Scannez avec votre application bancaire. Vérifiez toujours le montant et la communication avant de valider.</p>
-          ${qrWarning}
+    <section class="receipt-payment-v1" aria-label="Instructions de virement bancaire">
+      <p class="receipt-eyebrow-v58">Paiement par virement SEPA</p>
+      <h3>Scannez le QR code avec votre app bancaire</h3>
+      <div class="sepa-payment-layout-v1">
+        <div class="sepa-qr-card-v1">
+          <canvas class="sepa-qr-canvas-v1" data-sepa-qr-canvas data-epc-payload="${esc(epcPayloadB64)}" width="256" height="256" aria-label="QR code SEPA/EPC"></canvas>
+          <p class="sepa-qr-status-v1" data-sepa-qr-status>Génération du QR code…</p>
         </div>
         <div>
-          <dl class="receipt-details-v58 epc-details-v1">
-            <div><dt>Montant</dt><dd><strong>${esc(amount)} ${esc(currency)}</strong></dd></div>
-            <div><dt>Bénéficiaire</dt><dd>${esc(bankTransferConfig.beneficiary)}</dd></div>
-            <div><dt>IBAN</dt><dd><code>${esc(bankTransferConfig.iban)}</code></dd></div>
-            <div><dt>BIC</dt><dd><code>${esc(bankTransferConfig.bic)}</code></dd></div>
-            <div><dt>Communication</dt><dd><code>${esc(communication)}</code></dd></div>
+          <p class="receipt-note-v58">Votre application bancaire préremplit le bénéficiaire, l’IBAN, le montant et la communication. Vous devez toujours vérifier les informations puis valider le virement dans votre app bancaire.</p>
+          <dl class="receipt-details-v58 payment-details-clear-v1">
+            <div><dt>Montant</dt><dd><strong>${esc(payment.amountDisplay)}</strong></dd></div>
+            <div><dt>Bénéficiaire</dt><dd>${esc(payment.beneficiary)}</dd></div>
+            <div><dt>IBAN</dt><dd><code>${esc(payment.ibanDisplay)}</code> <button type="button" class="copy-payment-v1" data-copy-value="${esc(payment.iban)}">Copier</button></dd></div>
+            <div><dt>BIC</dt><dd><code>${esc(payment.bic)}</code></dd></div>
+            <div><dt>Communication</dt><dd><code>${esc(payment.communication)}</code> <button type="button" class="copy-payment-v1" data-copy-value="${esc(payment.communication)}">Copier</button></dd></div>
           </dl>
-          <div class="epc-copy-actions-v1" aria-label="Actions pour faciliter le virement">
-            <button type="button" class="epc-bank-open-btn-v1" data-bank-details="${esc(allDetails)}">Ouvrir mon app bancaire</button>
-            <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(ibanCompact)}">Copier l’IBAN</button>
-            <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(communication)}">Copier la communication</button>
-            <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(allDetails)}">Copier tout</button>
-          </div>
-          <p class="epc-bank-open-status-v1" hidden></p>
         </div>
       </div>
-      <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication ci-dessus. L’équipe passera votre dossier en “payé” après vérification du virement sur le compte bancaire.</p>
+      <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication. L’équipe vérifiera le compte bancaire et passera votre dossier en “payé” manuellement.</p>
     </section>`;
+}
+
+function loadQRCodeLibrary(){
+  if (window.QRCode?.toCanvas) return Promise.resolve(window.QRCode);
+  if (qrCodeLibraryPromise) return qrCodeLibraryPromise;
+  qrCodeLibraryPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[src="${QR_CODE_CDN}"]`);
+    if (existing) {
+      existing.addEventListener('load', () => resolve(window.QRCode), { once:true });
+      existing.addEventListener('error', reject, { once:true });
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = QR_CODE_CDN;
+    script.async = true;
+    script.onload = () => window.QRCode?.toCanvas ? resolve(window.QRCode) : reject(new Error('Bibliothèque QR indisponible'));
+    script.onerror = () => reject(new Error('Chargement QR impossible'));
+    document.head.appendChild(script);
+  });
+  return qrCodeLibraryPromise;
+}
+
+function decodeBase64Utf8(value){
+  try { return decodeURIComponent(escape(atob(value || ''))); }
+  catch(_) { return ''; }
+}
+
+async function renderSepaQrCodes(container){
+  const canvases = Array.from(container.querySelectorAll('[data-sepa-qr-canvas]'));
+  if (!canvases.length) return;
+  try{
+    const QRCode = await loadQRCodeLibrary();
+    for (const canvas of canvases){
+      const payload = decodeBase64Utf8(canvas.dataset.epcPayload || '');
+      const status = canvas.parentElement?.querySelector('[data-sepa-qr-status]');
+      if (!payload) {
+        if (status) status.textContent = 'QR code indisponible : informations manquantes.';
+        continue;
+      }
+      await new Promise((resolve, reject) => {
+        QRCode.toCanvas(canvas, payload, {
+          errorCorrectionLevel: 'M',
+          margin: 2,
+          width: 256,
+          color: { dark: '#111111', light: '#FFFFFF' }
+        }, err => err ? reject(err) : resolve());
+      });
+      if (status) status.textContent = 'QR code SEPA/EPC prêt à scanner.';
+    }
+  }catch(err){
+    console.warn('QR code generation failed:', err);
+    container.querySelectorAll('[data-sepa-qr-status]').forEach(status => {
+      status.textContent = 'QR code indisponible. Utilisez les informations de virement affichées ci-dessous.';
+    });
+  }
+}
+
+function initCopyButtons(container){
+  container.querySelectorAll('[data-copy-value]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const value = btn.dataset.copyValue || '';
+      try{
+        await navigator.clipboard.writeText(value);
+        const old = btn.textContent;
+        btn.textContent = 'Copié';
+        setTimeout(() => { btn.textContent = old || 'Copier'; }, 1400);
+      }catch(_){
+        window.prompt('Copiez cette valeur :', value);
+      }
+    });
+  });
 }
 
 function makeTrackingCode(type = 'GEN'){
@@ -164,10 +350,10 @@ function showReceipt(form, payload, kind){
   const title = isReservation ? 'Réservation reçue' : 'Demande reçue';
   const label = isReservation ? 'Numéro de réservation' : 'Numéro de suivi';
   const next = isReservation
-    ? 'Votre place sera vérifiée par l’équipe. Pour finaliser le dossier, utilisez les informations de virement ci-dessous.'
+    ? 'Votre place sera vérifiée par l’équipe. Pour finaliser le dossier, utilisez le QR code SEPA ou les informations de virement ci-dessous.'
     : 'L’équipe PSSR reviendra vers vous dès que possible.';
   const msgText = isReservation
-    ? `Votre demande de réservation a bien été enregistrée. Votre numéro de réservation est ${code}.`
+    ? `Votre demande de réservation a bien été enregistrée. Votre référence de paiement est ${code}.`
     : `Votre demande a bien été enregistrée. Votre numéro de suivi est ${code}.`;
 
   if (!msg){
@@ -191,6 +377,8 @@ function showReceipt(form, payload, kind){
       <p class="receipt-note-v58">Conservez ce numéro pour toute question. ${esc(next)}</p>
       ${isReservation ? paymentInstructionHtml(payload) : ''}
     </article>`;
+  initCopyButtons(msg);
+  renderSepaQrCodes(msg);
   msg.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
@@ -206,7 +394,6 @@ function validate(form, data){
   if (form.dataset.firebaseCollection === 'reservations' && (!data.creneau || data.creneau.length < 2) && (!data.modules || data.modules.length < 2)) return 'Veuillez choisir une activité ou un module.';
   return '';
 }
-
 
 function ensureFeedbackElement(form){
   let feedback = form.querySelector('.contact-live-feedback-v59');
@@ -228,124 +415,6 @@ function setLiveFeedback(form, message, state = 'info'){
   feedback.hidden = false;
   feedback.textContent = message;
   feedback.dataset.state = state;
-}
-
-
-function clearLiveFeedback(form){
-  const feedback = form.querySelector('.contact-live-feedback-v59');
-  if (!feedback) return;
-  feedback.hidden = true;
-  feedback.textContent = '';
-  delete feedback.dataset.state;
-}
-
-function withTimeout(promise, ms, message){
-  let timer = null;
-  const timeout = new Promise((_, reject) => {
-    timer = setTimeout(() => reject(new Error(message || 'Délai dépassé.')), ms);
-  });
-  return Promise.race([promise, timeout]).finally(() => {
-    if (timer) clearTimeout(timer);
-  });
-}
-
-async function copyTextToClipboard(value){
-  if (!value) return false;
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(value);
-      return true;
-    }
-  } catch (_) {
-    // Fallback ci-dessous.
-  }
-
-  try {
-    const textarea = document.createElement('textarea');
-    textarea.value = value;
-    textarea.setAttribute('readonly', '');
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    document.body.appendChild(textarea);
-    textarea.select();
-    const ok = document.execCommand('copy');
-    textarea.remove();
-    return Boolean(ok);
-  } catch (_) {
-    return false;
-  }
-}
-
-function setButtonTemporaryText(button, text, duration = 1800){
-  const originalText = button.dataset.originalText || button.textContent;
-  button.dataset.originalText = originalText;
-  button.textContent = text;
-  window.setTimeout(() => { button.textContent = originalText; }, duration);
-}
-
-function setBankAssistStatus(button, message, ok = true){
-  const container = button.closest('.epc-payment-v1') || document;
-  const status = container.querySelector('.epc-bank-open-status-v1');
-  if (!status) return;
-  status.hidden = false;
-  status.textContent = message;
-  status.dataset.state = ok ? 'ok' : 'info';
-}
-
-async function handleBankOpenButton(button){
-  const details = button.getAttribute('data-bank-details') || '';
-  const copied = await copyTextToClipboard(details);
-
-  setButtonTemporaryText(button, copied ? 'Infos copiées ✓' : 'Infos prêtes', 2200);
-
-  const mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const canShare = Boolean(navigator.share && mobile);
-
-  if (canShare) {
-    try {
-      await navigator.share({
-        title: 'Virement PSSR',
-        text: details
-      });
-      setBankAssistStatus(button, 'Sélectionnez votre application bancaire si elle est proposée. Sinon, ouvrez-la manuellement : les informations du virement sont déjà copiées.', true);
-      return;
-    } catch (err) {
-      // Annulation utilisateur ou application non disponible : on garde le fallback manuel.
-    }
-  }
-
-  if (copied) {
-    setBankAssistStatus(button, 'Les informations sont copiées. Ouvrez votre application bancaire, créez un virement SEPA, puis collez l’IBAN et la communication.', true);
-  } else {
-    setBankAssistStatus(button, 'Ouvrez votre application bancaire, créez un virement SEPA, puis recopiez l’IBAN, le montant et la communication affichés ici.', false);
-  }
-}
-
-function initCopyButtons(){
-  if (document.documentElement.dataset.epcCopyReady === 'true') return;
-  document.documentElement.dataset.epcCopyReady = 'true';
-
-  document.addEventListener('click', async (event) => {
-    const bankButton = event.target.closest('.epc-bank-open-btn-v1');
-    if (bankButton) {
-      event.preventDefault();
-      await handleBankOpenButton(bankButton);
-      return;
-    }
-
-    const button = event.target.closest('.epc-copy-btn-v1');
-    if (!button) return;
-
-    const value = button.getAttribute('data-copy-value') || '';
-    if (!value) return;
-
-    const copied = await copyTextToClipboard(value);
-    if (copied) {
-      setButtonTemporaryText(button, 'Copié ✓', 1800);
-    } else {
-      window.prompt('Copiez cette information :', value);
-    }
-  });
 }
 
 function initLiveFormFeedback(form){
@@ -380,7 +449,7 @@ function initLiveFormFeedback(form){
 function mailtoFallback(data){
   const code = data.reservationCode || data.messageCode || data.trackingCode || '';
   const subject = encodeURIComponent(code ? `Demande PSSR — ${code}` : 'Message depuis le site PSSR');
-  const body = encodeURIComponent(Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n'));
+  const body = encodeURIComponent(Object.entries(data).filter(([k]) => k !== 'payment' && k !== 'epcPayload').map(([k, v]) => `${k}: ${v}`).join('\n'));
   location.href = `mailto:${siteConfig.contactEmail}?subject=${subject}&body=${body}`;
 }
 
@@ -435,11 +504,8 @@ async function attachForms(){
         payload.reservationCode = makeTrackingCode('RES');
         payload.trackingCode = payload.reservationCode;
         payload.status = 'reçu';
-        payload.paymentStatus = payload.paymentStatus || 'en attente de virement';
-        payload.priceAmount = payload.priceAmount || '165';
-        payload.priceCurrency = payload.priceCurrency || 'EUR';
-        payload.priceLabel = payload.priceLabel || 'Tarif solidaire — 165€ / année académique';
         if (!payload.modules && payload.creneau) payload.modules = payload.creneau;
+        enrichPayloadWithPayment(form, payload);
       } else {
         payload.messageCode = makeTrackingCode('MSG');
         payload.trackingCode = payload.messageCode;
@@ -451,31 +517,26 @@ async function attachForms(){
 
       try{
         if (!enabled || !db){
-          clearLiveFeedback(form);
           showMessage(form, 'Firebase n’est pas encore configuré. Ouverture de votre email pour envoyer la demande.', false);
           mailtoFallback(payload);
           return;
         }
-
-        await withTimeout(
-          addDoc(collection(db, collectionName), payload),
-          15000,
-          'Firebase met trop de temps à répondre. Vérifiez votre connexion puis réessayez.'
-        );
-
+        const firestorePayload = { ...payload };
+        delete firestorePayload.payment;
+        const docRef = await addDoc(collection(db, collectionName), firestorePayload);
+        if (isReservation) {
+          await addDoc(collection(db, 'payments'), paymentRecordFromReservation(payload, docRef.id)).catch(err => {
+            console.warn('Payment tracking document not created:', err);
+          });
+        }
         rememberSubmission(payload);
         form.dataset.submittedOk = 'true';
         form.reset();
         form.querySelectorAll('.is-filled-v59,.is-invalid-v59').forEach(el => el.classList.remove('is-filled-v59','is-invalid-v59'));
-        clearLiveFeedback(form);
         showReceipt(form, payload, collectionName);
       }catch(err){
         console.error(err);
-        clearLiveFeedback(form);
-        const message = err && err.message && err.message.includes('trop de temps')
-          ? err.message
-          : 'Impossible d’enregistrer dans Firebase. Vérifiez la connexion, la configuration ou les règles Firestore.';
-        showMessage(form, message, false);
+        showMessage(form, 'Impossible d’enregistrer dans Firebase. Vérifiez la connexion, la configuration ou les règles Firestore.', false);
       }finally{
         if (submitBtn) submitBtn.disabled = false;
       }
@@ -483,5 +544,4 @@ async function attachForms(){
   });
 }
 
-initCopyButtons();
 attachForms();
