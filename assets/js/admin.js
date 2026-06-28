@@ -133,6 +133,9 @@ const valueLabels = {
   payé: 'Payé',
   paye: 'Payé',
   'à relancer': 'À relancer',
+  'en attente de virement': 'En attente de virement',
+  'virement reçu': 'Virement reçu',
+  'non payé': 'Non payé',
   actif: 'Actif',
   inactif: 'Inactif',
   member: 'Membre',
@@ -353,7 +356,7 @@ function renderRecordCard(r){
 function renderAdminTable(tableRows){
   const isReservations = currentCollection === 'reservations';
   const headers = isReservations
-    ? ['ID réservation','Nom','E-mail','Téléphone','Session','Statut','Création','Gestion']
+    ? ['ID réservation','Nom','E-mail','Téléphone','Session','Statut','Paiement','Création','Gestion']
     : ['ID client','Nom','E-mail','Téléphone','Session','Statut','Création','Gestion'];
   const body = tableRows.map(r => {
     const idLabel = r.reservationCode || r.messageCode || r.memberCode || r.trackingCode || r.id;
@@ -362,6 +365,7 @@ function renderAdminTable(tableRows){
     const phone = r.tel || r.phone || '—';
     const session = r.session || r.sessionName || '—';
     const status = r.status || (isReservations ? 'en attente' : 'inscrit');
+    const paymentStatus = r.paymentStatus || '—';
     const created = fmtDate(r.createdAt) || '—';
     return `<tr>
       <td><code>${esc(idLabel)}</code></td>
@@ -370,6 +374,7 @@ function renderAdminTable(tableRows){
       <td>${esc(phone)}</td>
       <td>${esc(session)}</td>
       <td><span class="status-pill">${esc(labelForValue(status))}</span></td>
+      ${isReservations ? `<td><span class="status-pill">${esc(labelForValue(paymentStatus))}</span></td>` : ''}
       <td>${esc(created)}</td>
       <td>${renderManagementPanel(r, isReservations)}</td>
     </tr>`;
@@ -380,6 +385,7 @@ function renderAdminTable(tableRows){
 function renderManagementPanel(r, isReservation){
   const steps = ['CAND','ARF','BSS','PDS','APA','CPE','SRS'];
   const statuses = ['reçu','inscrit','en cours','terminé','abandonné','en attente','confirmée','annulée'];
+  const paymentStatuses = ['en attente de virement','virement reçu','payé','non payé','à relancer'];
   return `<details class="management-panel"><summary>Gérer</summary>
     <div class="status-actions mini-actions">
       ${statuses.map(st => `<button data-action="status" data-id="${esc(r.id)}" data-value="${esc(st)}">${esc(labelForValue(st))}</button>`).join('')}
@@ -388,6 +394,7 @@ function renderManagementPanel(r, isReservation){
       <label>Étape<select data-field="currentStep">${steps.map(s=>`<option ${String(r.currentStep||r.journeyLevel||'CAND')===s?'selected':''}>${s}</option>`).join('')}</select></label>
       <label>Date prévue<input data-field="plannedDate" type="date" value="${esc(r.plannedDate || '')}"></label>
       <label>Date réalisée<input data-field="doneDate" type="date" value="${esc(r.doneDate || '')}"></label>
+      ${isReservation ? `<label>Statut paiement<select data-field="paymentStatus">${paymentStatuses.map(st=>`<option ${String(r.paymentStatus||'en attente de virement')===st?'selected':''}>${st}</option>`).join('')}</select></label>` : ''}
       <label class="full">Note interne<textarea data-field="internalNote" rows="2" placeholder="Note visible uniquement par l’équipe">${esc(r.internalNote || '')}</textarea></label>
       <label class="full">Message au participant<textarea data-field="teamMessage" rows="2" placeholder="Message à préparer pour le participant">${esc(r.teamMessage || '')}</textarea></label>
       <label>Titre document<input data-field="documentTitle" placeholder="Ex. Attestation" value="${esc(r.documentTitle || '')}"></label>

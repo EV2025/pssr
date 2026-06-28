@@ -25,6 +25,34 @@ function esc(value){
   return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'}[c]));
 }
 
+const bankTransferConfig = {
+  beneficiary: 'Équilibre Vital asbl',
+  iban: 'BE17 5230 8164 9221',
+  bic: 'TRIOBEBB',
+  amount: '165',
+  currency: 'EUR',
+  label: 'Cotisation PSSR — année académique'
+};
+
+function paymentInstructionHtml(payload){
+  const amount = payload.priceAmount || bankTransferConfig.amount;
+  const currency = payload.priceCurrency || bankTransferConfig.currency;
+  const communication = payload.reservationCode || payload.trackingCode || '';
+  return `
+    <section class="receipt-payment-v1" aria-label="Instructions de virement bancaire">
+      <p class="receipt-eyebrow-v58">Paiement par virement bancaire</p>
+      <h3>Étape suivante : effectuez le virement</h3>
+      <dl class="receipt-details-v58">
+        <div><dt>Montant</dt><dd><strong>${esc(amount)} ${esc(currency)}</strong></dd></div>
+        <div><dt>Bénéficiaire</dt><dd>${esc(bankTransferConfig.beneficiary)}</dd></div>
+        <div><dt>IBAN</dt><dd><code>${esc(bankTransferConfig.iban)}</code></dd></div>
+        <div><dt>BIC</dt><dd><code>${esc(bankTransferConfig.bic)}</code></dd></div>
+        <div><dt>Communication</dt><dd><code>${esc(communication)}</code></dd></div>
+      </dl>
+      <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication ci-dessus. L’équipe passera votre dossier en “payé” après vérification du virement sur le compte bancaire.</p>
+    </section>`;
+}
+
 function makeTrackingCode(type = 'GEN'){
   const now = new Date();
   const y = now.getFullYear();
@@ -85,7 +113,7 @@ function showReceipt(form, payload, kind){
   const title = isReservation ? 'Réservation reçue' : 'Demande reçue';
   const label = isReservation ? 'Numéro de réservation' : 'Numéro de suivi';
   const next = isReservation
-    ? 'L’équipe PSSR vérifiera les disponibilités et vous recontactera pour confirmer les modalités.'
+    ? 'Votre place sera vérifiée par l’équipe. Pour finaliser le dossier, utilisez les informations de virement ci-dessous.'
     : 'L’équipe PSSR reviendra vers vous dès que possible.';
   const msgText = isReservation
     ? `Votre demande de réservation a bien été enregistrée. Votre numéro de réservation est ${code}.`
@@ -106,10 +134,11 @@ function showReceipt(form, payload, kind){
       <p>${esc(msgText)}</p>
       <div class="receipt-code-v58"><span>${esc(label)}</span><strong>${esc(code)}</strong></div>
       <dl class="receipt-details-v58">
-        <div><dt>Statut</dt><dd>Reçu — en attente de traitement</dd></div>
+        <div><dt>Statut</dt><dd>${isReservation ? 'Reçu — en attente de virement' : 'Reçu — en attente de traitement'}</dd></div>
         <div><dt>Date</dt><dd>${esc(new Date().toLocaleString('fr-BE'))}</dd></div>
       </dl>
       <p class="receipt-note-v58">Conservez ce numéro pour toute question. ${esc(next)}</p>
+      ${isReservation ? paymentInstructionHtml(payload) : ''}
     </article>`;
   msg.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
@@ -237,7 +266,7 @@ async function attachForms(){
         payload.reservationCode = makeTrackingCode('RES');
         payload.trackingCode = payload.reservationCode;
         payload.status = 'reçu';
-        payload.paymentStatus = payload.paymentStatus || 'à confirmer';
+        payload.paymentStatus = payload.paymentStatus || 'en attente de virement';
         payload.priceAmount = payload.priceAmount || '165';
         payload.priceCurrency = payload.priceCurrency || 'EUR';
         payload.priceLabel = payload.priceLabel || 'Tarif solidaire — 165€ / année académique';
