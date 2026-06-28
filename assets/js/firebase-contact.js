@@ -212,16 +212,16 @@ function paymentInstructionHtml(payload){
   return `
     <section class="receipt-payment-v1" aria-label="Instructions de virement bancaire">
       <p class="receipt-eyebrow-v58">Paiement par virement SEPA</p>
-      <h3>Scannez le QR code avec votre app bancaire</h3>
+      <h3>Scannez le QR code</h3>
       <div class="sepa-payment-layout-v1">
         <div class="sepa-qr-card-v1">
           <div class="sepa-qr-box-v1" data-sepa-qr-target data-epc-payload="${esc(epcPayloadB64)}" role="img" aria-label="QR code SEPA/EPC pour préparer le virement bancaire"></div>
           <p class="sepa-qr-status-v1" data-sepa-qr-status>Génération du QR code…</p>
         </div>
         <div>
-          <p class="receipt-note-v58">Votre application bancaire préremplit le bénéficiaire, l’IBAN, le montant et la communication. Vous devez toujours vérifier les informations puis valider le virement dans votre app bancaire.</p>
+          <p class="receipt-note-v58">Vérifiez les informations, puis validez le virement dans votre app bancaire.</p>
           <p><a class="bank-open-v1" href="${esc(paytoHref)}" rel="noopener">Ouvrir mon app bancaire</a></p>
-          <p class="receipt-note-v58"><small>Si rien ne s’ouvre, scannez le QR code ou copiez l’IBAN et la communication.</small></p>
+          <p class="receipt-note-v58"><small>Si rien ne s’ouvre, scannez le QR ou copiez l’IBAN et la communication.</small></p>
           <dl class="receipt-details-v58 payment-details-clear-v1">
             <div><dt>Montant</dt><dd><strong>${esc(payment.amountDisplay)}</strong></dd></div>
             <div><dt>Bénéficiaire</dt><dd>${esc(payment.beneficiary)}</dd></div>
@@ -231,7 +231,7 @@ function paymentInstructionHtml(payload){
           </dl>
         </div>
       </div>
-      <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication. L’équipe vérifiera le compte bancaire et passera votre dossier en “payé” manuellement.</p>
+      <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication. L’équipe valide le dossier après vérification du virement.</p>
     </section>`;
 }
 
@@ -571,10 +571,10 @@ function showReceipt(form, payload, kind){
   const title = isReservation ? 'Réservation reçue' : 'Demande reçue';
   const label = isReservation ? 'Numéro de réservation' : 'Numéro de suivi';
   const next = isReservation
-    ? 'Votre place sera vérifiée par l’équipe. Pour finaliser le dossier, utilisez le QR code SEPA ou les informations de virement ci-dessous.'
+    ? 'Votre place sera confirmée après vérification du virement.'
     : 'L’équipe PSSR reviendra vers vous dès que possible.';
   const msgText = isReservation
-    ? `Votre demande de réservation a bien été enregistrée. Votre référence de paiement est ${code}.`
+    ? `Réservation enregistrée. Référence de paiement : ${code}.`
     : `Votre demande a bien été enregistrée. Votre numéro de suivi est ${code}.`;
 
   if (!msg){
@@ -592,10 +592,10 @@ function showReceipt(form, payload, kind){
       <p>${esc(msgText)}</p>
       <div class="receipt-code-v58"><span>${esc(label)}</span><strong>${esc(code)}</strong></div>
       <dl class="receipt-details-v58">
-        <div><dt>Statut</dt><dd>${isReservation ? 'Reçu — en attente de virement' : 'Reçu — en attente de traitement'}</dd></div>
+        <div><dt>Statut</dt><dd>${isReservation ? 'En attente de virement' : 'En attente de traitement'}</dd></div>
         <div><dt>Date</dt><dd>${esc(new Date().toLocaleString('fr-BE'))}</dd></div>
       </dl>
-      <p class="receipt-note-v58">Conservez ce numéro pour toute question. ${esc(next)}</p>
+      <p class="receipt-note-v58">${esc(next)}</p>
       ${isReservation ? paymentInstructionHtml(payload) : ''}
     </article>`;
   initCopyButtons(msg);
