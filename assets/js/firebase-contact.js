@@ -203,7 +203,7 @@ function paymentInstructionHtml(payload){
       <h3>Scannez le QR code avec votre app bancaire</h3>
       <div class="sepa-payment-layout-v1">
         <div class="sepa-qr-card-v1">
-          <canvas class="sepa-qr-canvas-v1" data-sepa-qr-canvas data-epc-payload="${esc(epcPayloadB64)}" width="256" height="256" aria-label="QR code SEPA/EPC"></canvas>
+          <div class="sepa-qr-box-v1" data-sepa-qr-target data-epc-payload="${esc(epcPayloadB64)}" role="img" aria-label="QR code SEPA/EPC pour préparer le virement bancaire"></div>
           <p class="sepa-qr-status-v1" data-sepa-qr-status>Génération du QR code…</p>
         </div>
         <div>
@@ -264,12 +264,18 @@ function drawLocalSepaQr(canvas, text, options = {}){
   }
 }
 
+function utf8Bytes(value){
+  const text = String(value || '');
+  if (window.TextEncoder) return Array.from(new TextEncoder().encode(text));
+  return Array.from(unescape(encodeURIComponent(text))).map(ch => ch.charCodeAt(0));
+}
+
 function makeQrVersion5Low(text){
   const version = 5;
   const size = 17 + version * 4;
   const dataCodewords = 108;
   const eccCodewords = 26;
-  const bytes = Array.from(new TextEncoder().encode(String(text || '')));
+  const bytes = utf8Bytes(text);
   if (bytes.length > 100) {
     throw new Error('Données QR trop longues pour le générateur local');
   }
@@ -427,33 +433,51 @@ function decodeBase64Utf8(value){
   catch(_) { return ''; }
 }
 
-async function renderSepaQrCodes(container){
-  const canvases = Array.from(container.querySelectorAll('[data-sepa-qr-canvas]'));
-  if (!canvases.length) return;
-  try{
-    const QRCode = await loadQRCodeLibrary();
-    for (const canvas of canvases){
-      const payload = decodeBase64Utf8(canvas.dataset.epcPayload || '');
-      const status = canvas.parentElement?.querySelector('[data-sepa-qr-status]');
-      if (!payload) {
-        if (status) status.textContent = 'QR code indisponible : informations manquantes.';
-        continue;
-      }
-      await new Promise((resolve, reject) => {
-        QRCode.toCanvas(canvas, payload, {
-          errorCorrectionLevel: 'M',
-          margin: 2,
-          width: 256,
-          color: { dark: '#111111', light: '#FFFFFF' }
-        }, err => err ? reject(err) : resolve());
-      });
-      if (status) status.textContent = 'QR code SEPA/EPC prêt à scanner.';
+function qrMatrixToSvg(qr, sizePx = 256){
+  const border = 4;
+  const total = qr.size + border * 2;
+  const rects = [];
+  for (let y = 0; y < qr.size; y++){
+    for (let x = 0; x < qr.size; x++){
+      if (qr.modules[y][x]) rects.push(`<rect x="${x + border}" y="${y + border}" width="1" height="1"/>`);
     }
-  }catch(err){
-    console.warn('QR code generation failed:', err);
-    container.querySelectorAll('[data-sepa-qr-status]').forEach(status => {
-      status.textContent = 'QR code indisponible. Utilisez les informations de virement affichées ci-dessous.';
-    });
+  }
+  return `<svg class="sepa-qr-svg-v1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${total} ${total}" width="${sizePx}" height="${sizePx}" shape-rendering="crispEdges" aria-hidden="true"><rect width="100%" height="100%" fill="#fff"/><g fill="#111">${rects.join('')}</g></svg>`;
+}
+
+function renderQrIntoTarget(target, payload){
+  const qr = makeQrVersion5Low(payload);
+  const svg = qrMatrixToSvg(qr, 256);
+  target.innerHTML = svg;
+  target.dataset.ready = 'true';
+}
+
+async function renderSepaQrCodes(container){
+  const targets = Array.from(container.querySelectorAll('[data-sepa-qr-target], [data-sepa-qr-canvas]'));
+  if (!targets.length) return;
+
+  for (const target of targets){
+    const payload = decodeBase64Utf8(target.dataset.epcPayload || '');
+    const status = target.parentElement?.querySelector('[data-sepa-qr-status]');
+    if (!payload) {
+      if (status) status.textContent = 'QR code indisponible : informations manquantes.';
+      continue;
+    }
+
+    try{
+      if (target.matches('[data-sepa-qr-target]')) {
+        renderQrIntoTarget(target, payload);
+      } else {
+        drawLocalSepaQr(target, payload, { width: 256 });
+      }
+      if (status) status.textContent = 'QR code SEPA/EPC prêt à scanner.';
+    }catch(err){
+      console.warn('QR code generation failed:', err, payload);
+      if (status) status.textContent = 'QR code indisponible. Utilisez les informations de virement affichées ci-dessous.';
+      if (target.matches('[data-sepa-qr-target]')) {
+        target.innerHTML = '<span class="sepa-qr-fallback-v1" aria-hidden="true">QR</span>';
+      }
+    }
   }
 }
 
