@@ -48,6 +48,12 @@
 .pssr-article-cta .pssr-article-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,var(--brand-primary,#D92E83),var(--brand-secondary,#7C3AED));color:#fff;font-weight:950;text-decoration:none;box-shadow:0 16px 32px rgba(124,58,237,.22);}
 @media(max-width:640px){.pssr-article-cta-section{padding:28px 0 52px}.pssr-article-cta{width:min(100%,calc(100vw - 24px));border-radius:22px;text-align:left;padding:20px 16px}.pssr-article-cta .pssr-video-eyebrow{justify-content:flex-start}.pssr-article-cta .pssr-article-btn{width:100%;min-height:52px}.pssr-article-cta h2{font-size:1.72rem}}
 </style>
+
+<style>
+/* V63 — texte article justifié */
+.pssr-page p{ text-align: justify; text-justify: inter-word; hyphens: auto; }
+.pssr-article-cta p, .pssr-video-card p{ text-align: center; }
+</style>
 </head>
 <body class="pssr-page v27-minimal v30-circle-global home-v30-compact ev39-page" id="accueil">
 <main id="main"><section aria-labelledby="pssr-title" class="section-tone-6" id="parcours"><div class="section-wrap" id="pssr-cycle-iso"><h1 class="pssr-title" id="pssr-title">PSSR — Parcours Socio-Sportif Renforcé</h1><p class="sec-sub">Un accompagnement progressif pour remettre le mouvement au cœur du quotidien.</p><div aria-label="Filtrer par phase (Kolb)" class="pssr-toolbar" role="toolbar"><button aria-pressed="false" class="pssr-pill" data-phase="CE">🧪 CE — Expérience concrète</button><button aria-pressed="false" class="pssr-pill" data-phase="RO">🔎 RO — Observation réflexive</button><button aria-pressed="false" class="pssr-pill" data-phase="AC">🧠 AC — Conceptualisation abstraite</button><button aria-pressed="false" class="pssr-pill" data-phase="AE">🚀 AE — Expérimentation active</button><button aria-pressed="false" class="pssr-pill" data-phase="reset">Réinitialiser</button></div><div aria-label="Parcours circulaire" class="pssr-ring" id="ring"></div><div aria-label="Étapes du parcours" class="pssr-legend" id="legend"></div><div class="pssr-panels" id="panels"></div><div class="pssr-actions" id="actions"><button class="pssr-ghost" id="showAllBtn" type="button">Tout afficher</button></div></div></section>
@@ -85,7 +91,6 @@
 <div class="pssr-article-cta">
 <span class="pssr-video-eyebrow">Article</span>
 <h2 id="pssr-article-cta-title">Du sport au monde professionnel</h2>
-<p>Un article long pour comprendre comment le PSSR relie effort physique, confiance, cadre collectif et insertion socio-professionnelle.</p>
 <a class="pssr-article-btn" href="./du-sport-au-monde-professionnel.html">Lire l’article</a>
 </div>
 </section>

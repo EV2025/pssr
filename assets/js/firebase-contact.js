@@ -211,11 +211,11 @@ function paymentInstructionHtml(payload){
   const paytoHref = buildPaytoUri(payment);
   return `
     <section class="receipt-payment-v1" aria-label="Instructions de virement bancaire">
-      <p class="receipt-eyebrow-v58">Paiement par virement SEPA</p>
+      <p class="receipt-eyebrow-v58">Paiement par virement</p>
       <h3>Scannez le QR code</h3>
       <div class="sepa-payment-layout-v1">
         <div class="sepa-qr-card-v1">
-          <div class="sepa-qr-box-v1" data-sepa-qr-target data-epc-payload="${esc(epcPayloadB64)}" role="img" aria-label="QR code SEPA/EPC pour préparer le virement bancaire"></div>
+          <div class="sepa-qr-box-v1" data-sepa-qr-target data-epc-payload="${esc(epcPayloadB64)}" role="img" aria-label="QR code pour préparer le virement bancaire"></div>
           <p class="sepa-qr-status-v1" data-sepa-qr-status>Génération du QR code…</p>
         </div>
         <div>
@@ -231,7 +231,8 @@ function paymentInstructionHtml(payload){
           </dl>
         </div>
       </div>
-      <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication. L’équipe valide le dossier après vérification du virement.</p>
+      <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication.</p>
+      <p class="receipt-note-v58"><strong>Facture :</strong> envoyez votre référence par email à <a href="mailto:equilibrevital.bruxelles@gmail.com?subject=Demande%20de%20facture%20PSSR">equilibrevital.bruxelles@gmail.com</a>.</p>
     </section>`;
 }
 
@@ -484,7 +485,7 @@ async function renderSepaQrCodes(container){
       } else {
         drawLocalSepaQr(target, payload, { width: 256 });
       }
-      if (status) status.textContent = 'QR code SEPA/EPC prêt à scanner.';
+      if (status) status.textContent = 'QR code prêt à scanner.';
     }catch(err){
       console.warn('QR code generation failed:', err, payload);
       if (status) status.textContent = 'QR code indisponible. Utilisez les informations de virement affichées ci-dessous.';
