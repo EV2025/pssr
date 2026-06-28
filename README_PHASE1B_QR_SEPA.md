@@ -70,3 +70,15 @@ Cette version corrige deux points :
 - une sécurité de 15 secondes a été ajoutée si Firebase ne répond pas, afin d’éviter un blocage visuel permanent.
 
 Les boutons “Copier l’IBAN”, “Copier la communication” et “Copier tout” sont également initialisés proprement.
+
+## Correctif Phase 1B+ — bouton “Ouvrir mon app bancaire”
+
+Ajout d’un bouton placé avant “Copier l’IBAN” dans le reçu de réservation.
+
+Fonctionnement :
+
+1. le bouton copie automatiquement toutes les informations du virement ;
+2. sur mobile, il tente d’ouvrir la feuille de partage du téléphone pour permettre à l’utilisateur de choisir son application bancaire si elle est proposée ;
+3. si aucune application bancaire n’est proposée, le site affiche une instruction claire : ouvrir l’application bancaire manuellement, créer un virement SEPA, puis coller l’IBAN et la communication.
+
+Limite importante : il n’existe pas de lien universel fiable qui ouvre automatiquement toutes les applications bancaires belges avec un virement SEPA déjà prérempli. Le QR code SEPA reste la solution la plus fiable pour éviter les frais de transaction tout en facilitant le paiement.

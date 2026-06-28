@@ -91,11 +91,13 @@ function paymentInstructionHtml(payload){
             <div><dt>BIC</dt><dd><code>${esc(bankTransferConfig.bic)}</code></dd></div>
             <div><dt>Communication</dt><dd><code>${esc(communication)}</code></dd></div>
           </dl>
-          <div class="epc-copy-actions-v1" aria-label="Copier les informations de virement">
+          <div class="epc-copy-actions-v1" aria-label="Actions pour faciliter le virement">
+            <button type="button" class="epc-bank-open-btn-v1" data-bank-details="${esc(allDetails)}">Ouvrir mon app bancaire</button>
             <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(ibanCompact)}">Copier l’IBAN</button>
             <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(communication)}">Copier la communication</button>
             <button type="button" class="epc-copy-btn-v1" data-copy-value="${esc(allDetails)}">Copier tout</button>
           </div>
+          <p class="epc-bank-open-status-v1" hidden></p>
         </div>
       </div>
       <p class="receipt-note-v58"><strong>Important :</strong> indiquez exactement la communication ci-dessus. L’équipe passera votre dossier en “payé” après vérification du virement sur le compte bancaire.</p>
@@ -247,45 +249,100 @@ function withTimeout(promise, ms, message){
   });
 }
 
+async function copyTextToClipboard(value){
+  if (!value) return false;
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
+  } catch (_) {
+    // Fallback ci-dessous.
+  }
+
+  try {
+    const textarea = document.createElement('textarea');
+    textarea.value = value;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    const ok = document.execCommand('copy');
+    textarea.remove();
+    return Boolean(ok);
+  } catch (_) {
+    return false;
+  }
+}
+
+function setButtonTemporaryText(button, text, duration = 1800){
+  const originalText = button.dataset.originalText || button.textContent;
+  button.dataset.originalText = originalText;
+  button.textContent = text;
+  window.setTimeout(() => { button.textContent = originalText; }, duration);
+}
+
+function setBankAssistStatus(button, message, ok = true){
+  const container = button.closest('.epc-payment-v1') || document;
+  const status = container.querySelector('.epc-bank-open-status-v1');
+  if (!status) return;
+  status.hidden = false;
+  status.textContent = message;
+  status.dataset.state = ok ? 'ok' : 'info';
+}
+
+async function handleBankOpenButton(button){
+  const details = button.getAttribute('data-bank-details') || '';
+  const copied = await copyTextToClipboard(details);
+
+  setButtonTemporaryText(button, copied ? 'Infos copiées ✓' : 'Infos prêtes', 2200);
+
+  const mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const canShare = Boolean(navigator.share && mobile);
+
+  if (canShare) {
+    try {
+      await navigator.share({
+        title: 'Virement PSSR',
+        text: details
+      });
+      setBankAssistStatus(button, 'Sélectionnez votre application bancaire si elle est proposée. Sinon, ouvrez-la manuellement : les informations du virement sont déjà copiées.', true);
+      return;
+    } catch (err) {
+      // Annulation utilisateur ou application non disponible : on garde le fallback manuel.
+    }
+  }
+
+  if (copied) {
+    setBankAssistStatus(button, 'Les informations sont copiées. Ouvrez votre application bancaire, créez un virement SEPA, puis collez l’IBAN et la communication.', true);
+  } else {
+    setBankAssistStatus(button, 'Ouvrez votre application bancaire, créez un virement SEPA, puis recopiez l’IBAN, le montant et la communication affichés ici.', false);
+  }
+}
+
 function initCopyButtons(){
   if (document.documentElement.dataset.epcCopyReady === 'true') return;
   document.documentElement.dataset.epcCopyReady = 'true';
 
   document.addEventListener('click', async (event) => {
+    const bankButton = event.target.closest('.epc-bank-open-btn-v1');
+    if (bankButton) {
+      event.preventDefault();
+      await handleBankOpenButton(bankButton);
+      return;
+    }
+
     const button = event.target.closest('.epc-copy-btn-v1');
     if (!button) return;
 
     const value = button.getAttribute('data-copy-value') || '';
     if (!value) return;
 
-    const originalText = button.textContent;
-    const markCopied = () => {
-      button.textContent = 'Copié ✓';
-      window.setTimeout(() => { button.textContent = originalText; }, 1800);
-    };
-
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(value);
-        markCopied();
-        return;
-      }
-    } catch (_) {
-      // Fallback ci-dessous.
-    }
-
-    try {
-      const textarea = document.createElement('textarea');
-      textarea.value = value;
-      textarea.setAttribute('readonly', '');
-      textarea.style.position = 'fixed';
-      textarea.style.left = '-9999px';
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      textarea.remove();
-      markCopied();
-    } catch (_) {
+    const copied = await copyTextToClipboard(value);
+    if (copied) {
+      setButtonTemporaryText(button, 'Copié ✓', 1800);
+    } else {
       window.prompt('Copiez cette information :', value);
     }
   });
