@@ -97,3 +97,14 @@ Un document de suivi est aussi créé dans `payments`, si les règles Firestore 
 Cette phase ne confirme pas automatiquement le paiement : la validation reste manuelle après vérification du compte bancaire.
 
 La génération du QR code utilise une bibliothèque JavaScript chargée depuis CDN. Si elle ne se charge pas, le site garde les informations de virement en clair afin que le paiement reste possible manuellement.
+
+## Correctif QR local — 28/06/2026
+
+Le QR code SEPA/EPC est maintenant généré localement dans `assets/js/firebase-contact.js`.
+
+- Le site ne dépend plus du CDN `jsDelivr` pour afficher le QR.
+- Si une extension, un navigateur ou un réseau bloque les scripts externes, le QR continue de fonctionner.
+- Le bénéficiaire affiché reste `Équilibre Vital asbl`.
+- Le bénéficiaire encodé dans le QR est normalisé en `Equilibre Vital asbl` pour une meilleure compatibilité bancaire.
+
+Après remplacement du fichier, vider le cache du navigateur ou tester en navigation privée.

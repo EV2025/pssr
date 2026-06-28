@@ -27,6 +27,7 @@ function esc(value){
 
 const bankTransferConfig = {
   beneficiary: 'Équilibre Vital asbl',
+  epcBeneficiary: 'Equilibre Vital asbl',
   iban: 'BE17 5230 8164 9221',
   bic: 'TRIOBEBB',
   defaultAmount: '165',
@@ -111,6 +112,7 @@ function resolvePaymentFromForm(form, payload){
     method: bankTransferConfig.method,
     qrFormat: bankTransferConfig.qrFormat,
     beneficiary: sanitizeEpcLine(bankTransferConfig.beneficiary, 70),
+    epcBeneficiary: sanitizeEpcLine(bankTransferConfig.epcBeneficiary || bankTransferConfig.beneficiary, 70),
     iban: normalizeIban(bankTransferConfig.iban),
     ibanDisplay: formatIban(bankTransferConfig.iban),
     bic: normalizeBic(bankTransferConfig.bic),
@@ -134,7 +136,7 @@ function buildEpcPayload(payment){
     '1',
     'SCT',
     sanitizeEpcLine(payment.bic, 11),
-    sanitizeEpcLine(payment.beneficiary, 70),
+    sanitizeEpcLine(payment.epcBeneficiary || payment.beneficiary, 70),
     sanitizeEpcLine(payment.iban, 34),
     amountForEpc(payment.amountCents, payment.currency),
     '',
@@ -222,21 +224,202 @@ function paymentInstructionHtml(payload){
 function loadQRCodeLibrary(){
   if (window.QRCode?.toCanvas) return Promise.resolve(window.QRCode);
   if (qrCodeLibraryPromise) return qrCodeLibraryPromise;
-  qrCodeLibraryPromise = new Promise((resolve, reject) => {
-    const existing = document.querySelector(`script[src="${QR_CODE_CDN}"]`);
-    if (existing) {
-      existing.addEventListener('load', () => resolve(window.QRCode), { once:true });
-      existing.addEventListener('error', reject, { once:true });
-      return;
+
+  // Fallback local : évite de dépendre d'un CDN externe pour afficher le QR code.
+  // La version Phase 1B doit fonctionner même si jsDelivr est bloqué par le navigateur,
+  // une extension, un pare-feu ou une connexion limitée.
+  qrCodeLibraryPromise = Promise.resolve({
+    toCanvas(canvas, text, options, callback){
+      try{
+        drawLocalSepaQr(canvas, text, options || {});
+        callback?.(null);
+      }catch(err){
+        callback?.(err);
+      }
     }
-    const script = document.createElement('script');
-    script.src = QR_CODE_CDN;
-    script.async = true;
-    script.onload = () => window.QRCode?.toCanvas ? resolve(window.QRCode) : reject(new Error('Bibliothèque QR indisponible'));
-    script.onerror = () => reject(new Error('Chargement QR impossible'));
-    document.head.appendChild(script);
   });
   return qrCodeLibraryPromise;
+}
+
+function drawLocalSepaQr(canvas, text, options = {}){
+  const qr = makeQrVersion5Low(text);
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Canvas indisponible');
+  const sizePx = Number(options.width || canvas.width || 256);
+  canvas.width = sizePx;
+  canvas.height = sizePx;
+  ctx.imageSmoothingEnabled = false;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, sizePx, sizePx);
+
+  const border = 4;
+  const scale = Math.max(1, Math.floor(sizePx / (qr.size + border * 2)));
+  const used = scale * (qr.size + border * 2);
+  const offset = Math.floor((sizePx - used) / 2) + border * scale;
+  ctx.fillStyle = '#111111';
+  for (let y = 0; y < qr.size; y++){
+    for (let x = 0; x < qr.size; x++){
+      if (qr.modules[y][x]) ctx.fillRect(offset + x * scale, offset + y * scale, scale, scale);
+    }
+  }
+}
+
+function makeQrVersion5Low(text){
+  const version = 5;
+  const size = 17 + version * 4;
+  const dataCodewords = 108;
+  const eccCodewords = 26;
+  const bytes = Array.from(new TextEncoder().encode(String(text || '')));
+  if (bytes.length > 100) {
+    throw new Error('Données QR trop longues pour le générateur local');
+  }
+
+  const bits = [];
+  const appendBits = (value, length) => {
+    for (let i = length - 1; i >= 0; i--) bits.push(((value >>> i) & 1) !== 0);
+  };
+  appendBits(0b0100, 4); // mode byte
+  appendBits(bytes.length, 8); // version 1 à 9
+  bytes.forEach(byte => appendBits(byte, 8));
+  const capacityBits = dataCodewords * 8;
+  appendBits(0, Math.min(4, capacityBits - bits.length));
+  while (bits.length % 8) bits.push(false);
+
+  const data = [];
+  for (let i = 0; i < bits.length; i += 8){
+    let value = 0;
+    for (let j = 0; j < 8; j++) value = (value << 1) | (bits[i + j] ? 1 : 0);
+    data.push(value);
+  }
+  for (let pad = 0xEC; data.length < dataCodewords; pad ^= 0xEC ^ 0x11) data.push(pad);
+
+  const ecc = reedSolomonRemainder(data, eccCodewords);
+  const codewords = data.concat(ecc);
+  const modules = Array.from({ length:size }, () => Array(size).fill(false));
+  const isFunction = Array.from({ length:size }, () => Array(size).fill(false));
+
+  const setFunction = (x, y, dark) => {
+    if (x < 0 || y < 0 || x >= size || y >= size) return;
+    modules[y][x] = Boolean(dark);
+    isFunction[y][x] = true;
+  };
+
+  const drawFinder = (cx, cy) => {
+    for (let dy = -4; dy <= 4; dy++){
+      for (let dx = -4; dx <= 4; dx++){
+        const x = cx + dx;
+        const y = cy + dy;
+        const dist = Math.max(Math.abs(dx), Math.abs(dy));
+        if (x >= 0 && y >= 0 && x < size && y < size){
+          setFunction(x, y, dist !== 2 && dist !== 4);
+        }
+      }
+    }
+  };
+
+  drawFinder(3, 3);
+  drawFinder(size - 4, 3);
+  drawFinder(3, size - 4);
+
+  for (let i = 8; i < size - 8; i++){
+    setFunction(6, i, i % 2 === 0);
+    setFunction(i, 6, i % 2 === 0);
+  }
+
+  const drawAlignment = (cx, cy) => {
+    for (let dy = -2; dy <= 2; dy++){
+      for (let dx = -2; dx <= 2; dx++){
+        setFunction(cx + dx, cy + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
+      }
+    }
+  };
+  drawAlignment(30, 30);
+
+  setFunction(8, 4 * version + 9, true);
+  drawFormatBits(modules, isFunction, 0, 1); // masque 0, correction L
+
+  const dataBits = [];
+  codewords.forEach(byte => {
+    for (let i = 7; i >= 0; i--) dataBits.push(((byte >>> i) & 1) !== 0);
+  });
+
+  let bitIndex = 0;
+  for (let right = size - 1; right >= 1; right -= 2){
+    if (right === 6) right = 5;
+    for (let vert = 0; vert < size; vert++){
+      for (let j = 0; j < 2; j++){
+        const x = right - j;
+        const upward = ((right + 1) & 2) === 0;
+        const y = upward ? size - 1 - vert : vert;
+        if (!isFunction[y][x]){
+          let dark = bitIndex < dataBits.length ? dataBits[bitIndex++] : false;
+          if ((x + y) % 2 === 0) dark = !dark; // masque 0
+          modules[y][x] = dark;
+        }
+      }
+    }
+  }
+
+  drawFormatBits(modules, isFunction, 0, 1);
+  return { size, modules };
+}
+
+function drawFormatBits(modules, isFunction, mask, eclBits){
+  const size = modules.length;
+  let data = (eclBits << 3) | mask;
+  let rem = data;
+  for (let i = 0; i < 10; i++){
+    rem = (rem << 1) ^ (((rem >>> 9) & 1) ? 0x537 : 0);
+  }
+  const bits = ((data << 10) | (rem & 0x3FF)) ^ 0x5412;
+  const set = (x, y, dark) => {
+    modules[y][x] = Boolean(dark);
+    isFunction[y][x] = true;
+  };
+  for (let i = 0; i <= 5; i++) set(8, i, ((bits >>> i) & 1) !== 0);
+  set(8, 7, ((bits >>> 6) & 1) !== 0);
+  set(8, 8, ((bits >>> 7) & 1) !== 0);
+  set(7, 8, ((bits >>> 8) & 1) !== 0);
+  for (let i = 9; i < 15; i++) set(14 - i, 8, ((bits >>> i) & 1) !== 0);
+  for (let i = 0; i < 8; i++) set(size - 1 - i, 8, ((bits >>> i) & 1) !== 0);
+  for (let i = 8; i < 15; i++) set(8, size - 15 + i, ((bits >>> i) & 1) !== 0);
+  set(8, size - 8, true);
+}
+
+function reedSolomonRemainder(data, degree){
+  const divisor = reedSolomonDivisor(degree);
+  const result = Array(degree).fill(0);
+  for (const byte of data){
+    const factor = byte ^ result.shift();
+    result.push(0);
+    for (let i = 0; i < degree; i++){
+      result[i] ^= gfMultiply(divisor[i], factor);
+    }
+  }
+  return result;
+}
+
+function reedSolomonDivisor(degree){
+  const result = Array(degree).fill(0);
+  result[degree - 1] = 1;
+  let root = 1;
+  for (let i = 0; i < degree; i++){
+    for (let j = 0; j < degree; j++){
+      result[j] = gfMultiply(result[j], root);
+      if (j + 1 < degree) result[j] ^= result[j + 1];
+    }
+    root = gfMultiply(root, 0x02);
+  }
+  return result;
+}
+
+function gfMultiply(x, y){
+  let z = 0;
+  for (let i = 7; i >= 0; i--){
+    z = (z << 1) ^ ((z >>> 7) * 0x11D);
+    if (((y >>> i) & 1) !== 0) z ^= x;
+  }
+  return z & 0xFF;
 }
 
 function decodeBase64Utf8(value){
