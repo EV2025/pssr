@@ -147,6 +147,17 @@ function buildEpcPayload(payment){
   return lines.join('\n');
 }
 
+
+function buildPaytoUri(payment){
+  const iban = encodeURIComponent(normalizeIban(payment.iban));
+  const bic = encodeURIComponent(normalizeBic(payment.bic));
+  const params = new URLSearchParams();
+  params.set('amount', `${payment.currency}:${amountFromCents(payment.amountCents)}`);
+  params.set('receiver-name', sanitizeEpcLine(payment.epcBeneficiary || payment.beneficiary, 70));
+  params.set('message', sanitizeEpcLine(payment.communication, 140));
+  return `payto://iban/${bic}/${iban}?${params.toString()}`;
+}
+
 function enrichPayloadWithPayment(form, payload){
   const payment = resolvePaymentFromForm(form, payload);
   payload.payment = payment;
@@ -197,6 +208,7 @@ function paymentRecordFromReservation(payload, reservationId = ''){
 function paymentInstructionHtml(payload){
   const payment = payload.payment || resolvePaymentFromForm(null, payload);
   const epcPayloadB64 = btoa(unescape(encodeURIComponent(payment.epcPayload)));
+  const paytoHref = buildPaytoUri(payment);
   return `
     <section class="receipt-payment-v1" aria-label="Instructions de virement bancaire">
       <p class="receipt-eyebrow-v58">Paiement par virement SEPA</p>
@@ -208,6 +220,8 @@ function paymentInstructionHtml(payload){
         </div>
         <div>
           <p class="receipt-note-v58">Votre application bancaire préremplit le bénéficiaire, l’IBAN, le montant et la communication. Vous devez toujours vérifier les informations puis valider le virement dans votre app bancaire.</p>
+          <p><a class="bank-open-v1" href="${esc(paytoHref)}" rel="noopener">Ouvrir mon app bancaire</a></p>
+          <p class="receipt-note-v58"><small>Si rien ne s’ouvre, scannez le QR code ou copiez l’IBAN et la communication.</small></p>
           <dl class="receipt-details-v58 payment-details-clear-v1">
             <div><dt>Montant</dt><dd><strong>${esc(payment.amountDisplay)}</strong></dd></div>
             <div><dt>Bénéficiaire</dt><dd>${esc(payment.beneficiary)}</dd></div>

@@ -30,16 +30,19 @@
 .payment-details-clear-v1 code{font-size:.95em;word-break:break-word}
 .copy-payment-v1{display:inline-flex;align-items:center;justify-content:center;margin-left:8px;min-height:30px;padding:4px 10px;border:1px solid rgba(124,58,237,.24);border-radius:999px;background:#fff;color:#24112f;font-weight:800;cursor:pointer}
 .payment-intro-v1{margin:14px 0 18px;padding:14px 16px;border-radius:18px;background:#fff;color:#24112f;border:1px solid rgba(124,58,237,.18)}
+
+.bank-open-v1{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin:8px 0 10px;padding:12px 16px;border-radius:999px;background:#D92E83;color:#fff!important;font-weight:900;text-decoration:none;text-align:center}
+.sepa-qr-box-v1{width:256px;height:256px;max-width:100%;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#fff;overflow:hidden}
+.sepa-qr-svg-v1{width:256px;height:256px;max-width:100%;display:block}
 @media(max-width:760px){.sepa-payment-layout-v1{grid-template-columns:1fr}.copy-payment-v1{margin:8px 0 0}}
 </style>
-<link rel="stylesheet" href="./assets/css/mobile-first-v60.css">
 </head>
 <body class="pssr-page v30-circle-global ev39-page">
 <main class="pssr-main" id="main">
 <section class="panel">
 <p class="eyebrow">Réservation</p>
-<h1>Réserver une activité</h1>
-<p>Choisissez votre activité, laissez vos coordonnées, puis recevez une référence de virement et un QR SEPA. L’équipe confirme la place après vérification.</p>
+<h1>Réservation PSSR</h1>
+<p>Complétez votre demande de réservation. L’équipe PSSR vérifie les disponibilités et vous recontacte pour confirmer l’inscription.</p>
 <form class="form-grid" data-firebase-collection="reservations" data-payment-amount="165" data-payment-currency="EUR" data-payment-label="Cotisation PSSR — année académique" id="reservation-form">
 <label>Nom complet<input name="nom" placeholder="Prénom Nom" required=""/></label>
 <label>Email<input name="email" placeholder="exemple@domaine.be" required="" type="email"/></label>
@@ -77,7 +80,7 @@
 <input name="priceAmount" type="hidden" value="165"/>
 <input name="priceCurrency" type="hidden" value="EUR"/>
 <input name="priceLabel" type="hidden" value="Cotisation PSSR — année académique"/>
-<p class="payment-intro-v1"><strong>Tarif solidaire :</strong> 165 € / année académique. Après l’envoi, le site affiche votre référence unique, le QR SEPA et les informations de virement.</p>
+<p class="payment-intro-v1"><strong>Montant repris automatiquement :</strong> 165 € pour la cotisation PSSR. Après l’envoi, le site génère une référence unique et un QR code SEPA/EPC pour votre virement bancaire.</p>
 <input aria-hidden="true" autocomplete="off" class="hp" name="website" tabindex="-1" type="text"/>
 <button class="btn" type="submit">Réserver et recevoir les instructions de virement</button>
 <p class="msg" hidden="" id="reservation-msg"></p>
@@ -110,5 +113,5 @@
 </script>
 <script defer="" src="./assets/js/firebase-contact.js" type="module"></script>
 <script defer="" src="./assets/js/media-fallback.js"></script>
-<script defer="True" src="./assets/js/v39-complet-coherence-roles.js"></script><script defer="" src="./assets/js/v41-footer-burger.js"></script><script defer src="./assets/js/mobile-ux-v60.js"></script></body>
+<script defer="True" src="./assets/js/v39-complet-coherence-roles.js"></script><script defer="" src="./assets/js/v41-footer-burger.js"></script></body>
 </html>
