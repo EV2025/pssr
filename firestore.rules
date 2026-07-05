@@ -109,10 +109,8 @@ service cloud.firestore {
       return request.resource.data.keys().hasOnly([
           'nom', 'email', 'tel', 'message', 'objectif', 'creneau', 'modules',
           'reservationCode', 'trackingCode', 'status', 'paymentStatus', 'priceAmount',
-          'priceCurrency', 'priceLabel', 'paymentMethod', 'paymentReference',
-          'paymentAmount', 'paymentAmountCents', 'paymentCurrency', 'paymentLabel',
-          'bankBeneficiary', 'bankIban', 'bankBic', 'qrFormat', 'epcPayload',
-          'rgpdConsent', 'createdAt', 'source', 'pageTitle', 'userAgent', 'uid'
+          'priceCurrency', 'priceLabel', 'rgpdConsent', 'createdAt', 'source',
+          'pageTitle', 'userAgent', 'uid'
         ])
         && validPublicBase()
         && validTrackingCode(request.resource.data.reservationCode, 'RES')
@@ -127,54 +125,7 @@ service cloud.firestore {
         && optionalString('priceAmount', 20)
         && optionalString('priceCurrency', 10)
         && optionalString('priceLabel', 180)
-        && optionalString('paymentMethod', 40)
-        && optionalString('paymentReference', 140)
-        && optionalString('paymentAmount', 20)
-        && optionalString('paymentCurrency', 10)
-        && optionalString('paymentLabel', 180)
-        && optionalString('bankBeneficiary', 70)
-        && optionalString('bankIban', 34)
-        && optionalString('bankBic', 11)
-        && optionalString('qrFormat', 40)
-        && optionalString('epcPayload', 331)
-        && (!('paymentAmountCents' in request.resource.data) || request.resource.data.paymentAmountCents is int)
         && (!('uid' in request.resource.data) || request.resource.data.uid == request.auth.uid);
-    }
-
-    function validPaymentCreate() {
-      return request.resource.data.keys().hasOnly([
-          'reservationId', 'reservationCode', 'paymentReference', 'nom', 'email',
-          'method', 'qrFormat', 'paymentStatus', 'status', 'amount', 'amountCents',
-          'currency', 'label', 'beneficiary', 'iban', 'bic', 'communication',
-          'epcPayload', 'source', 'createdAt'
-        ])
-        && request.resource.data.keys().hasAll([
-          'reservationCode', 'paymentReference', 'nom', 'email', 'method',
-          'paymentStatus', 'amount', 'amountCents', 'currency', 'beneficiary',
-          'iban', 'communication', 'createdAt'
-        ])
-        && validTrackingCode(request.resource.data.reservationCode, 'RES')
-        && request.resource.data.paymentReference == request.resource.data.reservationCode
-        && validString(request.resource.data.nom, 120)
-        && validEmail(request.resource.data.email)
-        && request.resource.data.method == 'virement_sepa_epc'
-        && request.resource.data.paymentStatus in ['en attente de virement', 'virement reçu', 'payé', 'non payé', 'à relancer']
-        && request.resource.data.status == request.resource.data.paymentStatus
-        && validString(request.resource.data.amount, 20)
-        && request.resource.data.amountCents is int
-        && request.resource.data.amountCents >= 1
-        && request.resource.data.amountCents <= 99999999999
-        && request.resource.data.currency == 'EUR'
-        && validString(request.resource.data.beneficiary, 70)
-        && validString(request.resource.data.iban, 34)
-        && optionalString('bic', 11)
-        && validString(request.resource.data.communication, 140)
-        && optionalString('qrFormat', 40)
-        && optionalString('label', 180)
-        && optionalString('reservationId', 140)
-        && optionalString('source', 240)
-        && optionalString('epcPayload', 331)
-        && request.resource.data.createdAt is timestamp;
     }
 
     function validMemberCreate(userId) {
@@ -279,8 +230,7 @@ service cloud.firestore {
     }
 
     match /payments/{paymentId} {
-      allow create: if isAdmin() || validPaymentCreate();
-      allow read, update, delete: if isAdmin();
+      allow read, create, update, delete: if isAdmin();
     }
 
     match /notifications/{notificationId} {
