@@ -10,7 +10,7 @@
 | Vendredi | 17:00 – 18:00 | Training Jeunes — Multisport | 13–17 ans |
 | Vendredi | 19:00 – 20:00 | Fitness Loisirs Mixte | 18 ans+ |
 | Vendredi | 20:00 – 21:00 | Boxing Loisir & Technique | 18 ans+ |
-| Samedi | 08:00 – 10:00 | Mobility & Recovery | 40 ans+ |
+| Samedi | 08:00 – 10:00 | Mobility & Recovery | Femmes 40 ans+ |
 
 ## Accompagnement socio-professionnel
 

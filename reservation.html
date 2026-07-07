@@ -19,6 +19,19 @@
 <meta content="https://ev2025.github.io/pssr/reservation.html" property="og:url"/>
 <meta content="website" property="og:type"/>
 <meta content="https://ev2025.github.io/pssr/wp-content/uploads/2025/09/equilibre-vital-logo-transparent.png" property="og:image"/>
+
+<style>
+/* Phase 1B — QR code SEPA/EPC virement bancaire */
+.receipt-payment-v1{margin-top:22px;padding:18px;border:1px solid rgba(124,58,237,.22);border-radius:22px;background:rgba(255,255,255,.82)}
+.sepa-payment-layout-v1{display:grid;grid-template-columns:minmax(230px,280px) 1fr;gap:18px;align-items:start;margin-top:14px}
+.sepa-qr-card-v1{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:20px;background:#fff;border:1px solid rgba(36,17,47,.1);box-shadow:0 12px 28px rgba(36,17,47,.08)}
+.sepa-qr-canvas-v1{width:256px;height:256px;max-width:100%;border-radius:12px}
+.sepa-qr-status-v1{font-size:.9rem;text-align:center;color:#4d315e;margin:0}
+.payment-details-clear-v1 code{font-size:.95em;word-break:break-word}
+.copy-payment-v1{display:inline-flex;align-items:center;justify-content:center;margin-left:8px;min-height:30px;padding:4px 10px;border:1px solid rgba(124,58,237,.24);border-radius:999px;background:#fff;color:#24112f;font-weight:800;cursor:pointer}
+.payment-intro-v1{margin:14px 0 18px;padding:14px 16px;border-radius:18px;background:#fff;color:#24112f;border:1px solid rgba(124,58,237,.18)}
+@media(max-width:760px){.sepa-payment-layout-v1{grid-template-columns:1fr}.copy-payment-v1{margin:8px 0 0}}
+</style>
 </head>
 <body class="pssr-page v30-circle-global ev39-page">
 <main class="pssr-main" id="main">
@@ -26,7 +39,7 @@
 <p class="eyebrow">Réservation</p>
 <h1>Réservation PSSR</h1>
 <p>Complétez votre demande de réservation. L’équipe PSSR vérifie les disponibilités et vous recontacte pour confirmer l’inscription.</p>
-<form class="form-grid" data-firebase-collection="reservations" id="reservation-form">
+<form class="form-grid" data-firebase-collection="reservations" data-payment-amount="165" data-payment-currency="EUR" data-payment-label="Cotisation PSSR — année académique" id="reservation-form">
 <label>Nom complet<input name="nom" placeholder="Prénom Nom" required=""/></label>
 <label>Email<input name="email" placeholder="exemple@domaine.be" required="" type="email"/></label>
 <label>Téléphone<input name="tel" placeholder="0492 691 070" type="tel"/></label>
@@ -40,7 +53,7 @@
 <option>Vendredi 17:00–18:00 — Training Jeunes — Multisport — 13–17 ans</option>
 <option>Vendredi 19:00–20:00 — Fitness Loisirs Mixte — 18 ans+</option>
 <option>Vendredi 20:00–21:00 — Boxing Loisir &amp; Technique — 18 ans+</option>
-<option>Samedi 08:00–10:00 — Mobility &amp; Recovery — 40 ans+</option>
+<option>Samedi 08:00–10:00 — Mobility &amp; Recovery — Femmes 40 ans+</option>
 </optgroup>
 <optgroup label="Accompagnement socio-professionnel PSSR">
 <option>Coaching individuel</option>
@@ -60,10 +73,14 @@
 <label class="full">Modules sélectionnés<textarea name="modules" placeholder="Si vous avez choisi plusieurs modules, ils apparaîtront ici." rows="2"></textarea></label>
 <label class="full">Message<textarea name="message" placeholder="Âge, disponibilité, question éventuelle…" rows="4"></textarea></label>
 <label class="full consent"><input name="rgpdConsent" required="" type="checkbox"/> <span>J’accepte que mes données soient utilisées pour traiter ma demande de réservation. <a href="./confidentialite-rgpd.html" rel="noopener" target="_blank">Voir la politique de confidentialité</a>.</span></label>
+<input name="priceAmount" type="hidden" value="165"/>
+<input name="priceCurrency" type="hidden" value="EUR"/>
+<input name="priceLabel" type="hidden" value="Cotisation PSSR — année académique"/>
+<p class="payment-intro-v1"><strong>Montant repris automatiquement :</strong> 165 € pour la cotisation PSSR. Après l’envoi, le site génère une référence unique et un QR code SEPA/EPC pour votre virement bancaire.</p>
 <input aria-hidden="true" autocomplete="off" class="hp" name="website" tabindex="-1" type="text"/>
-<button class="btn" type="submit">Envoyer la demande</button>
+<button class="btn" type="submit">Réserver et recevoir les instructions de virement</button>
 <p class="msg" hidden="" id="reservation-msg"></p>
-<p class="msg-note">Le paiement en ligne n'est pas activé dans cette version ; l'équipe confirme les modalités après validation.</p>
+<p class="msg-note"><strong>Phase 1 :</strong> aucun frais de paiement en ligne. Après l’envoi, le site génère votre référence unique, un QR code SEPA/EPC et les informations de virement bancaire.</p>
 </form>
 </section>
 </main>
